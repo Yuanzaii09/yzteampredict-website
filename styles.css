@@ -65,3 +65,11 @@ body {
 .back-text span:nth-child(4) { transition-delay: 0.4s; }
 .back-text span:nth-child(5) { transition-delay: 0.5s; }
 .back-text span:nth-child(6) { transition-delay: 0.6s; }
+
+.subtitle {
+    font-size: 20px;
+    font-weight: 400;
+    color: #555;
+    margin-top: 10px;
+    font-family: 'ZCOOL KuaiLe', sans-serif;
+}
