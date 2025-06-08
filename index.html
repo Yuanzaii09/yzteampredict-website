@@ -27,8 +27,8 @@ let spanTexts = document.getElementsByTagName("span");
 
     window.onload = function(){
 
-        for(spanText of spanTexts){
-            spanText.classList.add("active");
+        for (let i = 0; i < spanTexts.length; i++) {
+            spanTexts[i].classList.add("active");
         }
     }
 
