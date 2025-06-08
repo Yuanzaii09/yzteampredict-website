@@ -44,7 +44,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     font-size: 70px;
-    -webkit-text-stroke: 2px white;
+    -webkit-text-stroke: 1px white;
     -webkit-text-fill-color: transparent;
     transform: translateY(100px);
     opacity: 0;
