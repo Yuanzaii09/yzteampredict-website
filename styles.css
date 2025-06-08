@@ -43,8 +43,9 @@ body {
     display: inline-block;
     font-size: 70px;
     font-weight: 700;
-    -webkit-text-stroke: 3px rgba(255, 255, 255, 0.3);
-    -webkit-fill-color: #292929;
+    color: transparent; /* 设置文字颜色透明 */
+    -webkit-text-stroke: 3px white; /* 白色描边 */
+    -webkit-fill-color: transparent; /* 填充也透明（适配部分浏览器） */
     transform: translateY(100px);
     opacity: 0;
     transition: transform 1s, opacity 0.5s, -webkit-text-stroke-color 0.5s;
