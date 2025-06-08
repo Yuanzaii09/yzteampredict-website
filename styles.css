@@ -16,6 +16,7 @@
     margin: auto;
     width: fit-content;
     text-align: center;
+    position: relative;
 }
 
 .title h1{
