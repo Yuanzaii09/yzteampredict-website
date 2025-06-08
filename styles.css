@@ -59,9 +59,9 @@ body {
     opacity: 1;
 }
 
-.back-text span:nth-child(1) { transition-delay: 0.2s; }
-.back-text span:nth-child(2) { transition-delay: 0.4s; }
-.back-text span:nth-child(3) { transition-delay: 0.6s; }
-.back-text span:nth-child(4) { transition-delay: 0.8s; }
-.back-text span:nth-child(5) { transition-delay: 1.0s; }
-.back-text span:nth-child(6) { transition-delay: 1.2s; }
+.back-text span:nth-child(1) { transition-delay: 0.1s; }
+.back-text span:nth-child(2) { transition-delay: 0.2s; }
+.back-text span:nth-child(3) { transition-delay: 0.3s; }
+.back-text span:nth-child(4) { transition-delay: 0.4s; }
+.back-text span:nth-child(5) { transition-delay: 0.5s; }
+.back-text span:nth-child(6) { transition-delay: 0.6s; }
