@@ -66,3 +66,10 @@
 .back-text span:nth-child(6){
     transition-delay: 1.8s;
 }
+
+@keyframes slideFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
