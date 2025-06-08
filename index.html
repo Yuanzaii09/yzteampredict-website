@@ -1,34 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>订阅计划</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<div class="hero">
-    <div class="title">
-        <h1>SUBSCRIPTION PLAN</h1>
-        <div class="back-text">
-            <span>Y</span>
-            <span>Z</span>
-            <span>T</span>
-            <span>E</span>
-            <span>A</span>
-            <span>M</span>
+    <div class="hero">
+        <div class="title">
+            <h1>SUBSCRIPTION PLAN</h1>
+            <div class="back-text">
+                <span>Y</span>
+                <span>Z</span>
+                <span>T</span>
+                <span>E</span>
+                <span>A</span>
+                <span>M</span>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    window.onload = function() {
-        let spanTexts = document.querySelectorAll('.back-text span');
-        spanTexts.forEach((span) => {
-            span.classList.add("active");
-        });
-    }
-</script>
-
+    <script>
+        window.onload = function() {
+            let spanTexts = document.querySelectorAll('.back-text span');
+            spanTexts.forEach((span, i) => {
+                span.classList.add("active");
+            });
+        };
+    </script>
 </body>
 </html>
