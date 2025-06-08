@@ -25,7 +25,7 @@
     z-index: 10;
 }
 
-.yzteam{
+.back-text{
     width: max-content;
     position: absolute;
     top: 50%;
@@ -33,7 +33,7 @@
     transform: translate(-50%,-50%);
 }
 
-.yzteam span{
+.back-text span{
     display: inline-block;
     font-size: 70px;
     font-weight: 700;
@@ -44,25 +44,25 @@
     transition: transform 1s, opacity: 0.5s, -webkit-text-stroke-color 0.5s;
 }
 
-.yzteam span.active{
+.back-text span.active{
     transform: translateY(0px);
     opacity: 1;
 }
-.yzteam span:nth-child(1){
+.back-text span:nth-child(1){
     transition-delay: 0.3s;
 }
-.yzteam span:nth-child(2){
+.back-text span:nth-child(2){
     transition-delay: 0.6s;
 }
-.yzteam span:nth-child(3){
+.back-text span:nth-child(3){
     transition-delay: 0.9s;
 }
-.yzteam span:nth-child(4){
+.back-text span:nth-child(4){
     transition-delay: 1.2s;
 }
-.yzteam span:nth-child(5){
+.back-text span:nth-child(5){
     transition-delay: 1.5s;
 }
-.yzteam span:nth-child(6){
+.back-text span:nth-child(6){
     transition-delay: 1.8s;
 }
