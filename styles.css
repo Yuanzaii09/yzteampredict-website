@@ -48,7 +48,7 @@
     font-size: 70px;
     font-weight: 900;
     font-family: 'Montserrat', sans-serif;
-    color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 1.0);
     transform: translateY(100px);
     opacity: 0;
     transition: transform 1s, opacity 0.5s;
