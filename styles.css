@@ -45,11 +45,10 @@
 
 .back-text span {
     display: inline-block;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
     font-size: 70px;
-    -webkit-text-stroke: 1px #242424;
-    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    font-family: 'Montserrat', sans-serif;
+    color: rgba(0, 0, 0, 0.5); /* 黑色 + 半透明 */
     transform: translateY(100px);
     opacity: 0;
     transition: transform 1s, opacity 0.5s;
