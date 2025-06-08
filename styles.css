@@ -31,6 +31,10 @@
     color: black;
 }
 
+.cn-title {
+    font-family: 'ZCOOL KuaiLe', sans-serif;
+}
+
 .back-text {
     width: max-content;
     position: absolute;
