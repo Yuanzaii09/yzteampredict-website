@@ -6,13 +6,13 @@
 }
 
 .body {
-    background-color: #FFFFFF;
+    background-color: white;
 }
 
 .hero {
     width: 100%;
     height: 100vh;
-    background: #FFFFFF;
+    background: white;
     padding-top: 200px;
 }
 
