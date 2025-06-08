@@ -22,10 +22,14 @@
 </div>
 
 <script>
+
     window.onload = function() {
-        const spans = document.querySelectorAll('.back-text span');
-        spans.forEach(span => span.classList.add('active'));
-    };
+    let spanTexts = document.querySelectorAll('.back-text span');
+    spanTexts.forEach((span) => {
+        span.classList.add("active");
+    });
+}
+
 </script>
 
 </body>
