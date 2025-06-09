@@ -89,6 +89,20 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+.plan2-bg {
+    width: 90%;
+    max-width: 1000px;
+    height: auto;
+    background-color: #20FF20;
+    border-radius: 35px;
+    margin: 50px auto;
+    text-align: center;
+    padding: 20px 20px;
+    color: #20FF20;
+    border: 3px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
 .plan-title {
     font-size: 28px;
     font-weight: 600;
