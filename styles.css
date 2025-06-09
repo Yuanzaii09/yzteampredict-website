@@ -86,7 +86,7 @@ body {
     padding: 30px 20px; /* 增加内边距 */
     color: #333; /* 文字颜色变为深灰，便于在白底显示 */
     border: 3px solid #ccc; /* 灰色边框 */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 分散的灰色阴影 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 分散的灰色阴影 */
 }
 
 .plan-title {
