@@ -76,11 +76,11 @@ body {
 }
 
 .plan-bg {
-    width: 80%;
+    width: 90%;
     max-width: 1000px;
     height: auto;
-    background-color: #000000;
-    border-radius: 20px;
+    background-color: #FFFFFF;
+    border-radius: 35px;
     margin: 50px auto; /* 居中 + 顶部距离 */
     text-align: center;
     padding: 30px 20px; /* 增加内边距 */
