@@ -101,12 +101,20 @@ body {
 }
 
 .plan-subtitle {
-    width: fit-content;
-    margin: 5px auto;
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
     font-size: 16px;
     color: #666;
     font-weight: 400;
     font-family: 'Noto Sans SC', sans-serif;
     margin: 5px 0;
+}
+
+.plan-subtitle p {
+    text-align: left;
+    width: 100%;
+    max-width: 300px;
+    margin: 0;
 }
