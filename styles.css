@@ -133,7 +133,7 @@ body {
     background-color: #8A2BE2;
     color: white;
     border: none;
-    border-radius: 25px; /* 这里改成15px */
+    border-radius: 30px; /* 这里改成15px */
     cursor: pointer;
     transition: background-color 0.3s;
 }
