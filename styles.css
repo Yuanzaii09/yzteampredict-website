@@ -101,6 +101,9 @@ body {
 }
 
 .plan-subtitle {
+    width: fit-content;
+    margin: 5px auto;
+    text-align: left;
     font-size: 16px;
     color: #666;
     font-weight: 400;
