@@ -133,11 +133,11 @@ body {
     background-color: #8A2BE2;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 15px; /* 这里改成15px */
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.buy-btn:hover {
+.buy-btn.active {
     background-color: #6A1FBF;
 }
