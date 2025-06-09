@@ -122,3 +122,22 @@ body {
     font-family: 'Noto Sans SC', sans-serif;
     margin: 5px 0;
 }
+
+.buy-btn {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #8A2BE2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.buy-btn:hover {
+    background-color: #6A1FBF;
+}
