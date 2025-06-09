@@ -95,6 +95,9 @@ body {
     margin-bottom: 20px;
     font-family: 'Noto Sans SC', sans-serif;
     font-weight: 800;
+    border-bottom: 3px solid #555;
+    display: inline-block;
+    padding-bottom: 5px;
 }
 
 .plan-subtitle {
