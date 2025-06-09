@@ -79,13 +79,14 @@ body {
     width: 90%;
     max-width: 1000px;
     height: auto;
-    background-color: #FFFFFF;
+    background-color: #FFFFFF; /* 白色背景 */
     border-radius: 35px;
     margin: 50px auto; /* 居中 + 顶部距离 */
     text-align: center;
     padding: 30px 20px; /* 增加内边距 */
-    color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: #333; /* 文字颜色变为深灰，便于在白底显示 */
+    border: 1px solid #ccc; /* 灰色边框 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 分散的灰色阴影 */
 }
 
 .plan-title {
