@@ -87,3 +87,10 @@ body {
     color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
+.plan-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
