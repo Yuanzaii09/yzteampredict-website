@@ -139,19 +139,16 @@ body {
     clip-path: polygon(100% 0, 0 0, 100% 100%); /* 创建右上角三角形 */
     z-index: 10;
 }
+/* 红色节省标签 */
 .ribbon {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
     background-color: red;
     color: white;
+    display: inline-block;
+    padding: 5px 12px;
     font-size: 14px;
     font-weight: bold;
-    padding: 5px 15px;
-    border-radius: 4px;
-    z-index: 2;
-}
+    border-radius: 30px;
+    margin-bottom: 10px;
 
 /* PLAN PRO */
 .plan3-bg {
