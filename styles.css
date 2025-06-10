@@ -142,8 +142,8 @@ body {
 /* “节省33%” 标签 */
 .ribbon {
     position: absolute;
-    top: 5px;
-    right: 25px;
+    top: 10px;
+    right: 55px;
     display: inline-block;
     padding: 6px 16px;
     font-size: 10px;
