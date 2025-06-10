@@ -68,6 +68,12 @@ body {
 .back-text span:nth-child(6) { transition-delay: 0.6s; }
 
 /* “选择您的计划” 设置 */
+.choose-wrapper {
+    background-color: black;
+    width: 100%;
+    padding: 0px 0;
+    text-align: center;
+
 .choose {
     font-size: 30px;
     font-weight: 400;
