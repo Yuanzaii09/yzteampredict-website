@@ -139,29 +139,6 @@ body {
     clip-path: polygon(100% 0, 0 0, 100% 100%); /* 创建右上角三角形 */
     z-index: 10;
 }
-/* “节省33%” 标签 */
-.ribbon {
-    position: absolute;
-    top: 18px;
-    right: 148px;
-    display: inline-block;
-    padding: 6px 16px;
-    font-size: 10px;
-    font-weight: bold;
-    color: white;
-    background: linear-gradient(135deg, #FF4D4F, #D9363E);
-    border-radius: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    animation: floatRibbon 2s ease-in-out infinite;
-    z-index: 10;
-}
-
-/* 动画：轻微上下浮动 */
-@keyframes floatRibbon {
-    0%   { transform: translateY(0); }
-    50%  { transform: translateY(-3px); }
-    100% { transform: translateY(0); }
-}
 
 /* PLAN PRO */
 .plan3-bg {
@@ -267,4 +244,27 @@ body {
     transform: scale(0.95);
     background-color: #6A1FBF;
     box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+}
+
+/* 红色节省标签 */
+.ribbon {
+    position: absolute;
+    top: 18px;
+    right: 148px;
+    display: inline-block;
+    padding: 6px 16px;
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #FF4D4F, #D9363E);
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    animation: floatRibbon 2s ease-in-out infinite;
+    z-index: 10;
+}
+/* 动画：轻微上下浮动 */
+@keyframes floatRibbon {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-3px); }
+    100% { transform: translateY(0); }
 }
