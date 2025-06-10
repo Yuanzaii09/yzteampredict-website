@@ -118,6 +118,8 @@ body {
     color: #333;
     border: 3px solid #ccc;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
 }
 .plan2-bg::before {
     content: "";
@@ -129,8 +131,6 @@ body {
     background-color: #80FF80;
     clip-path: polygon(100% 0, 0 0, 100% 100%); /* 创建右上角三角形 */
     z-index: 10;
-    position: relative;
-    overflow: hidden;
 }
 
 /* PLAN PRO */
@@ -146,6 +146,8 @@ body {
     color: #333;
     border: 3px solid #ccc;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
 }
 .plan3-bg::before {
     content: "";
@@ -157,8 +159,6 @@ body {
     background-color: #80B4FF;
     clip-path: polygon(100% 0, 0 0, 100% 100%); /* 创建右上角三角形 */
     z-index: 10;
-    position: relative;
-    overflow: hidden;
 }
 
 /* 所有PLAN标题 */
