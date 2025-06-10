@@ -168,6 +168,34 @@ body {
     z-index: 10;
 }
 
+/* PLAN PREMIUM */
+.plan4-bg {
+    width: 90%;
+    max-width: 1000px;
+    height: auto;
+    background-color: #FFFFFF;
+    border-radius: 35px;
+    margin: 50px auto;
+    text-align: center;
+    padding: 20px 20px;
+    color: #333;
+    border: 3px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+.plan3-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    background-color: #A069FF;
+    clip-path: polygon(100% 0, 0 0, 100% 100%); /* 创建右上角三角形 */
+    z-index: 10;
+}
+
 /* 所有PLAN标题 */
 .plan-title {
     font-size: 28px;
