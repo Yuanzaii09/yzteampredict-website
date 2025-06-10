@@ -207,7 +207,7 @@ body {
     border-radius: 30px;
     box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.2s ease, background-color 0.2s ease;
     transform: scale(1);
 }
 
