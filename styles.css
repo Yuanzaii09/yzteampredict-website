@@ -215,6 +215,6 @@ body {
 }
 
 /* 购买按钮 - 悬停 */
-.buy-btn.hover {
+.buy-btn:hover {
     background-color: #6A1FBF;
 }
