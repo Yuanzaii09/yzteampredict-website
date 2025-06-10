@@ -143,11 +143,11 @@ body {
 .ribbon {
     display: inline-block;
     padding: 6px 16px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     color: white;
     background: linear-gradient(135deg, #FF4D4F, #D9363E);
-    border-radius: 20px;
+    border-radius: 30px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     margin-bottom: 12px;
     animation: floatRibbon 2s ease-in-out infinite;
