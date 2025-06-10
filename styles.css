@@ -98,7 +98,7 @@ body {
     border: 3px solid #ccc;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
     position: relative;
-    overflow: visible;
+    overflow: hidden;
 }
 .plan-bg::before {
     content: "";
