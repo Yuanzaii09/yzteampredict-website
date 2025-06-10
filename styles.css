@@ -221,6 +221,5 @@ body {
 /* 购买按钮 - 悬停 */
 .buy-btn:hover {
     box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
-    box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
     transform: scale(0.95);
 }
