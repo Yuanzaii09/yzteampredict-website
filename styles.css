@@ -141,18 +141,21 @@ body {
 }
 /* “节省33%” 标签 */
 .ribbon {
+    position: absolute;
+    top: -10px;
+    right: 16px;
     display: inline-block;
     padding: 6px 16px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     color: white;
     background: linear-gradient(135deg, #FF4D4F, #D9363E);
     border-radius: 30px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    margin-bottom: 12px;
     animation: floatRibbon 2s ease-in-out infinite;
-    position: relative;
+    z-index: 10;
 }
+
 /* 动画：轻微上下浮动 */
 @keyframes floatRibbon {
     0%   { transform: translateY(0); }
