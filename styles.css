@@ -5,9 +5,11 @@
     box-sizing: border-box;
 }
 
+/* 设置背景色 */
 body {
      background-color: #FFFFFF;
 }
+
 
 .hero {
     width: 100%;
@@ -35,6 +37,7 @@ body {
     font-family: 'ZCOOL KuaiLe', sans-serif;
 }
 
+/* “YZTEAM” 设置 & 动画 */
 .back-text {
     width: max-content;
     position: absolute;
@@ -42,7 +45,6 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
 .back-text span {
     display: inline-block;
     font-size: 80px;
@@ -53,7 +55,6 @@ body {
     opacity: 0;
     transition: transform 1s, opacity 0.5s;
 }
-
 .back-text span.active {
     transform: translateY(0px);
     opacity: 1;
@@ -66,6 +67,7 @@ body {
 .back-text span:nth-child(5) { transition-delay: 0.5s; }
 .back-text span:nth-child(6) { transition-delay: 0.6s; }
 
+/* “选择您的计划” 设置 */
 .choose {
     font-size: 30px;
     font-weight: 400;
