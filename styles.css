@@ -86,7 +86,7 @@ body {
     padding: 20px 20px;
     color: #333;
     border: 3px solid #ccc;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 .plan2-bg {
@@ -99,7 +99,8 @@ body {
     text-align: center;
     padding: 20px 20px;
     color: #333;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    border: 3px solid #ccc;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 .plan3-bg {
@@ -112,6 +113,7 @@ body {
     text-align: center;
     padding: 20px 20px;
     color: #333;
+    border: 3px solid #ccc;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
