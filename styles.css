@@ -159,7 +159,7 @@ body {
 /* 动画：轻微上下浮动 */
 @keyframes floatRibbon {
     0%   { transform: translateY(0); }
-    50%  { transform: translateY(-3px); }
+    50%  { transform: translateY(-5px); }
     100% { transform: translateY(0); }
 }
 
