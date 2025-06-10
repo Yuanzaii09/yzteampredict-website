@@ -100,7 +100,21 @@ body {
     padding: 20px 20px;
     color: #333;
     border: 3px solid #64C864;
-    box-shadow: 0 4px 10px rgba(50, 100, 50, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.plan3-bg {
+    width: 90%;
+    max-width: 1000px;
+    height: auto;
+    background-color: #AAAAFF;
+    border-radius: 35px;
+    margin: 50px auto;
+    text-align: center;
+    padding: 20px 20px;
+    color: #333;
+    border: 3px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .plan-title {
