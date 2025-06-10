@@ -99,7 +99,6 @@ body {
     text-align: center;
     padding: 20px 20px;
     color: #333;
-    border: 3px solid #64C864;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -113,7 +112,6 @@ body {
     text-align: center;
     padding: 20px 20px;
     color: #333;
-    border: 3px solid #ccc;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
