@@ -13,20 +13,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let deviceId = "unknown"; // 初始化为字符串，防止 null 导致失败
-
-// 获取 FingerprintJS 的设备 ID
-const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
-  .then(FingerprintJS => FingerprintJS.load())
-  .then(fp => fp.get())
-  .then(result => {
-    deviceId = result.visitorId?.toString() || "unknown";
-  })
-  .catch(err => {
-    console.error("设备识别失败：", err);
-    deviceId = "unknown"; // fallback 为 "unknown"
-  });
-
 window.verifyKey = async function () {
   const keyInput = document.getElementById("keyInput");
   const result = document.getElementById("resultMessage");
@@ -40,7 +26,17 @@ window.verifyKey = async function () {
     return;
   }
 
-  await fpPromise;
+  // 👉🏻 真正初始化 FingerprintJS 并等待获取设备ID
+  let deviceId = "unknown";
+  try {
+    const FingerprintJS = await import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js");
+    const fp = await FingerprintJS.load();
+    const resultFp = await fp.get();
+    deviceId = resultFp.visitorId?.toString() || "unknown";
+  } catch (err) {
+    console.error("设备识别失败：", err);
+    deviceId = "unknown";
+  }
 
   try {
     const keyRef = doc(db, "keys", key);
@@ -84,10 +80,10 @@ window.verifyKey = async function () {
       return;
     }
 
-    // ✅ 更新 Firestore 记录
+    // ✅ 成功写入
     await updateDoc(keyRef, {
       used: true,
-      deviceId: deviceId.toString(),
+      deviceId: deviceId,
       activatedAt: now
     });
 
@@ -97,7 +93,6 @@ window.verifyKey = async function () {
     setTimeout(() => {
       window.location.href = "index.html";
     }, 1200);
-
   } catch (err) {
     console.error("验证出错：", err);
     result.textContent = "验证出错，请稍后尝试";
