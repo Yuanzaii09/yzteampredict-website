@@ -1,38 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated Title For Website Easy Tutorials</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>输入密钥</title>
+  <style>
+    body { text-align: center; padding-top: 100px; font-family: sans-serif; }
+    input, button { padding: 10px; font-size: 16px; }
+  </style>
 </head>
 <body>
+  <h2>请输入您的访问密钥</h2>
+  <input type="text" id="accessKey" placeholder="输入密钥">
+  <button onclick="verifyKey()">进入</button>
 
-<div class="hero">
-    <div class="title">
-        <h1>SUBSCRIPTION PLAN<h1>
-        <div class="back-text">
-            <span>Y</span>
-            <span>Z</span>
-            <span>T</span>
-            <span>E</span>
-            <span>A</span>
-            <span>M</span>
-        </div>
-    </div>
-</div>
+  <script>
+    function verifyKey() {
+      const validKeys = ["YZTEAMBasicPlan", "YZTEAMLitePlan"]; // 可加多个密钥
+      const userKey = document.getElementById("accessKey").value.trim();
 
-<script>
-
-let spanTexts = document.getElementsByTagName("span");
-
-    window.onload = function(){
-
-        for(spanText of spanTexts){
-            spanText.classList.add("active");
-        }
+      if (validKeys.includes(userKey)) {
+        localStorage.setItem("verified", "true"); // 存标记
+        window.location.href = "main.html";
+      } else {
+        alert("密钥错误，请重试！");
+      }
     }
-
-</script>
-
+  </script>
 </body>
-</html>.
+</html>
