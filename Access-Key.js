@@ -14,7 +14,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-window.checkKey = async function () {
+window.verifyKey = async function () {
   const key = document.getElementById("keyInput").value.trim();
   const result = document.getElementById("resultMessage");
 
