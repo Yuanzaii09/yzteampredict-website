@@ -6,7 +6,6 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// Firebase 初始化
 const firebaseConfig = {
   apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
   authDomain: "yzteampredict-store.firebaseapp.com",
@@ -18,7 +17,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 获取 FingerprintJS ID
 let deviceId = null;
 const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
   .then(FingerprintJS => FingerprintJS.load())
@@ -54,16 +52,9 @@ window.verifyKey = async function () {
     const nowBeijing = new Date(now.getTime() + 8 * 60 * 60 * 1000);
 
     const validFrom = data.validFrom?.toDate?.();
-    const expiresAt = data.expiresAt?.toDate?.();  // 注意：可能为 undefined
-
     if (validFrom && nowBeijing < validFrom) {
       const diff = Math.ceil((validFrom - nowBeijing) / 1000);
       result.textContent = `密钥将在 ${diff} 秒后生效`;
-      return;
-    }
-
-    if (expiresAt && nowBeijing > expiresAt) {
-      result.textContent = "密钥已过期";
       return;
     }
 
@@ -75,11 +66,29 @@ window.verifyKey = async function () {
       return;
     }
 
+    const activatedAt = data.activatedAt?.toDate?.();
+    const durationDays = data.validDurationDays;
+
+    // 自动计算 expiresAt（首次激活时）
+    let expiresAt = null;
+    if (activatedAt && durationDays > 0) {
+      expiresAt = new Date(activatedAt.getTime() + durationDays * 24 * 60 * 60 * 1000);
+    } else if (!activatedAt && durationDays > 0) {
+      expiresAt = new Date(nowBeijing.getTime() + durationDays * 24 * 60 * 60 * 1000);
+    }
+
+    // 检查是否过期
+    if (expiresAt && nowBeijing > expiresAt) {
+      result.textContent = "密钥已过期";
+      return;
+    }
+
+    // 首次激活则写入 activatedAt
     if (!boundDevice) {
       await updateDoc(keyRef, {
         used: true,
         deviceId: deviceId,
-        activatedAt: new Date()
+        activatedAt: nowBeijing
       });
     }
 
