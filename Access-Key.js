@@ -3,12 +3,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/fireba
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "你的API",
-  authDomain: "你的项目.firebaseapp.com",
-  projectId: "你的项目ID",
-  storageBucket: "你的项目.appspot.com",
-  messagingSenderId: "发送ID",
-  appId: "appID"
+  apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
+  authDomain: "yzteampredict-store.firebaseapp.com",
+  projectId: "yzteampredict-store",
+  storageBucket: "yzteampredict-store.firebasestorage.app",
+  messagingSenderId: "1072979545774",
+  appId: "1:1072979545774:web:e9c13fac268c01f7fde73f"
 };
 
 const app = initializeApp(firebaseConfig);
