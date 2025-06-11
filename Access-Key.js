@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc, Timestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
+// Firebase 配置
 const firebaseConfig = {
   apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
   authDomain: "yzteampredict-store.firebaseapp.com",
@@ -13,28 +14,23 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// 获取设备指纹
 let deviceId = null;
+const fpPromise = FingerprintJS.load().then(fp => fp.get()).then(result => {
+  deviceId = result.visitorId;
+});
 
-const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
-  .then(FingerprintJS => FingerprintJS.load())
-  .then(fp => fp.get())
-  .then(result => {
-    deviceId = result.visitorId;
-    console.log("设备ID获取成功：", deviceId);
-  })
-  .catch(err => {
-    console.error("FingerprintJS 初始化失败", err);
-  });
+// 绑定按钮事件
+document.getElementById("verifyButton").addEventListener("click", verifyKey);
 
-window.verifyKey = async function () {
+async function verifyKey() {
   const key = document.getElementById("keyInput").value.trim();
-  const result = document.getElementById("resultMessage");
-
-  result.style.color = "red";
-  result.textContent = "";
+  const resultEl = document.getElementById("resultMessage");
+  resultEl.style.color = "red";
+  resultEl.textContent = "";
 
   if (!key) {
-    result.textContent = "请输入密钥";
+    resultEl.textContent = "请输入密钥";
     return;
   }
 
@@ -45,55 +41,46 @@ window.verifyKey = async function () {
     const keySnap = await getDoc(keyRef);
 
     if (!keySnap.exists()) {
-      console.warn("密钥不存在");
-      result.textContent = "无效的密钥";
+      resultEl.textContent = "无效的密钥";
       return;
     }
 
     const data = keySnap.data();
-    console.log("密钥数据：", data);
-
     const now = new Date();
 
-    let validFrom = null;
-    if (data.validFrom && typeof data.validFrom.toDate === "function") {
-      validFrom = data.validFrom.toDate();
-    }
-
+    // Firestore 时间戳转换
+    const validFrom = data.validFrom?.toDate?.() ?? null;
     const isUsed = data.used;
-    const boundDevice = data.deviceId || null;
+    const boundDevice = data.deviceId ?? null;
 
     if (isUsed && boundDevice && boundDevice !== deviceId) {
-      result.textContent = "此密钥已绑定其他设备";
+      resultEl.textContent = "此密钥已绑定其他设备";
       return;
     }
 
-    if (validFrom && nowBeijing < validFrom) {
-      const diff = Math.ceil((validFrom - nowBeijing) / 1000);
-      result.textContent = `密钥将在 ${diff} 秒后生效`;
+    if (validFrom && now < validFrom) {
+      const diff = Math.ceil((validFrom - now) / 1000);
+      resultEl.textContent = `密钥将在 ${diff} 秒后生效`;
       return;
     }
 
-    // 如果未绑定设备则更新
+    // 首次使用 → 绑定设备
     if (!boundDevice) {
       await updateDoc(keyRef, {
         used: true,
         deviceId: deviceId,
-        activatedAt: new Date()
+        activatedAt: Timestamp.fromDate(new Date())
       });
-      console.log("首次使用，已绑定设备");
     }
 
-    result.style.color = "#4CAF50";
-    result.textContent = "验证成功，正在跳转...";
-    console.log("验证成功");
-
+    resultEl.style.color = "#4CAF50";
+    resultEl.textContent = "验证成功，正在跳转...";
     setTimeout(() => {
       window.location.href = "index.html";
-    }, 1200);
+    }, 1000);
 
   } catch (error) {
-    console.error("验证过程中出错：", error);
-    result.textContent = "验证失败，请稍后再试";
+    console.error("验证错误：", error);
+    resultEl.textContent = "发生错误，请稍后再试";
   }
-};
+}a
