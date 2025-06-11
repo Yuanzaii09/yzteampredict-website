@@ -47,7 +47,8 @@ button:hover {
   background-color: #6A1FBF;
 }
 
-#message {
+#resultMessage {
+  font-weight: 200;
   margin-top: 15px;
   color: red;
   font-size: 14px;
