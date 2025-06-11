@@ -1,5 +1,6 @@
 body {
   font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
   background-color: #f9f9f9;
   display: flex;
   justify-content: center;
@@ -49,7 +50,6 @@ button:hover {
 
 #resultMessage {
   font-size: 15px
-  font-weight: bold;
   margin-top: 15px;
   color: red;
 }
