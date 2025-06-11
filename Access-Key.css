@@ -48,8 +48,8 @@ button:hover {
 }
 
 #resultMessage {
-  font-weight: 200;
+  font-size: 15px
+  font-weight: bold;
   margin-top: 15px;
   color: red;
-  font-size: 14px;
 }
