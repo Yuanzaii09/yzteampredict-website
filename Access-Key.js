@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { getFirestore, doc, getDoc, updateDoc, serverTimestamp, Timestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
@@ -13,19 +13,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 获取 deviceId
 let deviceId = null;
-const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
-  .then(FingerprintJS => FingerprintJS.load())
-  .then(fp => fp.get())
-  .then(result => {
-    deviceId = result.visitorId;
-  })
-  .catch(err => {
-    console.error("FingerprintJS 加载失败", err);
-  });
 
-window.verifyKey = async function () {
+// 初始化 FingerprintJS 并获取设备 ID
+const fpPromise = FingerprintJS.load().then(fp => fp.get()).then(result => {
+  deviceId = result.visitorId;
+});
+
+document.getElementById("verifyBtn").addEventListener("click", verifyKey);
+
+async function verifyKey() {
   const key = document.getElementById("keyInput").value.trim();
   const result = document.getElementById("resultMessage");
 
@@ -37,9 +34,9 @@ window.verifyKey = async function () {
     return;
   }
 
-  await fpPromise;
-
   try {
+    await fpPromise;
+
     const keyRef = doc(db, "keys", key);
     const keySnap = await getDoc(keyRef);
 
@@ -49,25 +46,25 @@ window.verifyKey = async function () {
     }
 
     const data = keySnap.data();
+
     const now = new Date();
-    const validFrom = data.validFrom?.toDate?.() || now; // 确保时间有效
-    const isUsed = data.used;
+    const nowBeijing = new Date(now.getTime() + 8 * 60 * 60 * 1000); // +8小时
+
+    const validFrom = data.validFrom?.toDate?.() || null;
+    const isUsed = data.used || false;
     const boundDevice = data.deviceId || null;
 
-    // 检查时间
-    if (now < validFrom) {
-      const diff = Math.ceil((validFrom - now) / 1000);
-      result.textContent = `密钥将在 ${diff} 秒后生效`;
+    if (validFrom && nowBeijing < validFrom) {
+      const secondsLeft = Math.ceil((validFrom - nowBeijing) / 1000);
+      result.textContent = `密钥将在 ${secondsLeft} 秒后生效`;
       return;
     }
 
-    // 检查是否绑定设备
     if (isUsed && boundDevice && boundDevice !== deviceId) {
       result.textContent = "此密钥已绑定其他设备";
       return;
     }
 
-    // 首次使用：绑定设备
     if (!boundDevice) {
       await updateDoc(keyRef, {
         used: true,
@@ -82,8 +79,8 @@ window.verifyKey = async function () {
       window.location.href = "index.html";
     }, 1200);
 
-  } catch (err) {
-    console.error("验证失败：", err);
-    result.textContent = "验证失败，请稍后重试";
+  } catch (error) {
+    console.error("验证出错：", error);
+    result.textContent = "发生错误，请稍后再试";
   }
-};
+}a
