@@ -46,7 +46,7 @@ button {
   transition: background-color 0.3s;
 }
 
-button:hover {
+button:active {
   background-color: #6A1FBF;
 }
 
