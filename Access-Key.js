@@ -16,24 +16,27 @@ const firebaseConfig = {
   appId: "1:1072979545774:web:e9c13fac268c01f7fde73f"
 };
 
-// 初始化 Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // 初始化设备 ID
 let deviceId = null;
+let isDeviceReady = false;
+
 const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
   .then(FingerprintJS => FingerprintJS.load())
   .then(fp => fp.get())
   .then(result => {
     deviceId = result.visitorId;
+    isDeviceReady = true;
     console.log("✅ 设备 ID 加载成功：", deviceId);
   })
   .catch(err => {
     console.error("❌ FingerprintJS 加载失败", err);
+    isDeviceReady = false;
   });
 
-// 验证密钥主函数
+// 验证密钥函数
 window.verifyKey = async function () {
   const key = document.getElementById("keyInput").value.trim();
   const result = document.getElementById("resultMessage");
@@ -46,9 +49,12 @@ window.verifyKey = async function () {
     return;
   }
 
-  try {
-    await fpPromise;
+  if (!isDeviceReady || !deviceId) {
+    result.textContent = "设备识别失败，请稍后再试";
+    return;
+  }
 
+  try {
     const keyRef = doc(db, "keys", key);
     const keySnap = await getDoc(keyRef);
 
@@ -63,9 +69,9 @@ window.verifyKey = async function () {
     const now = new Date();
     const nowBeijing = new Date(now.getTime() + 8 * 60 * 60 * 1000);
 
-    // 判断 validFrom 是否存在
+    // 验证 validFrom 是否生效
     let validFrom = null;
-    if (data.validFrom && typeof data.validFrom.toDate === "function") {
+    if (data.validFrom?.toDate) {
       validFrom = data.validFrom.toDate();
     }
 
@@ -83,11 +89,11 @@ window.verifyKey = async function () {
       return;
     }
 
-    // 检查是否超时（validDurationDays + activatedAt）
+    // 检查过期
     const duration = data.validDurationDays;
     const activatedAt = data.activatedAt?.toDate?.();
 
-    if (duration && duration > 0 && activatedAt) {
+    if (duration > 0 && activatedAt) {
       const expiry = new Date(activatedAt.getTime() + duration * 24 * 60 * 60 * 1000);
       if (nowBeijing > expiry) {
         result.textContent = "密钥已过期";
@@ -95,37 +101,25 @@ window.verifyKey = async function () {
       }
     }
 
-    // 绑定设备（首次使用）
+    // 首次绑定
     if (!boundDevice) {
-      if (!deviceId) {
-        result.textContent = "设备识别失败，请稍后再试";
-        return;
-      }
-
-      try {
-        await updateDoc(keyRef, {
-          used: true,
-          deviceId: deviceId,
-          activatedAt: new Date()
-        });
-        console.log("✅ 成功绑定设备并记录激活时间");
-      } catch (err) {
-        console.error("❌ 写入 deviceId 失败：", err);
-        result.textContent = "绑定设备失败，请稍后再试";
-        return;
-      }
+      await updateDoc(keyRef, {
+        used: true,
+        deviceId: deviceId,
+        activatedAt: new Date()
+      });
+      console.log("✅ 成功绑定设备和记录激活时间");
     }
 
     result.style.color = "#4CAF50";
     result.textContent = "验证成功，正在跳转...";
-    console.log("✅ 验证成功");
 
     setTimeout(() => {
       window.location.href = "index.html";
     }, 1200);
 
   } catch (error) {
-    console.error("❌ 验证出错：", error);
+    console.error("❌ 验证失败：", error);
     result.textContent = "验证出错，请稍后尝试";
   }
 };
