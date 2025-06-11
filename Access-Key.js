@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
+// Firebase 配置
 const firebaseConfig = {
   apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
   authDomain: "yzteampredict-store.firebaseapp.com",
@@ -13,13 +14,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 加载 FingerprintJS（从 HTML script 引入的）
+// 加载 FingerprintJS 并获取 deviceId
 let deviceId = null;
-FingerprintJS.load().then(fp => {
-  fp.get().then(result => {
+const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
+  .then(FingerprintJS => FingerprintJS.load())
+  .then(fp => fp.get())
+  .then(result => {
     deviceId = result.visitorId;
   });
-});
 
 window.verifyKey = async function () {
   const key = document.getElementById("keyInput").value.trim();
@@ -32,10 +34,7 @@ window.verifyKey = async function () {
     return;
   }
 
-  if (!deviceId) {
-    result.textContent = "设备识别中，请稍候再试";
-    return;
-  }
+  await fpPromise; // 等待 FingerprintJS 完成
 
   const keyRef = doc(db, "keys", key);
   const keySnap = await getDoc(keyRef);
@@ -46,8 +45,12 @@ window.verifyKey = async function () {
   }
 
   const data = keySnap.data();
+
+  // 当前时间转为北京时间（UTC+8）
   const now = new Date();
-  const validFrom = data.validFrom?.toDate();
+  const nowBeijing = new Date(now.getTime() + 8 * 60 * 60 * 1000);
+
+  const validFrom = data.validFrom?.toDate(); // Firestore Timestamp → Date
   const isUsed = data.used;
   const boundDevice = data.deviceId || null;
 
@@ -56,13 +59,13 @@ window.verifyKey = async function () {
     return;
   }
 
-  if (validFrom && now < validFrom) {
-    const diff = Math.ceil((validFrom - now) / 1000);
+  if (validFrom && nowBeijing < validFrom) {
+    const diff = Math.ceil((validFrom - nowBeijing) / 1000);
     result.textContent = `密钥将在 ${diff} 秒后生效`;
     return;
   }
 
-  // 首次使用 → 写入设备ID + 设置used
+  // 第一次使用：绑定设备 ID & 设置为已使用
   if (!boundDevice) {
     await updateDoc(keyRef, {
       used: true,
@@ -71,6 +74,7 @@ window.verifyKey = async function () {
     });
   }
 
+  // 密钥验证成功
   result.style.color = "#4CAF50";
   result.textContent = "验证成功，正在跳转...";
   setTimeout(() => {
