@@ -9,7 +9,6 @@ body {
 }
 
 .bg {
-  position: fixed;
   background: white;
   padding: 20px 40px 20px 40px;
   border-radius: 30px;
