@@ -25,22 +25,6 @@
     <button onclick="verifyKey()">验证密钥</button>
     <p id="resultMessage"></p>
   </div>
-  
-  <button onclick="checkFP()">测试设备指纹</button>
-<p id="fpResult"></p>
 
-<script>
-  async function checkFP() {
-    const el = document.getElementById("fpResult");
-    try {
-      const fpLib = await import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js");
-      const fp = await fpLib.load();
-      const result = await fp.get();
-      el.textContent = "设备ID: " + result.visitorId;
-    } catch (e) {
-      el.textContent = "指纹库加载失败：" + e.message;
-    }
-  }
-</script>
 </body>
 </html>
