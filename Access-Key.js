@@ -1,55 +1,55 @@
-document.addEventListener('DOMContentLoaded', function () {
-    function delayedPrediction() {
-        let prediction;
+// 配置你的 Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-        // 按照概率分布决定数值范围
-        const randomNum = Math.random() * 100;
-        if (randomNum <= 85) {
-            prediction = (Math.random() * (1.99 - 1.01) + 1.01).toFixed(2);
-        } else if (randomNum <= 95) {
-            prediction = (Math.random() * (4.99 - 2.00) + 2.00).toFixed(2);
-        } else {
-            prediction = (Math.random() * (9.99 - 5.00) + 5.00).toFixed(2);
-        }
+const firebaseConfig = {
+  apiKey: "你的API",
+  authDomain: "你的项目.firebaseapp.com",
+  projectId: "你的项目ID",
+  storageBucket: "你的项目.appspot.com",
+  messagingSenderId: "发送ID",
+  appId: "appID"
+};
 
-        console.log("预测结果:", prediction); // 调试信息
-        document.getElementById("prediction").textContent = ">" + prediction; // 加入 > 前缀
-        document.getElementById("prediction-result").style.display = 'block';
-        document.getElementById("loadingScreen").style.display = 'none';
-    }
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-    const button = document.getElementById('prediction-button');
+window.checkKey = async function () {
+  const key = document.getElementById("keyInput").value.trim();
+  const result = document.getElementById("resultMessage");
 
-    button.addEventListener('click', function () {
-        if (button.disabled) return; // 防止重复点击
+  if (!key) {
+    result.textContent = "请输入密钥";
+    return;
+  }
 
-        console.log("按钮被点击"); // 调试信息
-        button.disabled = true; // 立即禁用按钮防止二次点击
-        button.style.transition = "transform 0.1s ease-in-out"; // 确保动画流畅
+  const keyRef = doc(db, "keys", key);
+  const keySnap = await getDoc(keyRef);
 
-        // 1. 播放缩小动画
-        button.style.transform = "scale(0.9)";
+  if (!keySnap.exists()) {
+    result.textContent = "无效的密钥";
+    return;
+  }
 
-        setTimeout(() => {
-            // 2. 恢复原大小
-            button.style.transform = "scale(1)";
+  const data = keySnap.data();
+  const now = new Date();
+  const validFrom = data.validFrom?.toDate(); // Firestore Timestamp
+  const isUsed = data.used;
 
-            setTimeout(() => {
-                // 3. 变成锁定状态
-                button.innerHTML = "🔒";
-                document.getElementById("loadingScreen").style.display = 'block';
+  if (isUsed) {
+    result.textContent = "此密钥已被使用";
+    return;
+  }
 
-                setTimeout(() => {
-                    // 4. 显示预测结果
-                    delayedPrediction();
+  if (validFrom && now < validFrom) {
+    const diff = Math.ceil((validFrom - now) / 1000);
+    result.textContent = `密钥将在 ${diff} 秒后生效`;
+    return;
+  }
 
-                    setTimeout(() => {
-                        console.log("按钮解锁"); // 调试信息
-                        button.innerHTML = "START"; // 恢复按钮文本
-                        button.disabled = false; // 解锁按钮
-                    }, 10000); // 10秒后恢复
-                }, 2000); // 2秒后显示预测
-            }, 100); // 确保动画完全播放完毕
-        }, 100);
-    });
-});
+  // 密钥有效
+  result.style.color = "#4CAF50";
+  result.textContent = "验证成功，正在跳转...";
+  // 你可以在这里添加跳转页面的逻辑
+  window.location.href = "main.html"; // 主外挂页面
+};
