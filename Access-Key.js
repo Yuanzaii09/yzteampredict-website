@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { getFirestore, doc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
+// Firebase 初始化
 const firebaseConfig = {
   apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
   authDomain: "yzteampredict-store.firebaseapp.com",
@@ -9,23 +10,28 @@ const firebaseConfig = {
   messagingSenderId: "1072979545774",
   appId: "1:1072979545774:web:e9c13fac268c01f7fde73f"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// 获取 deviceId（设备指纹）
 let deviceId = null;
+const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
+  .then(FingerprintJS => FingerprintJS.load())
+  .then(fp => fp.get())
+  .then(result => {
+    deviceId = result.visitorId;
+    console.log("设备ID：", deviceId);
+  })
+  .catch(err => {
+    console.error("Fingerprint 初始化失败", err);
+  });
 
-// 初始化 FingerprintJS 并获取设备 ID
-const fpPromise = FingerprintJS.load().then(fp => fp.get()).then(result => {
-  deviceId = result.visitorId;
-});
-
-document.getElementById("verifyBtn").addEventListener("click", verifyKey);
-
-async function verifyKey() {
+// 主验证函数
+window.verifyKey = async function () {
   const key = document.getElementById("keyInput").value.trim();
   const result = document.getElementById("resultMessage");
 
+  result.style.fontWeight = "bold";
   result.style.color = "red";
   result.textContent = "";
 
@@ -46,41 +52,55 @@ async function verifyKey() {
     }
 
     const data = keySnap.data();
-
     const now = new Date();
-    const nowBeijing = new Date(now.getTime() + 8 * 60 * 60 * 1000); // +8小时
+    const nowBeijing = new Date(now.getTime() + 8 * 60 * 60 * 1000); // 转为北京时间
 
-    const validFrom = data.validFrom?.toDate?.() || null;
-    const isUsed = data.used || false;
-    const boundDevice = data.deviceId || null;
+    const validFrom = data.validFrom?.toDate?.() ?? null;
+    const isUsed = data.used ?? false;
+    const boundDevice = data.deviceId ?? null;
+    const activatedAt = data.activatedAt?.toDate?.() ?? null;
+    const validDurationDays = data.validDurationDays ?? -1;
 
-    if (validFrom && nowBeijing < validFrom) {
-      const secondsLeft = Math.ceil((validFrom - nowBeijing) / 1000);
-      result.textContent = `密钥将在 ${secondsLeft} 秒后生效`;
-      return;
-    }
-
+    // 检查是否已被其他设备使用
     if (isUsed && boundDevice && boundDevice !== deviceId) {
       result.textContent = "此密钥已绑定其他设备";
       return;
     }
 
+    // 检查是否到生效时间
+    if (validFrom && nowBeijing < validFrom) {
+      const diff = Math.ceil((validFrom - nowBeijing) / 1000);
+      result.textContent = `密钥将在 ${diff} 秒后生效`;
+      return;
+    }
+
+    // 检查是否过期（仅对有限期密钥）
+    if (validDurationDays > 0 && activatedAt) {
+      const expireTime = new Date(activatedAt.getTime() + validDurationDays * 24 * 60 * 60 * 1000);
+      if (nowBeijing > expireTime) {
+        result.textContent = "此密钥已过期";
+        return;
+      }
+    }
+
+    // 如果是首次使用，写入激活时间和设备ID
     if (!boundDevice) {
       await updateDoc(keyRef, {
         used: true,
         deviceId: deviceId,
-        activatedAt: serverTimestamp()
+        activatedAt: new Date()
       });
     }
 
+    // 通过验证
     result.style.color = "#4CAF50";
     result.textContent = "验证成功，正在跳转...";
     setTimeout(() => {
       window.location.href = "index.html";
     }, 1200);
 
-  } catch (error) {
-    console.error("验证出错：", error);
-    result.textContent = "发生错误，请稍后再试";
+  } catch (err) {
+    console.error("验证出错", err);
+    result.textContent = "发生错误，请稍后重试";
   }
-}a
+};
