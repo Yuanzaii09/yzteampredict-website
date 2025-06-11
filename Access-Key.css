@@ -16,6 +16,8 @@ body {
   text-align: center;
   width: 80%;
   max-width: 400px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
 }
 
 h1 {
