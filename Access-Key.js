@@ -13,6 +13,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+let deviceId = null;
+
+// 初始化 FingerprintJS
+const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
+  .then(FingerprintJS => FingerprintJS.load())
+  .then(fp => fp.get())
+  .then(result => {
+    deviceId = result.visitorId;
+    console.log("设备ID获取成功：", deviceId);
+  })
+  .catch(err => {
+    console.error("设备识别失败：", err);
+  });
+
 window.verifyKey = async function () {
   const keyInput = document.getElementById("keyInput");
   const result = document.getElementById("resultMessage");
@@ -26,16 +40,12 @@ window.verifyKey = async function () {
     return;
   }
 
-  // 👉🏻 真正初始化 FingerprintJS 并等待获取设备ID
-  let deviceId = "unknown";
-  try {
-    const FingerprintJS = await import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js");
-    const fp = await FingerprintJS.load();
-    const resultFp = await fp.get();
-    deviceId = resultFp.visitorId?.toString() || "unknown";
-  } catch (err) {
-    console.error("设备识别失败：", err);
-    deviceId = "unknown";
+  // 强制等待指纹加载完成
+  await fpPromise;
+
+  if (!deviceId) {
+    result.textContent = "设备识别失败，请刷新页面再试";
+    return;
   }
 
   try {
@@ -48,7 +58,7 @@ window.verifyKey = async function () {
     }
 
     const data = keySnap.data();
-    const boundDevice = (data.deviceId || "").toString();
+    const boundDevice = data.deviceId || null;
     const isUsed = data.used || false;
     const now = new Date();
 
@@ -67,7 +77,7 @@ window.verifyKey = async function () {
 
     const expireTime = validDurationDays === -1
       ? null
-      : new Date(validFrom.getTime() + validDurationDays * 24 * 60 * 60 * 1000);
+      : new Date(validFrom.getTime() + validDurationDays * 86400000);
 
     if (now < validFrom) {
       const secondsLeft = Math.ceil((validFrom - now) / 1000);
@@ -80,10 +90,10 @@ window.verifyKey = async function () {
       return;
     }
 
-    // ✅ 成功写入
+    // ✅ 写入数据（确保 deviceId 不为 null）
     await updateDoc(keyRef, {
       used: true,
-      deviceId: deviceId,
+      deviceId: deviceId.toString(),
       activatedAt: now
     });
 
@@ -93,6 +103,7 @@ window.verifyKey = async function () {
     setTimeout(() => {
       window.location.href = "index.html";
     }, 1200);
+
   } catch (err) {
     console.error("验证出错：", err);
     result.textContent = "验证出错，请稍后尝试";
