@@ -15,7 +15,7 @@ const db = getFirestore(app);
 
 let deviceId = null;
 
-// 加载 FingerprintJS 获取设备ID
+// 获取 FingerprintJS 设备指纹
 const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
   .then(FingerprintJS => FingerprintJS.load())
   .then(fp => fp.get())
@@ -55,13 +55,13 @@ window.verifyKey = async function () {
     const isUsed = data.used || false;
     const now = new Date();
 
-    // 判断是否已绑定其他设备
-    if (isUsed && boundDevice && boundDevice !== deviceId) {
+    // 1. 已绑定设备，但不是当前设备
+    if (boundDevice && boundDevice !== deviceId) {
       result.textContent = "此密钥已被其他设备绑定";
       return;
     }
 
-    // 检查是否过期
+    // 2. 检查时间有效性
     const validFrom = data.validFrom?.toDate?.() || null;
     const validDurationDays = data.validDurationDays;
 
@@ -85,13 +85,16 @@ window.verifyKey = async function () {
       return;
     }
 
-    // ✅ 写入数据
-    await updateDoc(keyRef, {
-      used: true,
-      deviceId: deviceId,
-      activatedAt: now
-    });
+    // 3. 首次激活：写入绑定设备和激活时间
+    if (!boundDevice) {
+      await updateDoc(keyRef, {
+        used: true,
+        deviceId: deviceId,
+        activatedAt: now
+      });
+    }
 
+    // 4. 成功跳转
     result.style.color = "#4CAF50";
     result.textContent = "验证成功，正在跳转...";
 
