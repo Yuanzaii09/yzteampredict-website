@@ -1,8 +1,6 @@
-// 引入 Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// Firebase 配置
 const firebaseConfig = {
   apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
   authDomain: "yzteampredict-store.firebaseapp.com",
@@ -12,24 +10,22 @@ const firebaseConfig = {
   appId: "1:1072979545774:web:e9c13fac268c01f7fde73f"
 };
 
-// 初始化 Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// ✅ 正确加载 FingerprintJS 获取设备ID
-async function getDeviceId() {
-  try {
-    const FingerprintJS = await import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js");
-    const fp = await FingerprintJS.load();
-    const result = await fp.get();
-    return result.visitorId;
-  } catch (err) {
-    console.error("设备识别失败：", err);
-    throw new Error("设备识别失败");
-  }
-}
+let deviceId = null;
 
-// ✅ 主函数：密钥验证流程
+// 加载 FingerprintJS 获取设备ID
+const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
+  .then(FingerprintJS => FingerprintJS.load())
+  .then(fp => fp.get())
+  .then(result => {
+    deviceId = result.visitorId;
+  })
+  .catch(err => {
+    console.error("设备识别失败：", err);
+  });
+
 window.verifyKey = async function () {
   const keyInput = document.getElementById("keyInput");
   const result = document.getElementById("resultMessage");
@@ -43,14 +39,7 @@ window.verifyKey = async function () {
     return;
   }
 
-  // 获取设备ID
-  let deviceId;
-  try {
-    deviceId = await getDeviceId();
-  } catch (e) {
-    result.textContent = "设备识别失败，请检查网络或刷新页面再试";
-    return;
-  }
+  await fpPromise;
 
   try {
     const keyRef = doc(db, "keys", key);
@@ -66,13 +55,13 @@ window.verifyKey = async function () {
     const isUsed = data.used || false;
     const now = new Date();
 
-    // ❌ 已绑定其他设备
+    // 判断是否已绑定其他设备
     if (isUsed && boundDevice && boundDevice !== deviceId) {
       result.textContent = "此密钥已被其他设备绑定";
       return;
     }
 
-    // ✅ 检查有效时间段
+    // 检查是否过期
     const validFrom = data.validFrom?.toDate?.() || null;
     const validDurationDays = data.validDurationDays;
 
@@ -96,7 +85,7 @@ window.verifyKey = async function () {
       return;
     }
 
-    // ✅ 记录使用信息到 Firestore
+    // ✅ 写入数据
     await updateDoc(keyRef, {
       used: true,
       deviceId: deviceId,
