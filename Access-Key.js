@@ -1,7 +1,7 @@
-// 配置你的 Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
+// FireBase数据
 const firebaseConfig = {
   apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
   authDomain: "yzteampredict-store.firebaseapp.com",
@@ -51,5 +51,5 @@ window.checkKey = async function () {
   result.style.color = "#4CAF50";
   result.textContent = "验证成功，正在跳转...";
   // 你可以在这里添加跳转页面的逻辑
-  window.location.href = "main.html"; // 主外挂页面
+  window.location.href = "index.html"; // 主外挂页面
 };
