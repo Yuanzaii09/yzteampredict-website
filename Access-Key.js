@@ -13,19 +13,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let deviceId = null;
-
-// 获取 FingerprintJS 设备指纹
+// 获取 FingerprintJS 实例
 const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
-  .then(FingerprintJS => FingerprintJS.load())
-  .then(fp => fp.get())
-  .then(result => {
-    deviceId = result.visitorId;
-  })
-  .catch(err => {
-    console.error("设备识别失败：", err);
-  });
+  .then(FingerprintJS => FingerprintJS.load());
 
+// 按钮点击验证密钥
 window.verifyKey = async function () {
   const keyInput = document.getElementById("keyInput");
   const result = document.getElementById("resultMessage");
@@ -39,7 +31,17 @@ window.verifyKey = async function () {
     return;
   }
 
-  await fpPromise;
+  // ⏳ 等待获取设备 ID
+  let deviceId;
+  try {
+    const fp = await fpPromise;
+    const resultFP = await fp.get();
+    deviceId = resultFP.visitorId;
+  } catch (err) {
+    console.error("设备识别失败：", err);
+    result.textContent = "设备识别失败，请刷新页面重试";
+    return;
+  }
 
   try {
     const keyRef = doc(db, "keys", key);
@@ -55,13 +57,13 @@ window.verifyKey = async function () {
     const isUsed = data.used || false;
     const now = new Date();
 
-    // 1. 已绑定设备，但不是当前设备
+    // 已绑定其他设备
     if (boundDevice && boundDevice !== deviceId) {
       result.textContent = "此密钥已被其他设备绑定";
       return;
     }
 
-    // 2. 检查时间有效性
+    // 检查时间合法性
     const validFrom = data.validFrom?.toDate?.() || null;
     const validDurationDays = data.validDurationDays;
 
@@ -85,16 +87,13 @@ window.verifyKey = async function () {
       return;
     }
 
-    // 3. 首次激活：写入绑定设备和激活时间
-    if (!boundDevice) {
-      await updateDoc(keyRef, {
-        used: true,
-        deviceId: deviceId,
-        activatedAt: now
-      });
-    }
+    // 更新 Firestore：绑定设备 & 激活时间 & used = true
+    await updateDoc(keyRef, {
+      used: true,
+      deviceId: deviceId,
+      activatedAt: now
+    });
 
-    // 4. 成功跳转
     result.style.color = "#4CAF50";
     result.textContent = "验证成功，正在跳转...";
 
