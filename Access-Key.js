@@ -69,10 +69,14 @@ window.verifyKey = async function () {
     const now = new Date();
     const nowBeijing = new Date(now.getTime() + 8 * 60 * 60 * 1000);
 
-    // 验证 validFrom 是否生效
+    // 检查 validFrom 是否生效
     let validFrom = null;
-    if (data.validFrom?.toDate) {
-      validFrom = data.validFrom.toDate();
+    try {
+      if (data.validFrom && typeof data.validFrom.toDate === "function") {
+        validFrom = data.validFrom.toDate();
+      }
+    } catch (e) {
+      console.error("⚠️ validFrom 字段错误", e);
     }
 
     if (validFrom && nowBeijing < validFrom) {
@@ -81,6 +85,7 @@ window.verifyKey = async function () {
       return;
     }
 
+    // 检查是否绑定其他设备
     const isUsed = data.used;
     const boundDevice = data.deviceId || null;
 
@@ -89,9 +94,16 @@ window.verifyKey = async function () {
       return;
     }
 
-    // 检查过期
-    const duration = data.validDurationDays;
-    const activatedAt = data.activatedAt?.toDate?.();
+    // 检查密钥是否过期
+    const duration = data.validDurationDays ?? -1;
+    let activatedAt = null;
+    try {
+      if (data.activatedAt && typeof data.activatedAt.toDate === "function") {
+        activatedAt = data.activatedAt.toDate();
+      }
+    } catch (e) {
+      console.error("⚠️ activatedAt 字段错误", e);
+    }
 
     if (duration > 0 && activatedAt) {
       const expiry = new Date(activatedAt.getTime() + duration * 24 * 60 * 60 * 1000);
@@ -101,14 +113,14 @@ window.verifyKey = async function () {
       }
     }
 
-    // 首次绑定
+    // 如果没绑定设备则绑定
     if (!boundDevice) {
       await updateDoc(keyRef, {
         used: true,
         deviceId: deviceId,
         activatedAt: new Date()
       });
-      console.log("✅ 成功绑定设备和记录激活时间");
+      console.log("✅ 成功绑定设备");
     }
 
     result.style.color = "#4CAF50";
@@ -119,7 +131,7 @@ window.verifyKey = async function () {
     }, 1200);
 
   } catch (error) {
-    console.error("❌ 验证失败：", error);
+    console.error("❌ 验证出错：", error);
     result.textContent = "验证出错，请稍后尝试";
   }
 };
