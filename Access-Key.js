@@ -96,7 +96,8 @@ async function verifyKey() {
 
   } catch (error) {
     console.error("验证失败：", error);
-    result.textContent = "验证出错，请稍后再试";
+    result.textContent = "验证出错，请稍后再试\n" + error.message;
+console.error("验证失败：", error);
   }
 }
 
