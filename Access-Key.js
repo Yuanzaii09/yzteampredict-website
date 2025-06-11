@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// 初始化 Firebase
+// Firebase 初始化
 const firebaseConfig = {
   apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
   authDomain: "yzteampredict-store.firebaseapp.com",
@@ -13,31 +13,29 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// 获取设备 ID
 let deviceId = null;
-const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
-  .then(FingerprintJS => FingerprintJS.load())
-  .then(fp => fp.get())
-  .then(result => {
-    deviceId = result.visitorId;
-    console.log("设备 ID:", deviceId);
-  })
-  .catch(err => {
-    console.error("获取设备 ID 失败：", err);
-  });
+const fpPromise = FingerprintJS.load().then(fp => fp.get()).then(result => {
+  deviceId = result.visitorId;
+  console.log("设备 ID 获取成功：", deviceId);
+}).catch(err => {
+  console.error("FingerprintJS 错误：", err);
+});
 
 async function verifyKey() {
-  const key = document.getElementById("keyInput").value.trim();
+  const keyInput = document.getElementById("keyInput");
   const result = document.getElementById("resultMessage");
   result.style.color = "red";
   result.textContent = "";
 
+  const key = keyInput.value.trim();
   if (!key) {
     result.textContent = "请输入密钥";
     return;
   }
 
   if (!deviceId) {
-    result.textContent = "请稍等，正在加载设备信息";
+    result.textContent = "设备信息未加载，请稍后再试";
     return;
   }
 
@@ -52,57 +50,57 @@ async function verifyKey() {
 
     const data = keySnap.data();
     const now = new Date();
-    const nowBeijing = new Date(now.getTime() + 8 * 60 * 60 * 1000);
+    const beijingNow = new Date(now.getTime() + 8 * 60 * 60 * 1000);
 
-    const validFrom = data.validFrom?.toDate?.() ?? null;
-    const isUsed = data.used ?? false;
-    const boundDevice = data.deviceId ?? null;
-    const activatedAt = data.activatedAt?.toDate?.() ?? null;
-    const validDurationDays = data.validDurationDays ?? -1;
+    const validFrom = data.validFrom?.toDate?.();
+    const used = data.used;
+    const boundDevice = data.deviceId;
+    const activatedAt = data.activatedAt?.toDate?.();
+    const validDays = data.validDurationDays;
 
-    if (isUsed && boundDevice && boundDevice !== deviceId) {
+    if (used && boundDevice && boundDevice !== deviceId) {
       result.textContent = "此密钥已绑定其他设备";
       return;
     }
 
-    if (validFrom && nowBeijing < validFrom) {
-      const secondsRemaining = Math.ceil((validFrom - nowBeijing) / 1000);
-      result.textContent = `密钥将在 ${secondsRemaining} 秒后生效`;
+    if (validFrom && beijingNow < validFrom) {
+      const diffSec = Math.floor((validFrom - beijingNow) / 1000);
+      result.textContent = `密钥将在 ${diffSec} 秒后生效`;
       return;
     }
 
-    if (validDurationDays > 0 && activatedAt) {
-      const expireTime = new Date(activatedAt.getTime() + validDurationDays * 86400000);
-      if (nowBeijing > expireTime) {
+    if (validDays > 0 && activatedAt) {
+      const expireAt = new Date(activatedAt.getTime() + validDays * 86400000);
+      if (beijingNow > expireAt) {
         result.textContent = "此密钥已过期";
         return;
       }
     }
 
+    // 首次激活：绑定设备
     if (!boundDevice) {
       await updateDoc(keyRef, {
         used: true,
         deviceId,
         activatedAt: new Date()
       });
+      console.log("首次绑定成功");
     }
 
     result.style.color = "#4CAF50";
     result.textContent = "验证成功，正在跳转...";
+
     setTimeout(() => {
       window.location.href = "index.html";
     }, 1200);
 
   } catch (error) {
-    console.error("验证错误：", error);
-    result.textContent = "验证失败，请稍后再试";
+    console.error("验证失败：", error);
+    result.textContent = "验证出错，请稍后再试";
   }
 }
 
-// ✅ 按钮绑定事件监听（代替 onclick）
+// 按钮绑定监听
 window.addEventListener("DOMContentLoaded", () => {
-  const button = document.getElementById("verifyButton");
-  if (button) {
-    button.addEventListener("click", verifyKey);
-  }
+  document.getElementById("verifyButton").addEventListener("click", verifyKey);
 });
