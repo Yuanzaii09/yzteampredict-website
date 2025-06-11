@@ -54,7 +54,6 @@ window.verifyKey = async function () {
     console.log("密钥数据：", data);
 
     const now = new Date();
-    const nowBeijing = new Date(now.getTime() + 8 * 60 * 60 * 1000);
 
     let validFrom = null;
     if (data.validFrom && typeof data.validFrom.toDate === "function") {
