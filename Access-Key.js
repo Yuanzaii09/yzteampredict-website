@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// Firebase 配置
 const firebaseConfig = {
   apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
   authDomain: "yzteampredict-store.firebaseapp.com",
@@ -14,14 +13,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 加载 FingerprintJS 并获取 deviceId
+// 加载 FingerprintJS（从 HTML script 引入的）
 let deviceId = null;
-const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
-  .then(FingerprintJS => FingerprintJS.load())
-  .then(fp => fp.get())
-  .then(result => {
+FingerprintJS.load().then(fp => {
+  fp.get().then(result => {
     deviceId = result.visitorId;
   });
+});
 
 window.verifyKey = async function () {
   const key = document.getElementById("keyInput").value.trim();
@@ -34,7 +32,10 @@ window.verifyKey = async function () {
     return;
   }
 
-  await fpPromise; // 确保 deviceId 准备好
+  if (!deviceId) {
+    result.textContent = "设备识别中，请稍候再试";
+    return;
+  }
 
   const keyRef = doc(db, "keys", key);
   const keySnap = await getDoc(keyRef);
@@ -61,7 +62,7 @@ window.verifyKey = async function () {
     return;
   }
 
-  // 第一次使用 → 绑定设备ID & 设置为已使用
+  // 首次使用 → 写入设备ID + 设置used
   if (!boundDevice) {
     await updateDoc(keyRef, {
       used: true,
@@ -70,10 +71,9 @@ window.verifyKey = async function () {
     });
   }
 
-  // 密钥验证成功
   result.style.color = "#4CAF50";
   result.textContent = "验证成功，正在跳转...";
   setTimeout(() => {
-    window.location.href = "index.html"; // 跳转主页面
+    window.location.href = "index.html";
   }, 1200);
 };
