@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
   authDomain: "yzteampredict-store.firebaseapp.com",
@@ -14,17 +13,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let deviceId = null;
+let deviceId = "unknown"; // 初始化为字符串，防止 null 导致失败
 
-// 获取设备指纹
+// 获取 FingerprintJS 的设备 ID
 const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
   .then(FingerprintJS => FingerprintJS.load())
   .then(fp => fp.get())
   .then(result => {
-    deviceId = result.visitorId;
+    deviceId = result.visitorId?.toString() || "unknown";
   })
   .catch(err => {
     console.error("设备识别失败：", err);
+    deviceId = "unknown"; // fallback 为 "unknown"
   });
 
 window.verifyKey = async function () {
@@ -52,17 +52,15 @@ window.verifyKey = async function () {
     }
 
     const data = keySnap.data();
-    const boundDevice = data.deviceId || null;
+    const boundDevice = (data.deviceId || "").toString();
     const isUsed = data.used || false;
     const now = new Date();
 
-    // ✅ 检查是否已绑定其他设备
     if (isUsed && boundDevice && boundDevice !== deviceId) {
       result.textContent = "此密钥已被其他设备绑定";
       return;
     }
 
-    // ✅ 检查密钥是否有validFrom和validDurationDays
     const validFrom = data.validFrom?.toDate?.() || null;
     const validDurationDays = data.validDurationDays;
 
@@ -75,23 +73,21 @@ window.verifyKey = async function () {
       ? null
       : new Date(validFrom.getTime() + validDurationDays * 24 * 60 * 60 * 1000);
 
-    // ✅ 密钥未生效
     if (now < validFrom) {
       const secondsLeft = Math.ceil((validFrom - now) / 1000);
       result.textContent = `密钥将在 ${secondsLeft} 秒后生效`;
       return;
     }
 
-    // ✅ 密钥已过期
     if (expireTime && now > expireTime) {
       result.textContent = "此密钥已过期";
       return;
     }
 
-    // ✅ 写入首次绑定设备 & 激活时间
+    // ✅ 更新 Firestore 记录
     await updateDoc(keyRef, {
       used: true,
-      deviceId: boundDevice || deviceId,
+      deviceId: deviceId.toString(),
       activatedAt: now
     });
 
