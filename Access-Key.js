@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// Firebase 初始化
 const firebaseConfig = {
   apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
   authDomain: "yzteampredict-store.firebaseapp.com",
@@ -10,36 +9,38 @@ const firebaseConfig = {
   messagingSenderId: "1072979545774",
   appId: "1:1072979545774:web:e9c13fac268c01f7fde73f"
 };
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 获取设备 ID
 let deviceId = null;
-const fpPromise = FingerprintJS.load().then(fp => fp.get()).then(result => {
-  deviceId = result.visitorId;
-  console.log("设备 ID 获取成功：", deviceId);
-}).catch(err => {
-  console.error("FingerprintJS 错误：", err);
-});
 
-async function verifyKey() {
-  const keyInput = document.getElementById("keyInput");
+const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
+  .then(FingerprintJS => FingerprintJS.load())
+  .then(fp => fp.get())
+  .then(result => {
+    deviceId = result.visitorId;
+    console.log("设备ID获取成功：", deviceId);
+  })
+  .catch(err => {
+    console.error("FingerprintJS 初始化失败", err);
+  });
+
+window.verifyKey = async function () {
+  const key = document.getElementById("keyInput").value.trim();
   const result = document.getElementById("resultMessage");
+
   result.style.color = "red";
   result.textContent = "";
 
-  const key = keyInput.value.trim();
   if (!key) {
     result.textContent = "请输入密钥";
     return;
   }
 
-  if (!deviceId) {
-    result.textContent = "设备信息未加载，请稍后再试";
-    return;
-  }
-
   try {
+    await fpPromise;
+
     const keyRef = doc(db, "keys", key);
     const keySnap = await getDoc(keyRef);
 
@@ -49,42 +50,47 @@ async function verifyKey() {
     }
 
     const data = keySnap.data();
+    console.log("密钥数据：", data);
+
     const now = new Date();
-    const beijingNow = new Date(now.getTime() + 8 * 60 * 60 * 1000);
+    const nowBeijing = new Date(now.getTime() + 8 * 60 * 60 * 1000);
 
-    const validFrom = data.validFrom?.toDate?.();
-    const used = data.used;
-    const boundDevice = data.deviceId;
-    const activatedAt = data.activatedAt?.toDate?.();
-    const validDays = data.validDurationDays;
+    const validFrom = data.validFrom?.toDate ? data.validFrom.toDate() : null;
+    const activatedAt = data.activatedAt?.toDate ? data.activatedAt.toDate() : null;
+    const validDurationDays = typeof data.validDurationDays === "number" ? data.validDurationDays : -1;
 
-    if (used && boundDevice && boundDevice !== deviceId) {
+    const isUsed = data.used;
+    const boundDevice = data.deviceId || null;
+
+    // 检查是否绑定其他设备
+    if (isUsed && boundDevice && boundDevice !== deviceId) {
       result.textContent = "此密钥已绑定其他设备";
       return;
     }
 
-    if (validFrom && beijingNow < validFrom) {
-      const diffSec = Math.floor((validFrom - beijingNow) / 1000);
-      result.textContent = `密钥将在 ${diffSec} 秒后生效`;
+    // 检查是否未到 validFrom 时间
+    if (validFrom && nowBeijing < validFrom) {
+      const diffSeconds = Math.ceil((validFrom - nowBeijing) / 1000);
+      result.textContent = `密钥将在 ${diffSeconds} 秒后生效`;
       return;
     }
 
-    if (validDays > 0 && activatedAt) {
-      const expireAt = new Date(activatedAt.getTime() + validDays * 86400000);
-      if (beijingNow > expireAt) {
-        result.textContent = "此密钥已过期";
+    // 检查是否过期
+    if (validDurationDays > 0 && activatedAt) {
+      const expiryDate = new Date(activatedAt.getTime() + validDurationDays * 24 * 60 * 60 * 1000);
+      if (nowBeijing > expiryDate) {
+        result.textContent = "该密钥已过期";
         return;
       }
     }
 
-    // 首次激活：绑定设备
+    // 首次绑定设备并激活时间
     if (!boundDevice) {
       await updateDoc(keyRef, {
         used: true,
-        deviceId,
+        deviceId: deviceId,
         activatedAt: new Date()
       });
-      console.log("首次绑定成功");
     }
 
     result.style.color = "#4CAF50";
@@ -95,13 +101,7 @@ async function verifyKey() {
     }, 1200);
 
   } catch (error) {
-    console.error("验证失败：", error);
-    result.textContent = "验证出错，请稍后再试\n" + error.message;
-console.error("验证失败：", error);
+    console.error("验证出错：", error);
+    result.textContent = "验证出错，请稍后尝试";
   }
-}
-
-// 按钮绑定监听
-window.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("verifyButton").addEventListener("click", verifyKey);
-});
+};a
