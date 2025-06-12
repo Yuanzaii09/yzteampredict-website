@@ -1,9 +1,10 @@
+// 引入 Firebase SDK（通过模块）
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import {
   getFirestore, doc, getDoc, updateDoc
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-// Firebase 配置（替换为你的配置）
+// Firebase 配置（你的项目配置）
 const firebaseConfig = {
   apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
   authDomain: "yzteampredict-store.firebaseapp.com",
@@ -25,11 +26,11 @@ const fpPromise = import('https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprin
     deviceId = String(result.visitorId);
   });
 
-window.verifyKey = async function () {
+async function verifyKey() {
   const keyInput = document.getElementById("keyInput").value.trim();
   const resultMessage = document.getElementById("resultMessage");
 
-  // Step 1: 检查是否为空
+  // Step 1: 输入为空
   if (!keyInput) {
     resultMessage.textContent = "请输入密钥";
     return;
@@ -40,7 +41,7 @@ window.verifyKey = async function () {
   const keyDocRef = doc(db, "keys", keyInput);
   const keySnap = await getDoc(keyDocRef);
 
-  // Step 2: 密钥不存在
+  // Step 2: 密钥无效
   if (!keySnap.exists()) {
     resultMessage.textContent = "此密钥无效";
     return;
@@ -48,22 +49,22 @@ window.verifyKey = async function () {
 
   const data = keySnap.data();
 
-  // Step 3: 检查是否已被其他设备绑定
+  // Step 3: 密钥已被其他设备绑定
   if (data.deviceId && data.deviceId !== deviceId) {
     resultMessage.textContent = "此密钥已被其他设备绑定";
     return;
   }
 
-  // Step 4: 检查数据结构合法性
+  // Step 4: 检查数据结构
   if (!data.validFrom || typeof data.validDurationDays !== "number") {
     resultMessage.textContent = "密钥数据异常，请联系管理员";
     return;
   }
 
   const now = new Date();
-  const validFrom = data.validFrom.toDate(); // Firestore Timestamp 转 Date
+  const validFrom = data.validFrom.toDate();
 
-  // Step 5: 检查是否生效
+  // Step 5: 检查是否未生效
   if (now < validFrom) {
     const secondsToWait = Math.floor((validFrom - now) / 1000);
     resultMessage.textContent = `密钥将在 ${secondsToWait} 秒后生效`;
@@ -79,16 +80,24 @@ window.verifyKey = async function () {
     }
   }
 
-  // Step 7: 写入 Firestore 绑定信息
+  // Step 7: 写入激活信息
   await updateDoc(keyDocRef, {
     activatedAt: new Date(),
     deviceId: String(deviceId),
     used: true
   });
 
-  // Step 8: 成功提示并跳转
+  // Step 8: 验证成功
   resultMessage.textContent = "验证成功，正在跳转...";
   setTimeout(() => {
     window.location.href = "index.html";
   }, 1000);
-};
+}
+
+// Step 0：绑定按钮点击事件（避免 onclick 无效）
+document.addEventListener("DOMContentLoaded", () => {
+  const button = document.getElementById("verifyButton");
+  if (button) {
+    button.addEventListener("click", verifyKey);
+  }
+});
