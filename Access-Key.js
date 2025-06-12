@@ -1,14 +1,13 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-// ✅ 替换为你自己的 Supabase 项目配置
+// Supabase 配置
 const SUPABASE_URL = 'https://myovkkdrzewrxoeqedyh.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // 省略后半部分以防泄露
-
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // 请使用你自己的 key
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let deviceId = null;
 
-// ✅ 初始化 FingerprintJS 并获取设备 ID
+// 获取 FingerprintJS visitorId
 const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
   .then(FingerprintJS => FingerprintJS.load())
   .then(fp => fp.get())
@@ -27,17 +26,17 @@ window.verifyKey = async function () {
   result.style.color = "red";
   result.textContent = "";
 
-  // ✅ step 1: 检查是否输入
+  // step 1: 检查是否输入密钥
   if (!key) {
     result.textContent = "请输入密钥";
     return;
   }
 
-  // 等待 deviceId 准备好
+  // 等待 deviceId 加载
   await fpPromise;
 
   try {
-    // ✅ step 2: 获取密钥数据
+    // step 2: 查询密钥是否存在
     const { data, error } = await supabase
       .from('keys')
       .select('*')
@@ -49,7 +48,7 @@ window.verifyKey = async function () {
       return;
     }
 
-    // ✅ step 3: 检查是否被其他设备绑定
+    // step 3: 检查是否已绑定其他设备
     const boundDevice = data.deviceId || null;
     const isUsed = data.used || false;
     const now = new Date();
@@ -59,7 +58,7 @@ window.verifyKey = async function () {
       return;
     }
 
-    // ✅ step 4: 检查生效时间和有效期
+    // step 4: 检查是否过期/未生效
     const validFrom = new Date(data.validFrom);
     const validDurationDays = data.validDurationDays;
 
@@ -83,7 +82,7 @@ window.verifyKey = async function () {
       return;
     }
 
-    // ✅ step 5: 写入激活信息到 Supabase
+    // step 5: 更新 Supabase 数据库
     await supabase
       .from('keys')
       .update({
@@ -93,20 +92,18 @@ window.verifyKey = async function () {
       })
       .eq('key', key);
 
-    // ✅ step 6: 成功跳转 + 刷新 access-key 页面
+    // step 6: 显示成功并跳转
     result.style.color = "#4CAF50";
     result.textContent = "验证成功，正在跳转...";
 
     setTimeout(() => {
-      // 打开 index.html
       window.location.href = "index.html";
 
-      // 刷新验证页面（确保“验证成功”文字不残留）
-      setTimeout(() => {
-        window.location.href = "access-key.html";
-        window.location.reload();
-      }, 500);
+      // 🔄 跳转后刷新原验证页面，避免卡住
+      window.opener?.location?.reload();  // 如果是弹窗打开的
+      window.location.replace("access-key.html"); // 自刷新 fallback
     }, 1200);
+
   } catch (err) {
     console.error("验证出错：", err);
     result.textContent = "验证出错，请稍后尝试";
