@@ -5,12 +5,12 @@ import {
 
 // Firebase 配置（替换为你的配置）
 const firebaseConfig = {
-  apiKey: "你的API密钥",
-  authDomain: "你的域名",
-  projectId: "你的项目ID",
-  storageBucket: "你的bucket",
-  messagingSenderId: "发送者ID",
-  appId: "你的appID"
+  apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
+  authDomain: "yzteampredict-store.firebaseapp.com",
+  projectId: "yzteampredict-store",
+  storageBucket: "yzteampredict-store.firebasestorage.app",
+  messagingSenderId: "1072979545774",
+  appId: "1:1072979545774:web:e9c13fac268c01f7fde73f"
 };
 
 const app = initializeApp(firebaseConfig);
