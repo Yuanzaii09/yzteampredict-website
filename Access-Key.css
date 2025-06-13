@@ -38,14 +38,13 @@ input {
 
 /* 按钮 */
 .button {
-    display: inline-block;
     text-align: center;
     margin-top: 10px;
     width: 100%;
     max-width: 350px;
     padding: 10px 0;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: bold;
     background-color: #8A2BE2;
     color: white;
     text-decoration: none;
