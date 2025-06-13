@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>输入密钥</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>输入密钥</title>
 
-  <!-- 加载字体 -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@800&display=swap" rel="stylesheet">
+    <!-- 加载字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@800&display=swap" rel="stylesheet">
 
-  <!-- 正确绑定你的外部 CSS 文件 -->
-  <link rel="stylesheet" href="Access-Key.css" />
+    <!-- 正确绑定你的外部 CSS 文件 -->
+    <link rel="stylesheet" href="Access-Key.css" />
 
-  <!-- FingerprintJS 指纹识别库 -->
-  <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
+    <!-- FingerprintJS 指纹识别库 -->
+    <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
 
-  <!-- 外部 JS 文件（含密钥验证逻辑） -->
-  <script type="module" src="Access-Key.js" defer></script>
+    <!-- 外部 JS 文件（含密钥验证逻辑） -->
+    <script type="module" src="Access-Key.js" defer></script>
 </head>
 
 <body>
-  <div class="bg">
-    <h2>请输入您的密钥</h2>
-    <input type="text" id="keyInput" placeholder="YZTEAM密钥" />
-    <button onclick="verifyKey()">验证密钥</button>
-    <p id="resultMessage"></p>
-  </div>
+    <div class="bg">
+        <h2>请输入您的密钥</h2>
+        <input type="text" id="keyInput" placeholder="YZTEAM密钥" />
+        <button onclick="verifyKey()">验证密钥</button>
+        <p id="resultMessage"></p>
+    </div>
 </body>
+
 </html>
