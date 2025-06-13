@@ -68,22 +68,6 @@ body {
 .back-text span:nth-child(5) { transition-delay: 0.5s; }
 .back-text span:nth-child(6) { transition-delay: 0.6s; }
 
-/* “选择您的计划” 设置 */
-.choose-bg {
-    background-color: #bbb;
-    width: 100%;
-    padding: 5px 0;
-    text-align: center;
-    margin-top: 50px;
-}
-.choose {
-    font-size: 30px;
-    font-weight: 400;
-    color: black;
-    font-family: 'ZCOOL KuaiLe', sans-serif;
-    text-align: center;
-}
-
 /* PLAN STARTER */
 .plan-bg {
     width: 90%;
