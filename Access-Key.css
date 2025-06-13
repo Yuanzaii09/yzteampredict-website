@@ -12,8 +12,7 @@ body {
   background: white;
   padding: 20px 40px 20px 40px;
   border-radius: 30px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  item-align: center;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
   width: 80%;
   max-width: 280px;
