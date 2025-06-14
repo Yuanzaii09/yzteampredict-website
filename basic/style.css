@@ -27,10 +27,10 @@ body {
 
 /* 背景元素设置 */
 .container div:nth-child(1){
-    height: 90%；
-    width: 88%；
+    height: 90%;
+    width: 80%;
     background-color: #ff057c;
-    left： -29%；
+    left: -29%;
     top: -10%;
 }
 .container div:nth-child(2){
@@ -43,7 +43,7 @@ body {
 }
 .container div:nth-child(3){
     height: 65%;
-    width: 88%；
+    width: 88%;
     background-color: #1619b9;
     bottom: -15%;
     right: -20%;
