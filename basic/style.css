@@ -2,6 +2,19 @@ body {
     background-color: #f9fafb;
 }
 
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute; /* 添加这行防止默认框 */
+    pointer-events: none; /* 禁用点击区域响应 */
+}
+
+/* 可选：禁止所有元素的默认 outline，谨慎使用 */
+.switch input:focus {
+    outline: none;
+}
+
 /* 开关外层容器：定位在顶部中间 */
 .toggle-container {
     position: absolute;
