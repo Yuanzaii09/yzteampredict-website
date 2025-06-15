@@ -2,11 +2,6 @@ body {
     background-color: #f9fafb;
 }
 
-.slider {
-    user-select: none;
-    -webkit-tap-highlight-color: transparent; /* 移动端去除点击高亮 */
-}
-a
 /* 开关外层容器：定位在顶部中间 */
 .toggle-container {
     position: absolute;
@@ -56,6 +51,59 @@ a
 
 input:checked + .slider {
     background-color: #4cd964; /* iOS绿色 */
+}
+
+input:checked + .slider::before {
+    transform: translateX(26px);
+}
+
+/* 隐藏 checkbox，但让它仍有切换功能 */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+    pointer-events: none;
+    outline: none;
+}
+
+/* 可选：防止聚焦状态边框 */
+.switch input:focus-visible {
+    outline: none;
+}
+
+/* 开关滑块 */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+
+    user-select: none;
+    -webkit-tap-highlight-color: transparent; /* 去除点击闪色 */
+}
+
+/* 滑块圆点 */
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+/* 开启状态时背景色与滑块位置 */
+input:checked + .slider {
+    background-color: #4cd964;
 }
 
 input:checked + .slider::before {
