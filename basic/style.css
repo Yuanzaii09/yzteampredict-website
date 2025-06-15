@@ -2,6 +2,11 @@ body {
     background-color: #f9fafb;
 }
 
+.slider {
+    user-select: none;
+    -webkit-tap-highlight-color: transparent; /* 移动端去除点击高亮 */
+}
+a
 /* 开关外层容器：定位在顶部中间 */
 .toggle-container {
     position: absolute;
