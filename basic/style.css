@@ -1,76 +1,46 @@
 body {
-    background-color: #f9fafb;
+  margin: 0;
+  background-color: #f9fafb;
 }
 
-/* 顶部居中容器 */
 .toggle-container {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9999;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
 }
 
-/* 真实的 input 被隐藏 */
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    position: absolute;
-    pointer-events: none;
-    appearance: none;
-    -webkit-appearance: none;
-    outline: none;
+.custom-toggle {
+  width: 60px;
+  height: 34px;
+  background-color: #ccc;
+  border-radius: 34px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  -webkit-tap-highlight-color: transparent; /* ✅ 关键：移除 iOS 灰色闪现 */
+  outline: none;
+  border: none;
+  padding: 0;
 }
 
-/* 防止被聚焦后的外框 */
-.switch input:focus,
-.switch input:focus-visible {
-    outline: none;
-    box-shadow: none;
+.custom-toggle::before {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #fff;
+  bottom: 4px;
+  left: 4px;
+  transition: transform 0.3s ease;
 }
 
-/* 外层滑块 */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+.custom-toggle.on {
+  background-color: #4cd964;
 }
 
-/* 滑块背景 */
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 34px;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* 滑块圆点 */
-.slider::before {
-    content: "";
-    position: absolute;
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: 0.4s;
-    border-radius: 50%;
-}
-
-/* 开启状态背景和位置 */
-.switch input:checked + .slider {
-    background-color: #4cd964;
-}
-
-.switch input:checked + .slider::before {
-    transform: translateX(26px);
+.custom-toggle.on::before {
+  transform: translateX(26px);
 }
