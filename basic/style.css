@@ -62,24 +62,27 @@ body {
   transform: translateX(26px);
 }
 
-/* ✅ 状态切换时 icon 发光、变亮 */
+/* 初始状态，图标都暗 */
+.icon-left,
+.icon-right {
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
 
-/* toggle = ON 时右边亮 */
-.custom-toggle.on ~ .icon-right {
+/* 开启时，右边亮，左边暗 */
+.toggle-container.on .icon-right {
   opacity: 1;
 }
 
-/* toggle = ON 时左边暗 */
-.custom-toggle.on ~ .icon-left {
+.toggle-container.on .icon-left {
   opacity: 0.5;
 }
 
-/* toggle = OFF 时左边亮 */
-.custom-toggle:not(.on) ~ .icon-left {
+/* 关闭时，左边亮，右边暗 */
+.toggle-container:not(.on) .icon-left {
   opacity: 1;
 }
 
-/* toggle = OFF 时右边暗 */
-.custom-toggle:not(.on) ~ .icon-right {
+.toggle-container:not(.on) .icon-right {
   opacity: 0.5;
 }
