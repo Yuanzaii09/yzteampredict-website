@@ -22,6 +22,11 @@ body {
   height: 34px;
   object-fit: cover;
   border-radius: 50%;
+
+  /* 👇 新增：统一基础视觉 */
+  opacity: 0.5;
+  filter: brightness(0.8) drop-shadow(0 0 0 transparent);
+  transition: all 0.3s ease;
 }
 
 .custom-toggle {
@@ -56,4 +61,30 @@ body {
 
 .custom-toggle.on::before {
   transform: translateX(26px);
+}
+
+/* ✅ 状态切换时 icon 发光、变亮 */
+
+/* toggle = ON 时右边亮 */
+.custom-toggle.on ~ .icon-right {
+  opacity: 1;
+  filter: brightness(1.2) drop-shadow(0 0 6px rgba(255, 204, 0, 0.6));
+}
+
+/* toggle = ON 时左边暗 */
+.custom-toggle.on ~ .icon-left {
+  opacity: 0.5;
+  filter: brightness(0.8) drop-shadow(0 0 0 transparent);
+}
+
+/* toggle = OFF 时左边亮 */
+.custom-toggle:not(.on) ~ .icon-left {
+  opacity: 1;
+  filter: brightness(1.2) drop-shadow(0 0 6px rgba(173, 216, 230, 0.6));
+}
+
+/* toggle = OFF 时右边暗 */
+.custom-toggle:not(.on) ~ .icon-right {
+  opacity: 0.5;
+  filter: brightness(0.8) drop-shadow(0 0 0 transparent);
 }
