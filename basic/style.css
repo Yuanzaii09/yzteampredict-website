@@ -3,7 +3,7 @@ body {
     background-image: url("images/body.png");
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     font-family: sans-serif;
 }
 
