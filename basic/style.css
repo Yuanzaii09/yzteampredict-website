@@ -25,7 +25,6 @@ body {
 
   /* 👇 新增：统一基础视觉 */
   opacity: 0.5;
-  filter: brightness(0.8) drop-shadow(0 0 0 transparent);
   transition: all 0.3s ease;
 }
 
