@@ -1,6 +1,7 @@
 body {
   margin: 0;
-  background-color: #f9fafb;
+  background-color: #f5f5f5;
+  font-family: sans-serif;
 }
 
 .toggle-container {
@@ -9,6 +10,16 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 999;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-left, .icon-right {
+  width: 24px;
+  height: 24px;
+  user-select: none;
 }
 
 .custom-toggle {
@@ -19,7 +30,7 @@ body {
   position: relative;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  -webkit-tap-highlight-color: transparent; /* ✅ 关键：移除 iOS 灰色闪现 */
+  -webkit-tap-highlight-color: transparent;
   outline: none;
   border: none;
   padding: 0;
