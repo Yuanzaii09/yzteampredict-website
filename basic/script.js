@@ -1,7 +1,9 @@
-const toggleBtn = document.getElementById('toggleBtn');
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.getElementById('toggleBtn');
+  const container = document.querySelector('.toggle-container');
 
-toggleBtn.addEventListener('click', () => {
-  toggleBtn.classList.toggle('on');
-  const isOn = toggleBtn.classList.contains('on');
-  console.log('Toggle state:', isOn ? '开启' : '关闭');
+  toggleBtn.addEventListener('click', () => {
+    toggleBtn.classList.toggle('on');
+    container.classList.toggle('on');
+  });
 });
