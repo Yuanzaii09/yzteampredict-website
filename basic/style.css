@@ -1,89 +1,88 @@
 body {
-  margin: 0;
-  background-color: #f5f5f5;
-  font-family: sans-serif;
+    margin: 0;
+    background-color: #f5f5f5;
+    font-family: sans-serif;
 }
 
 .toggle-container {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .icon-left,
 .icon-right {
-  width: 34px;
-  height: 34px;
-  object-fit: cover;
-  border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    object-fit: cover;
+    border-radius: 50%;
 
-  /* 👇 新增：统一基础视觉 */
-  opacity: 0.5;
-  transition: all 0.3s ease;
+    opacity: 0.5;
+    transition: all 0.3s ease;
 }
 
 .custom-toggle {
-  width: 60px;
-  height: 34px;
-  background-color: #ff5050;
-  border-radius: 34px;
-  position: relative;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-  border: none;
-  padding: 0;
+    width: 60px;
+    height: 34px;
+    background-color: #ff5050;
+    border-radius: 34px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
 }
 
 .custom-toggle::before {
-  content: "";
-  position: absolute;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background-color: #fff;
-  bottom: 4px;
-  left: 4px;
-  transition: transform 0.3s ease;
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #fff;
+    bottom: 4px;
+    left: 4px;
+    transition: transform 0.3s ease;
 }
 
 .custom-toggle.on {
-  background-color: #ff5050;
+    background-color: #ff5050;
 }
 
 .custom-toggle.on::before {
-  transform: translateX(26px);
+    transform: translateX(26px);
 }
 
 /* 初始状态，图标都暗 */
 .icon-left,
 .icon-right {
-  opacity: 0.5;
-  transition: all 0.3s ease;
+    opacity: 0.5;
+    transition: all 0.3s ease;
 }
 
 /* 开启时，右边亮，左边暗 */
 .toggle-container.on .icon-right {
-  opacity: 1;
+    opacity: 1;
 }
 
 .toggle-container.on .icon-left {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 /* 关闭时，左边亮，右边暗 */
 .toggle-container:not(.on) .icon-left {
-  opacity: 1;
+    opacity: 1;
 }
 
 .toggle-container:not(.on) .icon-right {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 /* WINGO TYPE CSS CODE */
@@ -117,20 +116,20 @@ body {
     overflow: hidden;
 }
 .bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 0;
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
 }
 .bg {
-  position: relative;
-  z-index: 1;
+    position: relative;
+    z-index: 1;
 }
 
 .bg * {
-  position: relative;
-  z-index: 1;
+    position: relative;
+    z-index: 1;
 }
 
 /* ALL-TITLE */
