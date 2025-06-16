@@ -69,7 +69,6 @@ body {
     height: 34px;
     object-fit: cover;
     border-radius: 50%;
-    filter: brightness(0.5);
     opacity: 0.5;
     transition: all 0.3s ease;
 }
