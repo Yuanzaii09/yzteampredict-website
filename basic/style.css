@@ -105,7 +105,8 @@ body {
     background-size: cover;                 /* ✅ 图片铺满整个容器 */
     background-position: center;           /* ✅ 居中显示 */
     background-repeat: no-repeat;          /* ✅ 不重复 */
-
+    background: rgba(0, 0, 0, 0.4);
+    
     border-radius: 50px;
     margin: 30px auto;
     text-align: center;
