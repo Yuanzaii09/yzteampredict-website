@@ -1,20 +1,23 @@
+/* 默认设为手机背景图（适用于大多数移动设备） */
 body {
     margin: 0;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    background-image: url("images/bg169.png"); /* 默认电脑背景图 */
+    background-image: url("images/bg916.png"); /* 默认设为手机背景图 */
 }
-/* 手机竖屏（宽度 ≤ 480px） */
-@media (max-width: 480px) {
-    body {
-        background-image: url("images/bg916.png");
-    }
-}
+
 /* 平板设备（宽度 481px - 1024px） */
 @media (min-width: 481px) and (max-width: 1024px) {
     body {
         background-image: url("images/bg43.png");
+    }
+}
+
+/* 电脑设备（宽度 > 1024px） */
+@media (min-width: 1025px) {
+    body {
+        background-image: url("images/bg169.png");
     }
 }
 
