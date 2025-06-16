@@ -7,18 +7,6 @@ body {
     background-color: #000;
     height: 100vh;
 }
-/* 手机竖屏 */
-@media (max-width: 480px) {
-    body {
-        background-size: cover;
-    }
-}
-/* 平板横屏或电脑 */
-@media (min-width: 481px) {
-    body {
-        background-size: contain;
-    }
-}
 
 .toggle-container {
     position: absolute;
