@@ -92,6 +92,10 @@ body {
 /* WINGO TYPE CSS CODE */
 /* WINGO TYPE CSS CODE */
 
+.wingo {
+    margin: 20px 0
+}
+
 /* ALL-TITLE */
 .title {
     font-size: 20px;
