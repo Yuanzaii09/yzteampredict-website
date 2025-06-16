@@ -62,38 +62,29 @@ body {
     transform: translateX(26px);
 }
 
-/* 默认图标状态：暗 + 滤镜 */
+/* 初始状态，图标都暗 */
 .icon-left,
 .icon-right {
-    width: 34px;
-    height: 34px;
-    object-fit: cover;
-    border-radius: 50%;
-    filter: brightness(0.5);
     opacity: 0.5;
     transition: all 0.3s ease;
 }
 
-/* 开启状态：右亮，左暗 */
+/* 开启时，右边亮，左边暗 */
 .toggle-container.on .icon-right {
-    opacity: 1;
-    filter: none;
+    opacity: 1;
 }
 
 .toggle-container.on .icon-left {
-    opacity: 0.5;
-    filter: brightness(0.5);
+    opacity: 0.5;
 }
 
-/* 关闭状态：左亮，右暗 */
+/* 关闭时，左边亮，右边暗 */
 .toggle-container:not(.on) .icon-left {
-    opacity: 1;
-    filter: none;
+    opacity: 1;
 }
 
 .toggle-container:not(.on) .icon-right {
-    opacity: 0.5;
-    filter: brightness(0.5);
+    opacity: 0.5;
 }
 
 /* WINGO TYPE CSS CODE */
