@@ -16,10 +16,11 @@ body {
   gap: 12px;
 }
 
-.icon-left, .icon-right {
-  width: 24px;
-  height: 24px;
-  user-select: none;
+.icon-left,
+.icon-right {
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
 }
 
 .custom-toggle {
