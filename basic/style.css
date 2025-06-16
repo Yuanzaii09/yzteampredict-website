@@ -139,6 +139,7 @@ body {
     border-bottom: 3px solid #ff0000;
     margin-bottom: 0;
     color: #fff;
+    shadow: #000;
     display: inline-block;
 }
 
@@ -149,4 +150,5 @@ body {
     font-family: 'Noto Sans SC', sans-serif;
     margin-top: 4px;
     color: #fff;
+    shadow: #000;
 }
