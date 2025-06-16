@@ -27,7 +27,7 @@ body {
 .custom-toggle {
   width: 60px;
   height: 34px;
-  background-color: #ccc;
+  background-color: #ff5050;
   border-radius: 34px;
   position: relative;
   cursor: pointer;
@@ -51,7 +51,7 @@ body {
 }
 
 .custom-toggle.on {
-  background-color: #4cd964;
+  background-color: #ff5050;
 }
 
 .custom-toggle.on::before {
