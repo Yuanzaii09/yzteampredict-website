@@ -120,8 +120,17 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5); /*
+  background: rgba(0, 0, 0, 0.5);
   z-index: 0;
+}
+.bg {
+  position: relative;
+  z-index: 1;
+}
+
+.bg * {
+  position: relative;
+  z-index: 1;
 }
 
 /* ALL-TITLE */
