@@ -74,7 +74,7 @@ body {
     transform: translateX(26px);
 }
 
-/* 初始状态*/
+/* 默认图标状态：暗 + 滤镜 */
 .icon-left,
 .icon-right {
     opacity: 0.5;
@@ -82,28 +82,28 @@ body {
     transition: all 0.3s ease;
 }
 
-.toggle-container.on .icon-left,
-.toggle-container.on .icon-right {
-    filter: none;
-}
-
-/* 开启时，右边亮，左边暗 */
+/* 开启状态：右亮，左暗（滤镜移除） */
 .toggle-container.on .icon-right {
     opacity: 1;
+    filter: none;
 }
 
 .toggle-container.on .icon-left {
     opacity: 0.5;
+    filter: none;
 }
 
-/* 关闭时，左边亮，右边暗 */
+/* 关闭状态：左亮，右暗（滤镜移除） */
 .toggle-container:not(.on) .icon-left {
     opacity: 1;
+    filter: none;
 }
 
 .toggle-container:not(.on) .icon-right {
     opacity: 0.5;
+    filter: none;
 }
+
 /* WINGO TYPE CSS CODE */
 /* WINGO TYPE CSS CODE */
 /* WINGO TYPE CSS CODE */
