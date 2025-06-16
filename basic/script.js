@@ -1,9 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const toggleBtn = document.getElementById('toggleBtn');
-  const container = document.querySelector('.toggle-container');
+const toggleBtn = document.getElementById("toggleBtn");
+const toggleContainer = document.querySelector(".toggle-container");
 
-  toggleBtn.addEventListener('click', () => {
-    toggleBtn.classList.toggle('on');
-    container.classList.toggle('on');
-  });
+toggleBtn.addEventListener("click", () => {
+    toggleContainer.classList.toggle("on");
 });
