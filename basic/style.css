@@ -29,17 +29,6 @@ body {
     gap: 12px;
 }
 
-.icon-left,
-.icon-right {
-    width: 34px;
-    height: 34px;
-    object-fit: cover;
-    border-radius: 50%;
-
-    opacity: 0.5;
-    transition: all 0.3s ease;
-}
-
 .custom-toggle {
     width: 60px;
     height: 34px;
@@ -66,20 +55,20 @@ body {
     transition: transform 0.3s ease;
 }
 
-.custom-toggle.on {
-    background-color: #ff5050;
-}
-
-.custom-toggle.on::before {
+.toggle-container.on .custom-toggle::before {
     transform: translateX(26px);
 }
 
 /* 默认图标状态：暗 + 滤镜 */
 .icon-left,
 .icon-right {
-    opacity: 0.5;
-    filter: brightness(0.4);
-    transition: all 0.3s ease;
+    width: 34px;
+    height: 34px;
+    object-fit: cover;
+    border-radius: 50%;
+    filter: brightness(0.5);
+    opacity: 0.5;
+    transition: all 0.3s ease;
 }
 
 /* 开启状态：右亮，左暗 */
