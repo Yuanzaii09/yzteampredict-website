@@ -104,7 +104,6 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    
     border-radius: 50px;
     margin: 30px auto;
     text-align: center;
@@ -118,7 +117,7 @@ body {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 0;
 }
 .bg {
