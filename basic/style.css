@@ -82,7 +82,7 @@ body {
     transition: all 0.3s ease;
 }
 
-/* 开启状态：右亮，左暗（滤镜移除） */
+/* 开启状态：右亮，左暗 */
 .toggle-container.on .icon-right {
     opacity: 1;
     filter: none;
@@ -93,7 +93,7 @@ body {
     filter: none;
 }
 
-/* 关闭状态：左亮，右暗（滤镜移除） */
+/* 关闭状态：左亮，右暗 */
 .toggle-container:not(.on) .icon-left {
     opacity: 1;
     filter: none;
