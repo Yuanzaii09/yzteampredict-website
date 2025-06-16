@@ -68,7 +68,7 @@ body {
 /* toggle = ON 时右边亮 */
 .custom-toggle.on ~ .icon-right {
   opacity: 1;
-  filter: brightness(1.2) drop-shadow(0 0 6px rgba(255, 204, 0, 0.6));
+  filter: brightness(1.2) drop-shadow(0 0 6px rgba(255, 50, 50, 0.5));
 }
 
 /* toggle = ON 时左边暗 */
@@ -80,7 +80,7 @@ body {
 /* toggle = OFF 时左边亮 */
 .custom-toggle:not(.on) ~ .icon-left {
   opacity: 1;
-  filter: brightness(1.2) drop-shadow(0 0 6px rgba(173, 216, 230, 0.6));
+  filter: brightness(1.2) drop-shadow(0 0 6px rgba(255, 50, 50, 0.5));
 }
 
 /* toggle = OFF 时右边暗 */
