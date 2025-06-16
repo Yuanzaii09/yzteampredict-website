@@ -1,16 +1,12 @@
+/* 默认设为手机背景图（适用于大多数移动设备） */
 body {
     margin: 0;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    background-image: url("images/bg169.png"); /* 默认电脑背景图 */
+    background-image: url("images/bg916.png"); /* 默认设为手机背景图 */
 }
-/* 手机竖屏（宽度 ≤ 480px） */
-@media (max-width: 480px) {
-    body {
-        background-image: url("images/bg916.png");
-    }
-}
+
 /* 平板设备（宽度 481px - 1024px） */
 @media (min-width: 481px) and (max-width: 1024px) {
     body {
@@ -18,57 +14,66 @@ body {
     }
 }
 
-.toggle-container {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+/* 电脑设备（宽度 > 1024px） */
+@media (min-width: 1025px) {
+    body {
+        background-image: url("images/bg169.png");
+    }
 }
 
+/* Toggle容器样式 */
+.toggle-container {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* 图标基础样式 */
+.icon-left,
+.icon-right {
+    width: 34px;
+    height: 34px;
+    object-fit: cover;
+    border-radius: 50%;
+    filter: brightness(0.5);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+/* 按钮样式 */
 .custom-toggle {
-    width: 60px;
-    height: 34px;
-    background-color: #ff5050;
-    border-radius: 34px;
-    position: relative;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    -webkit-tap-highlight-color: transparent;
-    outline: none;
-    border: none;
-    padding: 0;
+    width: 60px;
+    height: 34px;
+    background-color: #ff5050;
+    border-radius: 34px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
 }
 
 .custom-toggle::before {
-    content: "";
-    position: absolute;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background-color: #fff;
-    bottom: 4px;
-    left: 4px;
-    transition: transform 0.3s ease;
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #fff;
+    bottom: 4px;
+    left: 4px;
+    transition: transform 0.3s ease;
 }
 
 .toggle-container.on .custom-toggle::before {
-    transform: translateX(26px);
-}
-
-/* 默认图标状态：暗 + 滤镜 */
-.icon-left,
-.icon-right {
-    width: 34px;
-    height: 34px;
-    object-fit: cover;
-    border-radius: 50%;
-    filter: brightness(0.5);
-    opacity: 0.5;
-    transition: all 0.3s ease;
+    transform: translateX(26px);
 }
 
 /* 开启状态：右亮，左暗 */
@@ -93,63 +98,54 @@ body {
     filter: none;
 }
 
-/* WINGO TYPE CSS CODE */
-/* WINGO TYPE CSS CODE */
-/* WINGO TYPE CSS CODE */
-/* WINGO TYPE CSS CODE */
-/* WINGO TYPE CSS CODE */
-
+/* WINGO内容整体 */
 .wingo {
-    margin-top: 80px;
+    margin-top: 80px;
 }
 
-/* WINGO BACKGROUND */
+/* WINGO 背景盒 */
 .bg {
-    width: 80%;
-    max-width: 360px;
-    height: auto;
-    background-image: url("images/bg.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 50px;
-    margin: 30px auto;
-    text-align: center;
-    padding: 20px 20px 10px 20px;
-    color: #333;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
-    position: relative;
-    overflow: hidden;
-}
-
-.bg {
-    position: relative;
-    z-index: 1;
+    width: 80%;
+    max-width: 360px;
+    height: auto;
+    background-image: url("images/bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50px;
+    margin: 30px auto;
+    text-align: center;
+    padding: 20px 20px 10px 20px;
+    color: #333;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 
 .bg * {
-    position: relative;
-    z-index: 1;
+    position: relative;
+    z-index: 1;
 }
 
-/* ALL-TITLE */
+/* 标题 */
 .title {
-    font-size: 20px;
-    font-weight: 800;
-    font-family: 'Noto Sans SC', sans-serif;
-    border-bottom: 3px solid #aaa;
-    margin-bottom: 0;
-    color: #fff;
-    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
-    display: inline-block;
+    font-size: 20px;
+    font-weight: 800;
+    font-family: 'Noto Sans SC', sans-serif;
+    border-bottom: 3px solid #aaa;
+    margin-bottom: 0;
+    color: #fff;
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+    display: inline-block;
 }
 
-/* ALL-SUBTITLE */
+/* 副标题 */
 .subtitle {
-    font-size: 30px;
-    font-weight: 800;
-    font-family: 'Noto Sans SC', sans-serif;
-    margin-top: 4px;
-    color: #fff;
-    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+    font-size: 30px;
+    font-weight: 800;
+    font-family: 'Noto Sans SC', sans-serif;
+    margin-top: 4px;
+    color: #fff;
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
 }
