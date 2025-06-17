@@ -109,7 +109,7 @@ body {
 }
 
 .custom-toggle.on {
-    background-color: #ff5050;
+    background-color: #70ff70;
 }
 
 .toggle-container.on .custom-toggle::before {
