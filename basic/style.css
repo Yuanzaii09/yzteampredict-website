@@ -19,6 +19,8 @@ body {
 
 .toggle-container {
     background-color: black;
+    opacity: 40%;
+    padding: 5px 5px;
     border-radius: 20px;
     width: auto;
     height: auto;
@@ -38,7 +40,7 @@ body {
     height: 34px;
     object-fit: cover;
     border-radius: 50%;
-    opacity: 0.5;
+    opacity: 0.5 !important;
     transition: all 0.3s ease;
 }
 
@@ -46,6 +48,7 @@ body {
     width: 60px;
     height: 34px;
     background-color: #ff5050;
+    opacity: 1 !important;
     border-radius: 34px;
     position: relative;
     cursor: pointer;
@@ -63,6 +66,7 @@ body {
     height: 26px;
     border-radius: 50%;
     background-color: #fff;
+    opacity: 1 !important;
     bottom: 4px;
     left: 4px;
     transition: transform 0.3s ease;
@@ -78,20 +82,20 @@ body {
 
 /* 开启状态：右亮，左暗 */
 .toggle-container.on .icon-right {
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 .toggle-container.on .icon-left {
-    opacity: 0.4;
+    opacity: 0.4 !important;
 }
 
 /* 关闭状态：左亮，右暗 */
 .toggle-container:not(.on) .icon-left {
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 .toggle-container:not(.on) .icon-right {
-    opacity: 0.4;
+    opacity: 0.4 !important;
 }
 
 /* WINGO TYPE CSS CODE */
