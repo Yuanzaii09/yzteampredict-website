@@ -78,7 +78,7 @@ body {
 }
 
 .toggle-container.on .icon-left {
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 /* 关闭状态：左亮，右暗 */
@@ -87,7 +87,7 @@ body {
 }
 
 .toggle-container:not(.on) .icon-right {
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 /* WINGO TYPE CSS CODE */
