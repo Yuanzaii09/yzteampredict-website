@@ -171,7 +171,6 @@ body {
     border-bottom: 3px solid #aaa;
     margin-bottom: 0;
     color: #fff;
-    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
     display: inline-block;
 }
 
@@ -182,5 +181,4 @@ body {
     font-family: 'lm-medium', sans-serif;
     margin-top: 4px;
     color: #fff;
-    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
 }
