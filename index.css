@@ -190,7 +190,6 @@ body {
 /* 所有PLAN标题 */
 .plan-title {
     font-size: 28px;
-    font-weight: 600;
     margin-bottom: 20px;
     font-family: 'lm-medium', sans-serif;
     font-weight: 800;
@@ -204,7 +203,7 @@ body {
     gap: 5px;
     font-size: 16px;
     color: #666;
-    font-weight: 400;
+    font-weight: 800;
     font-family: 'Noto-Sans', sans-serif;
     margin: 5px 0;
 }
@@ -218,7 +217,7 @@ body {
     max-width: 350px;
     padding: 10px 0;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 800;
     background-color: #8A2BE2;
     color: white;
     text-decoration: none;
