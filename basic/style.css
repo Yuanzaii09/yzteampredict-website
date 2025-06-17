@@ -26,8 +26,8 @@ body {
     display: flex;
     justify-content: center;
     gap: 4px;
-    position: relative;   /* 加这个 */
-    z-index: 1001;         /* 高于 toggle 的 999 */
+    position: relative;
+    z-index: 1001;
 }
 
 .logo span {
@@ -63,12 +63,19 @@ body {
     top: 80px;
     left: 50%;
     transform: translateX(-50%);
+    transform: translateY(-20px);
     z-index: 999;
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
+}
+@keyframes dropIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* 左右图标设置 */
