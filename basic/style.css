@@ -52,7 +52,7 @@ body {
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
     width: auto;
     height: auto;
-    position: absolute;
+    position: relative;
     top: 60px;
     left: 50%;
     transform: translateX(-50%);
