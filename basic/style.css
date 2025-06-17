@@ -63,20 +63,12 @@ body {
     top: 80px;
     left: 50%;
     transform: translateX(-50%);
-    transform: translateY(-20px);
-    opacity: 0;
     z-index: 999;
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-}
-@keyframes dropIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 /* 左右图标设置 */
