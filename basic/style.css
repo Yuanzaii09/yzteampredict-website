@@ -188,6 +188,7 @@ body {
     padding: 10px 20px;
     font-size: 16px;
     font-family: 'lm-medium', sans-serif;
+    text-decoration: none;
     color: #000;
     background-color: #eee;
     border-radius: 25px;
