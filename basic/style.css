@@ -18,7 +18,10 @@ body {
     margin-bottom: 20px;
     color: #333;
     display: flex;
-    gap: 4px; /* 字之间间隔（可选） */
+    justify-content: center;
+    gap: 4px;
+    position: relative;   /* 加这个 */
+    z-index: 1001;         /* 高于 toggle 的 999 */
 }
 
 .logo span {
