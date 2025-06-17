@@ -1,7 +1,20 @@
-/* 默认设为手机背景图（适用于大多数移动设备） */
 body {
-    margin: 0;
-    background-color: #fff;
+    margin: 0;
+    background-color: #ffffff; /* 改为白色背景 */
+}
+
+/* 平板设备（宽度 481px - 1024px） */
+@media (min-width: 481px) and (max-width: 1024px) {
+    body {
+        background-color: #ffffff;
+    }
+}
+
+/* 电脑设备（宽度 ≥ 1025px） */
+@media (min-width: 1025px) {
+    body {
+        background-color: #ffffff;
+    }
 }
 
 .toggle-container {
@@ -13,6 +26,16 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
+}
+
+.icon-left,
+.icon-right {
+    width: 34px;
+    height: 34px;
+    object-fit: cover;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: all 0.3s ease;
 }
 
 .custom-toggle {
@@ -41,22 +64,15 @@ body {
     transition: transform 0.3s ease;
 }
 
-.toggle-container.on .custom-toggle::before {
+.custom-toggle.on {
+    background-color: #ff5050;
+}
+
+.custom-toggle.on::before {
     transform: translateX(26px);
 }
 
-/* ICON图标样式 */
-.icon-left,
-.icon-right {
-    width: 34px;
-    height: 34px;
-    object-fit: cover;
-    border-radius: 50%;
-    opacity: 0.5;
-    transition: all 0.3s ease;
-}
-
-/* 开启时，右边亮，左边暗 */
+/* 开启状态：右亮，左暗 */
 .toggle-container.on .icon-right {
     opacity: 1;
 }
@@ -65,7 +81,7 @@ body {
     opacity: 0.5;
 }
 
-/* 关闭时，左边亮，右边暗 */
+/* 关闭状态：左亮，右暗 */
 .toggle-container:not(.on) .icon-left {
     opacity: 1;
 }
@@ -75,11 +91,6 @@ body {
 }
 
 /* WINGO TYPE CSS CODE */
-/* WINGO TYPE CSS CODE */
-/* WINGO TYPE CSS CODE */
-/* WINGO TYPE CSS CODE */
-/* WINGO TYPE CSS CODE */
-
 .wingo {
     margin-top: 80px;
 }
@@ -101,10 +112,6 @@ body {
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
-}
-
-.bg {
-    position: relative;
     z-index: 1;
 }
 
