@@ -5,7 +5,7 @@ body {
 
 /* TOGGLE容器 */
 .toggle-container {
-    background-color: grey;
+    background-color: light-grey;
     padding: 5px 5px;
     border-radius: 20px;
     width: auto;
