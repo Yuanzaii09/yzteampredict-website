@@ -188,14 +188,14 @@ body {
     padding: 10px 20px;
     font-size: 16px;
     font-family: 'lm-medium', sans-serif;
-    color: #fff;
+    color: #000;
     background-color: #eee;
-    text-decoration: none;
-    border-radius: 50%;
+    border-radius: 25px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 .enter-btn:active {
-    background-color: #bbb;
+    background-color: #aaa;
+    color: #fff;
     transform: scale(0.95);
 }
