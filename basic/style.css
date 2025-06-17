@@ -137,7 +137,6 @@ body {
 /* CATEGORIES CSS */
 .cate {
     margin-top: 100px;
-    font-family: 'theboldfont', sans-serif;
 }
 
 /* WINGO BACKGROUND */
@@ -168,7 +167,7 @@ body {
 .title {
     font-size: 20px;
     font-weight: 800;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'theboldfont', sans-serif;
     border-bottom: 3px solid #aaa;
     margin-bottom: 0;
     color: #fff;
@@ -180,7 +179,7 @@ body {
 .subtitle {
     font-size: 30px;
     font-weight: 800;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'theboldfont', sans-serif;
     margin-top: 4px;
     color: #fff;
     text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
