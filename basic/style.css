@@ -79,7 +79,7 @@ body {
     object-fit: cover;
     border-radius: 50%;
     opacity: 0.25;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .custom-toggle {
@@ -89,7 +89,7 @@ body {
     border-radius: 34px;
     position: relative;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease;
     -webkit-tap-highlight-color: transparent;
     outline: none;
     border: none;
@@ -105,7 +105,7 @@ body {
     background-color: #fff;
     bottom: 4px;
     left: 4px;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
 .custom-toggle.on {
@@ -122,7 +122,7 @@ body {
 }
 
 .toggle-container.on .icon-left {
-    opacity: 0.25;
+    opacity: 0.2;
 }
 
 /* 关闭状态：左亮，右暗 */
@@ -131,7 +131,7 @@ body {
 }
 
 .toggle-container:not(.on) .icon-right {
-    opacity: 0.25;
+    opacity: 0.2;
 }
 
 /* CATEGORIES CSS */
