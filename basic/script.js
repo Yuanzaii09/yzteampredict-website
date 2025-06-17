@@ -1,6 +1,6 @@
-const toggleBtn = document.getElementById("toggleBtn");
-const toggleContainer = document.querySelector(".toggle-container");
+const toggleContainer = document.querySelector('.toggle-container');
+const toggleButton = document.querySelector('.custom-toggle');
 
-toggleBtn.addEventListener("click", () => {
-    toggleContainer.classList.toggle("on");
+toggleButton.addEventListener('click', () => {
+    toggleContainer.classList.toggle('on');
 });
