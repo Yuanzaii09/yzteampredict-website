@@ -184,7 +184,7 @@ body {
 }
 
 /* ENTER-BUTTON */
-.custom-button {
+.enter-btn {
     display: inline-block;
     margin-top: 10px;
     padding: 10px 20px;
@@ -197,7 +197,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
-.custom-button:hover {
+.enter-btn:hover {
     background-color: #0056b3;
     transform: scale(0.95);
 }
