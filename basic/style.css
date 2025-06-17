@@ -8,6 +8,7 @@ body {
     background-color: #eee;
     padding: 5px 5px;
     border-radius: 25px;
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.4);
     width: auto;
     height: auto;
     position: absolute;
