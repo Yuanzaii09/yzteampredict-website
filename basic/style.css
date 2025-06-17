@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: #ffffff; /* 改为白色背景 */
+    background-color: #ffffff;
 }
 
 /* TOGGLE容器 */
@@ -20,6 +20,7 @@ body {
     gap: 12px;
 }
 
+/* 左右图标设置 */
 .icon-left,
 .icon-right {
     width: 34px;
