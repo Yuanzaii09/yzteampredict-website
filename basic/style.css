@@ -11,10 +11,11 @@ body {
 }
 
 .header {
-    width: 100%;
-    height: 100vh;
-    background: #FFFFFF;
-    margin-top: 25px;
+    margin: auto;
+    width: fit-content;
+    text-align: center;
+    position: relative;
+    margin-top: 50px;
 }
 
 /* “YZTEAM” 设置 & 动画 */
