@@ -177,7 +177,6 @@ body {
 /* ALL-SUBTITLE */
 .subtitle {
     font-size: 30px;
-    font-weight: 800;
     font-family: 'lm-medium', sans-serif;
     margin-top: 4px;
     color: #fff;
@@ -186,18 +185,17 @@ body {
 /* ENTER-BUTTON */
 .enter-btn {
     display: inline-block;
-    margin-top: 10px;
     padding: 10px 20px;
     font-size: 16px;
-    font-weight: bold;
+    font-family: 'lm-medium', sans-serif;
     color: #fff;
-    background-color: #007BFF;
+    background-color: #eee;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
-.enter-btn:hover {
-    background-color: #0056b3;
+.enter-btn:active {
+    background-color: #bbb;
     transform: scale(0.95);
 }
