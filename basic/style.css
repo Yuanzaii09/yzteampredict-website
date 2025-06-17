@@ -10,8 +10,8 @@ body {
     font-style: normal;
 }
 @font-face {
-    font-family: 'theboldfont';
-    src: url('fonts/theboldfont.ttf') format('truetype');
+    font-family: 'lm-medium';
+    src: url('fonts/lm-medium.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -167,7 +167,7 @@ body {
 .title {
     font-size: 20px;
     font-weight: 800;
-    font-family: 'theboldfont', sans-serif;
+    font-family: 'lm-medium', sans-serif;
     border-bottom: 3px solid #aaa;
     margin-bottom: 0;
     color: #fff;
@@ -179,7 +179,7 @@ body {
 .subtitle {
     font-size: 30px;
     font-weight: 800;
-    font-family: 'theboldfont', sans-serif;
+    font-family: 'lm-medium', sans-serif;
     margin-top: 4px;
     color: #fff;
     text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
