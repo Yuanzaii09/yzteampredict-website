@@ -18,6 +18,11 @@ body {
 }
 
 .toggle-container {
+    background-color: black;
+    border-radius: 50%;
+    opacity: 40%;
+    width: auto;
+    height: auto;
     position: absolute;
     top: 20px;
     left: 50%;
