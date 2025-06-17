@@ -28,7 +28,7 @@ body {
     height: 34px;
     object-fit: cover;
     border-radius: 50%;
-    opacity: 0.5;
+    opacity: 0.25;
     transition: all 0.3s ease;
 }
 
@@ -72,7 +72,7 @@ body {
 }
 
 .toggle-container.on .icon-left {
-    opacity: 0.4;
+    opacity: 0.25;
 }
 
 /* 关闭状态：左亮，右暗 */
@@ -81,7 +81,7 @@ body {
 }
 
 .toggle-container:not(.on) .icon-right {
-    opacity: 0.4;
+    opacity: 0.25;
 }
 
 /* WINGO TYPE CSS CODE */
