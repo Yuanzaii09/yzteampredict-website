@@ -68,7 +68,7 @@ body {
     background-color: #ff5050;
 }
 
-.custom-toggle.on::before {
+.toggle-container.on .custom-toggle::before {
     transform: translateX(26px);
 }
 
