@@ -11,7 +11,7 @@ body {
 }
 
 /* "YZTEAM" 容器 */
-.header {
+.header-text {
     margin: auto;
     width: fit-content;
     text-align: center;
@@ -20,7 +20,7 @@ body {
 }
 
 /* “YZTEAM” 设置 & 动画 */
-.header-text {
+.yzteam-text {
     width: max-content;
     position: absolute;
     top: 50%;
