@@ -1,61 +1,6 @@
-#success-sound {
-    display: none;
-}
-
-/* 设置所有文本元素的字体颜色为白色 */
-body, p, h1, h2, h3, h4, h5, h6, span, a, div, li, ul, ol, button {
-    color: #ffffff !important; /* 字体颜色设为白色，确保优先级 */
-}
-
 body {
-    min-width: 320px; /* Set minimum width for the body */
-    background-color: #1a1a24; /* Set background color */
-    font-family: Arial, sans-serif; /* Use a common font family */
-}
-
-.container {
-    margin-top: 20px;
-    max-width: 600px; /* Set maximum width for the container */ 
-}
-
-.button-container {
-    margin-bottom: 20px;
-}
-
-#prediction-button {
-    width: 150px; /* 设置按钮宽度 */
-    margin: 0 auto; /* 居中按钮 */
-    border-radius: 15px;
-    display: block; /* 确保按钮作为块元素，居中显示 */
-    background: linear-gradient(90deg, #775DEE, #6445E2); /* 灰色渐变颜色，从亮灰到暗灰 */
-    color: white; /* 按钮文字颜色 */
-    border: none; /* 移除边框 */
-    padding: 20px; /* 内边距 */
-    font-size: 16px; /* 字体大小 */
-    cursor: pointer;
-    transition: background 0.6s ease; /* 添加渐变过渡效果 */
-}
-
-#prediction-button:hover {
-    background: linear-gradient(90deg, #5F4ABE, #5037B5); /* 悬停时的渐变颜色 */
-}
-
-#loadingScreen {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
-}
-
-.spinner-border {
-    color: #0080ff;
-}
-
-.loadingMessage {
-    color: black;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #ffffff;
 }
