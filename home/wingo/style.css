@@ -1,3 +1,16 @@
+@font-face {
+    font-family: 'godofwar';
+    src: url('fonts/godofwar.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'lm-medium';
+    src: url('fonts/lm-medium.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     margin: 0;
     padding: 0;
