@@ -61,14 +61,15 @@ body {
     margin-left: 10px;
     height: 70px;
     background-color: #eee;
-    color: #fff;
-    font-size: 20px;
     flex: 1;
     transition: 0.3s all ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #fff;
+    font-size: 20px;
     font-weight: bold;
+    font-family: 'godofwar';
     cursor: pointer;
 }
 .card.active {
