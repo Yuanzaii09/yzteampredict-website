@@ -53,18 +53,28 @@ body {
 }
 
 /* TIME */
-.t-container{
+.t-container {
     display: flex;
 }
-.card{
+.card {
     border-radius: 20px;
     margin-left: 10px;
     height: 70px;
     background-color: #eee;
     flex: 1;
     transition: 0.3s all ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
 }
-.card:hover{
+/* 模拟 hover 效果的 class */
+.card.active {
     flex: 2;
     background-color: rgb(207, 207, 207);
+}
+/* 可选：hover 效果也启用 */
+.card:hover {
+    background-color: rgb(220, 220, 220);
 }
