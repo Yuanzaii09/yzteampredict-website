@@ -61,6 +61,8 @@ body {
     margin-left: 10px;
     height: 70px;
     background-color: #eee;
+    color: #fff;
+    font-size: 14px;
     flex: 1;
     transition: 0.3s all ease;
     display: flex;
