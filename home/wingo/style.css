@@ -59,7 +59,7 @@ body {
 .card{
     border-radius: 20px;
     margin-left: 10px;
-    height: 100px;
+    height: 70px;
     background-color: #eee;
     flex: 1;
     transition: 0.3s all ease;
