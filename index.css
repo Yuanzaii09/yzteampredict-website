@@ -5,18 +5,17 @@
     box-sizing: border-box;
 }
 
+/* 设置背景色 */
+body {
+     background-color: #FFFFFF;
+}
+
 @font-face {
     font-family: 'godofwar';
     src: url('fonts/godofwar.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
-
-/* 设置背景色 */
-body {
-     background-color: #FFFFFF;
-}
-
 @font-face {
     font-family: 'lm-medium';
     src: url('fonts/lm-medium.otf') format('truetype');
