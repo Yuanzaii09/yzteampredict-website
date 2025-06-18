@@ -11,6 +11,7 @@
     font-style: normal;
 }
 
+/* BODY元素设置 */
 body {
     margin: 0;
     padding: 0;
@@ -18,6 +19,7 @@ body {
     background-color: #ffffff;
 }
 
+/* LOGO-TEXT */
 .logo {
     font-family: 'godofwar', sans-serif;
     font-size: 36px;
@@ -31,22 +33,18 @@ body {
     position: relative;
     z-index: 1001;
 }
-
 .logo span {
     opacity: 0;
     transform: translateY(-20px);
     display: inline-block;
     animation: dropIn 0.5s ease forwards;
 }
-
-/* 为每个字母设置不同的延迟 */
 .logo span:nth-child(1) { animation-delay: 0s; }
 .logo span:nth-child(2) { animation-delay: 0.1s; }
 .logo span:nth-child(3) { animation-delay: 0.2s; }
 .logo span:nth-child(4) { animation-delay: 0.3s; }
 .logo span:nth-child(5) { animation-delay: 0.4s; }
 .logo span:nth-child(6) { animation-delay: 0.5s; }
-
 @keyframes dropIn {
     to {
         opacity: 1;
