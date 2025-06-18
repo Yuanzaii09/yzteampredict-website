@@ -68,7 +68,7 @@ body {
     height: 70px;
     background-color: #eee;
     flex: 1;
-    transition: 0.3s all ease;
+    transition: 0.2s all ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,7 +91,7 @@ body {
 /* SHORT & FULL TEXT */
 .card span {
     position: absolute;
-    transition: opacity 0.3s ease, color 0.3s ease;
+    transition: opacity 0.2s ease, color 0.2s ease;
     pointer-events: none;
     color: inherit;
 }
