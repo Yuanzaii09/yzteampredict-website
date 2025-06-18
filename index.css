@@ -1,6 +1,7 @@
 /* 设置背景色 */
 body {
     margin: 0;
+    font-family: sans-serif;
     box-sizing: border-box;
     background-color: #FFFFFF;
 }
