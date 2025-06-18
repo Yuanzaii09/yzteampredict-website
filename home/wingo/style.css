@@ -71,8 +71,8 @@ body {
 }
 .card.active {
     flex: 2;
-    background-color: rgb(200, 200, 200);
+    background-color: #de1e1d;
 }
 .card:hover {
-    background-color: rgb(200, 200, 200);
+    background-color: #fff;
 }
