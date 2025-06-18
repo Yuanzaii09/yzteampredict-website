@@ -138,11 +138,17 @@ body {
     opacity: 0.5;
     transition: all 0.2s ease;
     font-family: sans-serif;
+    text-decoration: none; /* 防止<a>标签默认样式 */
 }
-.nav-item:hover,
+.nav-item:hover:not(.active),
+.nav-item:focus-visible:not(.active) {
+    opacity: 1;
+    color: #de1e1d;
+}
 .nav-item.active {
     opacity: 1;
-    color: #de1e1d; /* 激活时变红色，iOS 常见主色调 */
+    color: #de1e1d;
+    cursor: default;
 }
 .nav-icon {
     width: 35px;
