@@ -250,7 +250,7 @@ body {
     top: 15px;
     left: 50%;
     transform: translate(-50%, -50%);
-    display: inline-block;
+    display: block;
     padding: 6px 16px;
     font-size: 10px;
     font-weight: bold;
