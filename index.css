@@ -81,8 +81,8 @@ body {
 
 /* PLAN STARTER */
 .plan-bg {
-    width: 90%;
-    max-width: 1000px;
+    width: 80%;
+    max-width: 360px;
     height: auto;
     background-color: #FFFFFF;
     border-radius: 50px;
@@ -109,8 +109,8 @@ body {
 
 /* PLAN LITE */
 .plan2-bg {
-    width: 90%;
-    max-width: 1000px;
+    width: 80%;
+    max-width: 360px;
     height: auto;
     background-color: #FFFFFF;
     border-radius: 50px;
@@ -137,8 +137,8 @@ body {
 
 /* PLAN PRO */
 .plan3-bg {
-    width: 90%;
-    max-width: 1000px;
+    width: 80%;
+    max-width: 360px;
     height: auto;
     background-color: #FFFFFF;
     border-radius: 50px;
@@ -165,8 +165,8 @@ body {
 
 /* PLAN PREMIUM */
 .plan4-bg {
-    width: 90%;
-    max-width: 1000px;
+    width: 80%;
+    max-width: 360px;
     height: auto;
     background-color: #FFFFFF;
     border-radius: 50px;
