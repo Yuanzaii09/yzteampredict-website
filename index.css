@@ -193,6 +193,7 @@ body {
 
 /* 所有PLAN标题 */
 .plan-title {
+    position: relative;
     font-size: 28px;
     font-weight: 600;
     margin-bottom: 20px;
