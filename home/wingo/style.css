@@ -69,3 +69,5 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
+.card:hover {
+    background-color: rgb(220, 220, 220);
