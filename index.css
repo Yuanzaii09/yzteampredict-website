@@ -215,8 +215,7 @@ body {
     display: inline-block;
     text-align: center;
     margin-top: 10px;
-    width: 100%;
-    max-width: 350px;
+    width: auto;
     padding: 10px 0;
     font-size: 16px;
     font-weight: 600;
@@ -225,7 +224,7 @@ body {
     color: white;
     text-decoration: none;
     border: none;
-    border-radius: 50px;
+    border-radius: 30px;
     box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
     cursor: pointer;
     font-family: 'Noto-Sans', sans-serif;
