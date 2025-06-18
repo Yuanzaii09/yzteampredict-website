@@ -54,6 +54,7 @@ body {
 
 .container{
     display: flex;
+}
 
 .card{
     border-radius: 20px;
@@ -62,6 +63,7 @@ body {
     background-color: #fff;
     flex: 1;
     transition: 0.3s all ease;
+}
 
 .card:hover{
     flex: 2;
