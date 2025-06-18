@@ -1,227 +1,65 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MZPLAY预测 v3.0</title>
-    <link href='assets/css/bootstrap.min.css' rel='stylesheet'>
-    <link href='assets/css/boxicons.min.css' rel='stylesheet'>
-    <link href='assets/css/style.css' rel='stylesheet'>
-</head>
-
-<body>
-    <header style="background-color: #1a1a24; padding: 8px"></header>
-
-    <!-- LOADING EFFECT -->
-    <div id="loadingScreen" style="display:none;">
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">加载中...</span>
-        </div>
-        <div id="loadingMessage"></div>
-    </div>
-
-<div class="container-fluid">
-    <div class="row d-flex justify-content-between align-items-center">
-        <!-- Right aligned: Online users -->
-        <div class="col-auto">
-            <p class="fw-bold d-inline-block" style="font-size: 14px; margin-left: 3px;">
-                <img src="assets/images/logo.png" width="40" class="me-2" alt="YZ-JiTuan">
-            </p>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>History - PREDICT PRO</title>
+        <link rel="stylesheet" href="style.css" />
+        <script type="module" src="script.js" defer></script>
+    </head>
+    <body>
+        <!-- LOGO -->
+        <div class="logo">
+            <span>Y</span><span>Z</span><span>T</span><span>E</span><span>A</span><span>M</span>
         </div>
 
-        <!-- Left aligned: Server status and connection -->
-        <div class="col-auto" style="margin-left: 10px;">
-            <p class="fw-bold d-inline-block" style="font-size: 14px;">服务器：</p>
-            <p class="fw-bold d-inline-block" style="font-size: 14px; color: #00FF00; margin-left: -5px;">
-                已连接<img src="assets/images/connected.png" width="15" style="vertical-align: -2px;">
-            </p>
-        </div>
-    </div>
-</div>
-
-        <!-- Image and Title -->
-        <div class="container image-container text-center">
-            <img src="assets/images/mzplay.png" alt="mzplay" style="max-width: 30%; height: auto; display: block; margin: 0 auto;">
-            <h4 class="text-center fw-bold mt-2">WINGO 1MIN</h4>
+        <!-- CONTENT -->
+        <div style="text-align:center; font-family:'lm-medium', sans-serif; color:#333;">
+            <h2>History Page</h2>
+            <p>This is the history section. Your past activities will appear here.</p>
         </div>
 
-        <!-- Text Data -->
-        <div class="game-time-container">
-            <div class="game-time-background"></div>
-            <div class="game-time-text">
-                <span class="fw-bold">游戏号码:</span>
-                <span id="gameID" style="font-weight: bold">-</span>
+        <!-- NAV-BAR -->
+        <nav class="nav-bar">
+            <div class="nav-item">
+                <a href="index.html">
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3" />
+                        <path d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3" />
+                        <path d="M15 9m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                    </svg>
+                    <span class="nav-label">DASHBOARD</span>
+                </a>
             </div>
-        </div>
-
-<!-- 倒计时 -->
-<div class="container text-center mt-3">
-    <span id="countdown-timer" class="text-light font-bold">--:--</span>
-</div>
-
-<!-- 结果 -->
-    <div class="row">
-        <div class="result-background" id="prediction-result" style="display: absolute;">
-            <div class="result-container">
-                <span class="fw-bold" style="color: #717185 !important;">预期结果：<span id="prediction">-</span>
-                <div class="fw-bold" style="color: #717185 !important;">预期准度：<span id="probability">-</span></div>
+            <div class="nav-item active">
+                <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" />
+                    <path d="M5.63 7.16l0 .01" />
+                    <path d="M4.06 11l0 .01" />
+                    <path d="M4.63 15.1l0 .01" />
+                    <path d="M7.16 18.37l0 .01" />
+                    <path d="M11 19.94l0 .01" />
+                </svg>
+                <span class="nav-label">HISTORY</span>
             </div>
-        </div>
-    </div>
-
-        <!-- TELEGRAM群组按钮 & @YZTEAM2024 -->
-    <div class="fixed-bottom-container">
-        <h4 class="text-center fw-bold mt-2">“重要资讯”</h4>
-        <p class="container note">
-作者在此声明：禁止任何人修改或售卖此应用，被发现后果不堪设想！
-谨慎下注，有时不准是WINGO盘不稳所导致的！
-        </p>
-        <div class="yzteam">@YZTEAM2024© - MZPLAY预测 v3.0</div>
-        <a onclick="openLink('https://t.me/YZPremiumHub')" class="btn btn-info text-light w-100 font-bold mb-4">TELEGRAM群组</a>
-    </div>
-
-<style>
-/* TELEGRAM按钮设定 */
-.fixed-bottom-container {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #1a1a24;
-    padding: 10px 0;
-    text-align: center;
-    font-weight: bold;
-    z-index: 1000;
-    }
-
-/* 资讯 */
- .note {
-    text-align: center;
-    width: 100%;
-    color: #717185 !important;
-    font-size: 12px;
-    margin-top: -5px;
-    } 
-
-/* YZ集团 */
-.yzteam {
-    color: #717185 !important;
-    text-align: center;
-    margin: 30px 0; 
-    font-weight: bold;
-    }
-
-/* 重要资讯 */
-.fixed-bottom-container h4 {
-    color: #717185 !important;
-    }
-
-/* TELEGRAM按钮 */
-.fixed-bottom-container .btn {
-    background: linear-gradient(to bottom, #FBDD85, #DB9531);
-    border-color: #B47929 !important;
-    color: #944D02 !important;
-    font-size: 16px;
-    border-radius: 15px;
-    text-align: center;
-    line-height: 35px;
-    transition: background-color 0.6s, border-color 0.6s;
-    width: 100%;
-    max-width: 320px;
-    }
-
-/* TELEGRAM按钮悬停 */
-.fixed-bottom-container .btn:hover {
-    background: linear-gradient(to bottom, #C8AF69, #AE7625);
-    border-color: #B47929 !important;
-    color: #763E02 !important;
-    }
-
-/* 游戏时间设置 */
-.game-time-container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    position: relative;
-    width: 160px;
-    margin: 20px auto;
-    }
-
-.game-time-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #1a1a24;
-    border: 2px solid #3a3a46;
-    border-radius: 15px;
-    z-index: 1;
-    }
-
-.game-time-text {
-    position: relative;
-    z-index: 2;
-    color: white;
-    font-weight: normal;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    }
-
-.game-time-text span {
-    margin: 0 5px;
-    }
-
-.game-time-text span:first-child {
-    color: #717185 !important;
-    }
-
-/* 结果和准度设置 */
-.result-background {
-    position: absolute;
-    top: 53%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 45%;
-    height: auto;
-    background-color: #1a1a24;
-    border: 2px solid #554477;
-    border-radius: 15px;
-    z-index: 1; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    padding: 15px; 
-    }
-
-.result-container {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    }
-
-.font-bold {
-    font-weight: bold;
-    }
-
-</style>
-
-<!-- SCRIPT -->
-<script>
-    function openLink(link) {
-        window.open(link, '_blank');
-    }
-</script>
-
-<!-- JSON -->
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <!-- GAME CODE -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/gamescript-1m.js"></script>
-    <script src="assets/js/main.js"></script>
+            <div class="nav-item">
+                <a href="settings.html">
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+                        <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                    </svg>
+                    <span class="nav-label">SETTINGS</span>
+                </a>
+            </div>
+        </nav>
     </body>
 </html>
