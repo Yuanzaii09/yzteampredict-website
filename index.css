@@ -248,7 +248,7 @@ body {
 .ribbon {
     position: absolute;
     top: 15px;
-    left: 50%;
+    left: 42%;
     transform: translate(-50%, -50%);
     display: block;
     padding: 6px 16px;
