@@ -5,6 +5,13 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'godofwar';
+    src: url('fonts/godofwar.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* 设置背景色 */
 body {
      background-color: #FFFFFF;
