@@ -1,43 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
-        <script type="module" src="script.js" defer></script>
-        <title>YZTEAM PREDICT</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YZTEAM</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@800&display=swap" rel="stylesheet">
+</head>
 
-    <body> 
-        <!-- 1 // LOGO TEXT -->
-        <div class="logo">
-            <span>Y</span>
-            <span>Z</span>
-            <span>T</span>
-            <span>E</span>
-            <span>A</span>
-            <span>M</span>
-        </div>
-
-        <!-- 2 // TOGGLE SWITCH -->
-        <div class="toggle-container">
-            <img src="images/mz.png" alt="mz" class="icon-left">
-            <button id="toggleBtn" class="custom-toggle" aria-label="Toggle"></button>
-            <img src="images/mys.png" alt="mys" class="icon-right">
-        </div>
-
-        <!-- 3 // ALL CATEGORIES -->
-        <div class="cate">
-            <!-- WINGO -->
-            <div class="wingo">
-                <div class="bg">
-                    <p class="title">PREDICT PRO</p>
-                    <h2 class="subtitle">MZPLAY WINGO</h2>
-                    <a href="https://yzteampredict.store" class="enter-btn">>></a>
-                    <a href="https://yzteampredict.store" class="enter-btn">ENTER</a>
-                </div>
+<!-- "HEADER" hero > title > cn-title & back-text -->
+<body>
+    <div class="hero">
+        <div class="title">
+            <h1 class="cn-title">高级计划 & 价格</h1>
+            <div class="back-text">
+                <span>Y</span>
+                <span>Z</span>
+                <span>T</span>
+                <span>E</span>
+                <span>A</span>
+                <span>M</span>
             </div>
+            <h1 class="cn-title">高级计划 & 价格</h1>
         </div>
 
-    </body>  
+    <!-- STARTER计划 --> 
+        <div class="plan-bg">
+            <h2 class="plan-title">BASIC｜RM39</h2>
+                <p class="plan-subtitle">
+                    <span style="color: #8A2BE2;">✓</span>     7天访问权限</p>
+                <p class="plan-subtitle">
+                    <span style="color: #8A2BE2;">✓</span>     无限使用次数</p>
+                <p class="plan-subtitle">
+                    <span style="color: #8A2BE2;">✓</span>     完整算法系统</p>
+                <a href="https://t.me/yuanzaii01?text=我想加入YZTEAM的BASIC计划⚪️" target="_blank" class="buy-btn">点击下单</a>
+        </div>
+
+        <div class="plan2-bg">
+            <div class="ribbon">节省33%</div>
+            <h2 class="plan-title">LITE｜RM59</h2>
+                <p class="plan-subtitle">
+                    <span style="color: #8A2BE2;">✓</span>     15天访问权限</p>
+                <p class="plan-subtitle">
+                    <span style="color: #8A2BE2;">✓</span>     无限使用次数</p>
+                <p class="plan-subtitle">
+                    <span style="color: #8A2BE2;">✓</span>     进阶算法/AI系统</p>
+                <a href="https://t.me/yuanzaii01?text=我想加入YZTEAM的LITE计划🔵" target="_blank" class="buy-btn">点击下单</a>
+        </div>
+
+        <div class="plan3-bg">
+            <div class="ribbon">节省51%</div>
+            <h2 class="plan-title">PRO｜RM79</h2>
+                <p class="plan-subtitle">
+                    <span style="color: #8A2BE2;">✓</span>     30天访问权限</p>
+                <p class="plan-subtitle">
+                    <span style="color: #8A2BE2;">✓</span>     无限使用次数</p>
+                <p class="plan-subtitle">
+                    <span style="color: #8A2BE2;">✓</span>     精致算法/AI系统</p>
+                <a href="https://t.me/yuanzaii01?text=我想加入YZTEAM的PRO计划🟣" target="_blank" class="buy-btn">点击下单</a>
+        </div>
+
+        <div class="plan4-bg">
+            <div class="ribbon">节省153%</div>
+            <h2 class="plan-title">PREMIUM｜RM99</h2>
+                <p class="plan-subtitle">
+                    <span style="color: #8A2BE2;">✓</span>     终身访问权限</p>
+                <p class="plan-subtitle">
+                    <span style="color: #8A2BE2;">✓</span>     无限使用次数</p>
+                <p class="plan-subtitle">
+                    <span style="color: #8A2BE2;">✓</span>     尊享算法/AI系统</p>
+                <a href="https://t.me/yuanzaii01?text=我想加入YZTEAM的PREMIUM计划🔴" target="_blank" class="buy-btn">点击下单</a>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            let spanTexts = document.querySelectorAll('.back-text span');
+            spanTexts.forEach((span, i) => {
+                span.classList.add("active");
+            });
+        };
+    </script>
+</body>
 </html>
