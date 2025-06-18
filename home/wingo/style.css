@@ -119,7 +119,7 @@ body {
     width: 50%;
     max-width: 360px;
     background: white;
-    border-radius: 50px;
+    border-radius: 20px;
     padding: 12px 24px;
     display: flex;
     justify-content: space-around;
