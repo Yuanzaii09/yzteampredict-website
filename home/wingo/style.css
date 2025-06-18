@@ -74,7 +74,3 @@ body {
     flex: 2;
     background-color: rgb(207, 207, 207);
 }
-/* 可选：hover 效果也启用 */
-.card:hover {
-    background-color: rgb(220, 220, 220);
-}
