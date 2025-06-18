@@ -53,6 +53,8 @@ body {
 }
 
 .t-container{
+    width: auto;
+    height: 50px
     display: flex;
 }
 
