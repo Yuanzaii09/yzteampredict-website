@@ -1,86 +1,167 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YZTEAM</title>
-    <link rel="stylesheet" href="index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@800&display=swap" rel="stylesheet">
+    <title>MZPLAY预测 v2.0</title>
+    <link href='assets/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='assets/css/boxicons.min.css' rel='stylesheet'>
+    <link href='assets/css/style.css' rel='stylesheet'>
 </head>
 
-<!-- "HEADER" hero > title > cn-title & back-text -->
 <body>
-    <div class="hero">
-        <div class="title">
-            <h1 class="cn-title">高级计划 & 价格</h1>
-            <div class="back-text">
-                <span>Y</span>
-                <span>Z</span>
-                <span>T</span>
-                <span>E</span>
-                <span>A</span>
-                <span>M</span>
-            </div>
+    <header style="background-color: #1a1a24; padding: 8px"></header>
+
+    <!-- LOADING EFFECT -->
+    <div id="loadingScreen" style="display:none;">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">加载中...</span>
         </div>
-       
-    <!-- STARTER计划 --> 
-        <div class="plan-bg">
-            <h2 class="plan-title">BASIC｜RM39</h2>
-                <p class="plan-subtitle">
-                    <span style="color: #8A2BE2;">✓</span>     7天访问权限</p>
-                <p class="plan-subtitle">
-                    <span style="color: #8A2BE2;">✓</span>     无限使用次数</p>
-                <p class="plan-subtitle">
-                    <span style="color: #8A2BE2;">✓</span>     完整算法系统</p>
-                <a href="https://t.me/yuanzaii01?text=我想加入YZTEAM的BASIC计划⚪️" target="_blank" class="buy-btn">点击下单</a>
-        </div>
-        
-        <div class="plan2-bg">
-            <div class="ribbon">节省33%</div>
-            <h2 class="plan-title">LITE｜RM59</h2>
-                <p class="plan-subtitle">
-                    <span style="color: #8A2BE2;">✓</span>     15天访问权限</p>
-                <p class="plan-subtitle">
-                    <span style="color: #8A2BE2;">✓</span>     无限使用次数</p>
-                <p class="plan-subtitle">
-                    <span style="color: #8A2BE2;">✓</span>     进阶算法/AI系统</p>
-                <a href="https://t.me/yuanzaii01?text=我想加入YZTEAM的LITE计划🔵" target="_blank" class="buy-btn">点击下单</a>
-        </div>
-               
-        <div class="plan3-bg">
-            <div class="ribbon">节省51%</div>
-            <h2 class="plan-title">PRO｜RM79</h2>
-                <p class="plan-subtitle">
-                    <span style="color: #8A2BE2;">✓</span>     30天访问权限</p>
-                <p class="plan-subtitle">
-                    <span style="color: #8A2BE2;">✓</span>     无限使用次数</p>
-                <p class="plan-subtitle">
-                    <span style="color: #8A2BE2;">✓</span>     精致算法/AI系统</p>
-                <a href="https://t.me/yuanzaii01?text=我想加入YZTEAM的PRO计划🟣" target="_blank" class="buy-btn">点击下单</a>
-        </div>
-        
-        <div class="plan4-bg">
-            <div class="ribbon">节省153%</div>
-            <h2 class="plan-title">PREMIUM｜RM99</h2>
-                <p class="plan-subtitle">
-                    <span style="color: #8A2BE2;">✓</span>     终身访问权限</p>
-                <p class="plan-subtitle">
-                    <span style="color: #8A2BE2;">✓</span>     无限使用次数</p>
-                <p class="plan-subtitle">
-                    <span style="color: #8A2BE2;">✓</span>     尊享算法/AI系统</p>
-                <a href="https://t.me/yuanzaii01?text=我想加入YZTEAM的PREMIUM计划🔴" target="_blank" class="buy-btn">点击下单</a>
-        </div>
+        <div id="loadingMessage"></div>
     </div>
 
-    <script>
-        window.onload = function() {
-            let spanTexts = document.querySelectorAll('.back-text span');
-            spanTexts.forEach((span, i) => {
-                span.classList.add("active");
-            });
-        };
-    </script>
-</body>
+<div class="container-fluid">
+    <div class="row d-flex justify-content-between align-items-center">
+        <!-- Right aligned: Online users -->
+        <div class="col-auto">
+            <p class="fw-bold d-inline-block" style="font-size: 14px; margin-left: 3px;">
+                <img src="assets/images/logo.png" width="40" class="me-2" alt="YZ-JiTuan">
+            </p>
+        </div>
+
+        <!-- Left aligned: Server status and connection -->
+        <div class="col-auto" style="margin-left: 10px;">
+            <p class="fw-bold d-inline-block" style="font-size: 14px;">服务器：</p>
+            <p class="fw-bold d-inline-block" style="font-size: 14px; color: #00FF00; margin-left: -5px;">
+                已连接<img src="assets/images/connected.png" width="15" style="vertical-align: -2px;">
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- MENU -->
+<div class="container">
+    <div class="row">
+        <div class="col">
+           <a class="text-decoration-none" href="30s.html">
+              <img src="assets/images/banners/30s.png" class="card-img-top" alt="WinGo 30s">
+           </a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+           <a class="text-decoration-none" href="1m.html">
+				   		  <img src="assets/images/banners/1m.png" class="card-img-top" alt="WinGo 1min">
+           </a>
+        </div>
+		 </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+           <a class="text-decoration-none" href="3m.html">
+				   		  <img src="assets/images/banners/3m.png" class="card-img-top" alt="WinGo 3min">
+           </a>
+        </div>
+		 </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+           <a class="text-decoration-none" href="5m.html">
+				   		  <img src="assets/images/banners/5m.png" class="card-img-top" alt="WinGo 5min">
+           </a>
+        </div>
+		 </div>
+</div>
+
+        <!-- TELEGRAM群组按钮 & @YZTEAM2024 -->
+    <div class="fixed-bottom-container">
+        <div class="yzteam">@YZTEAM2024© - MZPLAY预测 v3.0</div>
+        <a onclick="openLink('https://t.me/YZPremiumHub')" class="btn btn-info text-light w-100 font-bold mb-4">TELEGRAM群组</a>
+    </div>
+
+<style>
+/* TELEGRAM按钮设定 */
+.fixed-bottom-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1a1a24;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    z-index: 1000;
+    }
+
+/* 资讯 */
+ .note {
+    text-align: center;
+    width: 100%;
+    color: #717185 !important;
+    font-size: 12px;
+    margin-top: -5px;
+    } 
+
+/* YZ集团 */
+.yzteam {
+    color: #717185 !important;
+    text-align: center;
+    margin: 30px 0; 
+    font-weight: bold;
+    }
+
+/* 重要资讯 */
+.fixed-bottom-container h4 {
+    color: #717185 !important;
+    }
+
+/* TELEGRAM按钮 */
+.fixed-bottom-container .btn {
+    background: linear-gradient(to bottom, #FBDD85, #DB9531);
+    border-color: #B47929 !important;
+    color: #944D02 !important;
+    font-size: 16px;
+    border-radius: 15px;
+    text-align: center;
+    line-height: 35px;
+    transition: background-color 0.6s, border-color 0.6s;
+    width: 100%;
+    max-width: 320px;
+    }
+
+/* TELEGRAM按钮悬停 */
+.fixed-bottom-container .btn:hover {
+    background: linear-gradient(to bottom, #C8AF69, #AE7625);
+    border-color: #B47929 !important;
+    color: #763E02 !important;
+    }
+
+.font-bold {
+    font-weight: bold;
+    }
+
+</style>
+
+<!-- SCRIPT -->
+<script>
+    function openLink(link) {
+        window.open(link, '_blank');
+    }
+</script>
+
+<!-- JSON -->
+    <!-- GAME SCRIPT-->
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/game-script.js"></script>
+    <script src="assets/js/main.js"></script>
+    </body>
 </html>
