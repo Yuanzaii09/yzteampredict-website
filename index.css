@@ -247,7 +247,7 @@ body {
 /* 红色节省标签 */
 .ribbon {
     position: absolute;
-    top: 0px;
+    top: 10px;
     left: 50%;
     transform: translate(-50%, -50%);
     display: inline-block;
