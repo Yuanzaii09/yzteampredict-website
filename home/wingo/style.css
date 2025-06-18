@@ -60,7 +60,7 @@ body {
     border-radius: 20px;
     margin-left: 10px;
     height: 200px;
-    background-color: #fff;
+    background-color: #eee;
     flex: 1;
     transition: 0.3s all ease;
 }
