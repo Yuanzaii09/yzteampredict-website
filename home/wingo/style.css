@@ -75,18 +75,19 @@ body {
     font-family: 'godofwar';
     font-size: 20px;
     font-weight: bold;
-    color: #fff;
+    color: #333;
     cursor: pointer;
     overflow: hidden;
 }
 .card.active {
     flex: 2;
     background-color: #de1e1d;
+    color: #fff;
 }
 .card:hover {
     background-color: #de1e1d;
+    color: #fff;
 }
-
 /* SHORT & FULL TEXT */
 .card span {
     position: absolute;
