@@ -79,7 +79,7 @@ body {
     font-family: 'ZCOOL KuaiLe', sans-serif;
 }
 
-/* PLAN STARTER */
+/* PLAN BASIC */
 .plan-bg {
     width: 80%;
     max-width: 360px;
@@ -88,7 +88,7 @@ body {
     border-radius: 50px;
     margin: 50px auto;
     text-align: center;
-    padding: 0px 20px;
+    padding: 0px 20px 20px 20px;
     color: #333;
     border: 3px solid #ccc;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
@@ -116,7 +116,7 @@ body {
     border-radius: 50px;
     margin: 50px auto;
     text-align: center;
-    padding: 50px 20px 20px 20px;
+    padding: 20px 20px;
     color: #333;
     border: 3px solid #ccc;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
