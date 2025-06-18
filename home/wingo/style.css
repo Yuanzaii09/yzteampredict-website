@@ -52,13 +52,19 @@ body {
     }
 }
 
-/* TIME */
+/* TIME CONTAINER */
 .t-container {
     display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    padding: 0 10px;
+    gap: 10px;
 }
+
+/* CARD STYLES */
 .card {
+    position: relative;
     border-radius: 20px;
-    margin-left: 10px;
     height: 70px;
     background-color: #eee;
     flex: 1;
@@ -66,11 +72,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    font-family: 'godofwar';
     font-size: 20px;
     font-weight: bold;
-    font-family: 'godofwar';
+    color: #fff;
     cursor: pointer;
+    overflow: hidden;
 }
 .card.active {
     flex: 2;
@@ -78,4 +85,25 @@ body {
 }
 .card:hover {
     background-color: #de1e1d;
+}
+
+/* SHORT & FULL TEXT */
+.card span {
+    position: absolute;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.card .text-default {
+    opacity: 1;
+}
+.card:hover .text-default,
+.card.active .text-default {
+    opacity: 0;
+}
+.card .text-hover {
+    opacity: 0;
+}
+.card:hover .text-hover,
+.card.active .text-hover {
+    opacity: 1;
 }
