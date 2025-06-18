@@ -69,5 +69,10 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
+.card.active {
+    flex: 2;
+    background-color: rgb(200, 200, 200);
+}
 .card:hover {
-    background-color: rgb(220, 220, 220);
+    background-color: rgb(200, 200, 200);
+}
