@@ -200,7 +200,7 @@ body {
     font-family: 'lm-medium', sans-serif;
     font-weight: 800;
     border-bottom: 3px solid #555;
-    display: inline-block;
+    display: flex;
     padding-bottom: 5px;
 }
 
