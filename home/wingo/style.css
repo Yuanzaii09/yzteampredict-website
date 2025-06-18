@@ -52,10 +52,10 @@ body {
     }
 }
 
+/* TIME */
 .t-container{
     display: flex;
 }
-
 .card{
     border-radius: 20px;
     margin-left: 10px;
@@ -64,7 +64,6 @@ body {
     flex: 1;
     transition: 0.3s all ease;
 }
-
 .card:hover{
     flex: 2;
     background-color: rgb(207, 207, 207);
