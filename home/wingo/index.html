@@ -40,8 +40,8 @@
     
         <!-- 3 // NAV-BAR -->
         <nav class="nav-bar">
-            <div class="nav-item">
-                <!-- SVG Rocket -->
+            <!-- 当前页 - Dashboard：加 .active，不包 <a> -->
+            <div class="nav-item active">
                 <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                      stroke-linecap="round" stroke-linejoin="round">
@@ -53,8 +53,8 @@
                 <span class="nav-label">DASHBOARD</span>
             </div>
         
-            <div class="nav-item">
-                <!-- SVG Recent -->
+            <!-- Recent 页面，点击跳转 -->
+            <a href="recent.html" class="nav-item">
                 <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                      stroke-linecap="round" stroke-linejoin="round">
@@ -67,10 +67,10 @@
                     <path d="M11 19.94l0 .01" />
                 </svg>
                 <span class="nav-label">HISTORY</span>
-            </div>
+            </a>
         
-            <div class="nav-item">
-                <!-- SVG Settings -->
+            <!-- Settings 页面，点击跳转 -->
+            <a href="settings.html" class="nav-item">
                 <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                      stroke-linecap="round" stroke-linejoin="round">
@@ -79,8 +79,7 @@
                     <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
                 </svg>
                 <span class="nav-label">SETTINGS</span>
-            </div>
+            </a>
         </nav>
-        
     </body>
 </html>
