@@ -69,8 +69,3 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
-/* 模拟 hover 效果的 class */
-.card.active {
-    flex: 2;
-    background-color: rgb(207, 207, 207);
-}
