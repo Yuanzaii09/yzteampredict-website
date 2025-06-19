@@ -129,6 +129,7 @@ body {
     z-index: 1000;
 }
 .nav-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -138,7 +139,7 @@ body {
     opacity: 0.5;
     transition: all 0.2s ease;
     font-family: sans-serif;
-    text-decoration: none; /* 防止<a>标签默认样式 */
+    text-decoration: none;
 }
 .nav-item:hover:not(.active),
 .nav-item:focus-visible:not(.active) {
@@ -153,9 +154,30 @@ body {
 .nav-icon {
     width: 35px;
     height: 35px;
+    z-index: 2;
 }
 .nav-label {
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.3px;
+    z-index: 2;
+}
+
+/* 渐变背景圆圈（active 时出现） */
+.nav-bg {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #de1e1d, #800000);
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.nav-item.active .nav-bg {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
 }
