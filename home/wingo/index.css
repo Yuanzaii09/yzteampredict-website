@@ -107,7 +107,7 @@ body {
 /* CARD STYLES */
 .card {
     position: relative;
-    border-radius: 30px;
+    border-radius: 20px;
     height: 70px;
     background-color: #eee;
     flex: 1;
@@ -124,10 +124,12 @@ body {
 }
 .card.active {
     flex: 2;
+    border-radius: 30px;
     background-color: #de1e1d;
     color: #fff;
 }
 .card:hover {
+    border-radius: 30px;
     background-color: #de1e1d;
     color: #fff;
 }
