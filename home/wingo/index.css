@@ -77,6 +77,22 @@ body {
     }
 }
 
+/* CONTENT BG */
+.content-bg {
+    width: 80%;
+    max-width: 360px;
+    height: auto;
+    background-color: #FFFFFF;
+    border-radius: 50px;
+    margin: 20px 20px;
+    text-align: center;
+    padding: 20px 20px;
+    color: #333;
+    border: 3px solid #eee;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
 /* TIME CONTAINER */
 .t-container {
     position: relative;
@@ -137,21 +153,6 @@ body {
     opacity: 1;
 }
 
-/* CONTENT-BG */
-.content-bg {
-    width: 80%;
-    max-width: 360px;
-    height: auto;
-    background-color: #FFFFFF;
-    border-radius: 50px;
-    margin: 20px 20px;
-    text-align: center;
-    padding: 20px 20px;
-    color: #333;
-    border: 3px solid #ccc;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
-    position: relative;
-}
 /* NAV-BAR */
 .nav-bar {
     position: fixed;
