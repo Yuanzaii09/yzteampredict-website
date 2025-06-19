@@ -155,6 +155,11 @@ body {
     opacity: 1;
 }
 
+/* PERIOD */
+.period {
+    font-family: 'lm-medium', san-serif;
+    text-align: center;
+}
 /* NAV-BAR */
 .nav-bar {
     position: fixed;
