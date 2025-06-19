@@ -172,7 +172,7 @@ body {
     width: 45px;
     height: 45px;
     background: linear-gradient(135deg, #de1e1d, #800000);
-    border-radius: 50%;
+    border-radius: 25px;
     z-index: 1;
     opacity: 0;
     transition: opacity 0.2s ease, transform 0.2s ease;
