@@ -144,6 +144,7 @@ body {
 .nav-item:focus-visible:not(.active) {
     opacity: 1;
     color: #de1e1d;
+    transform: scale(0.9);
 }
 .nav-item.active {
     opacity: 1;
@@ -153,6 +154,7 @@ body {
 .nav-icon {
     width: 35px;
     height: 35px;
+    transition: transform 0.2s ease;
 }
 .nav-label {
     font-size: 11px;
