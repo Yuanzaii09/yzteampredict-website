@@ -78,16 +78,6 @@ body {
 }
 
 /* TIME CONTAINER */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        visibility: hidden;
-    }
-    to {
-        opacity: 1;
-        visibility: visible;
-    }
-}
 .t-container {
     position: relative;
     z-index: 1;
@@ -96,11 +86,6 @@ body {
     margin-bottom: 30px;
     padding: 0 10px;
     gap: 10px;
-    /* 淡入动画 */
-    opacity: 0;
-    visibility: hidden;
-    animation: fadeIn 0.4s ease-out forwards;
-    animation-delay: 0.2s;
 }
 
 /* CARD STYLES */
@@ -169,11 +154,6 @@ body {
     gap: 25px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    /* 取消任何动画或 transition */
-    animation: none !important;
-    transition: none !important;
-    will-change: transform;
-    backface-visibility: hidden;
 }
 .nav-item {
     display: flex;
