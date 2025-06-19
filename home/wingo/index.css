@@ -1,16 +1,13 @@
-/* 全局移除点击时的高亮/边框/阴影/选择效果 */
 * {
-    -webkit-tap-highlight-color: transparent; /* 去除点击时灰色或蓝色高亮（移动端） */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 部分浏览器需要这个兼容 */
-    -webkit-touch-callout: none; /* iOS 长按菜单 */
-    outline: none !important; /* 去除 outline 高亮框 */
-    box-shadow: none !important; /* 去除 box-shadow 点击阴影 */
-    user-select: none; /* 禁止选中文本 */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    outline: none !important;
+    user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
 }
-/* 针对 a / button / input 移除点击样式 */
+/* 精准取消按钮和输入框的点击阴影 */
 a,
 button,
 input,
@@ -19,10 +16,9 @@ select {
     outline: none !important;
     box-shadow: none !important;
     -webkit-tap-highlight-color: transparent;
-    -webkit-user-select: none;
     user-select: none;
 }
-/* 禁止 svg 被单独选中或点亮 */
+/* 禁止 svg 被选中 */
 svg {
     pointer-events: none;
 }
