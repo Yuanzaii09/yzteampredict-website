@@ -79,6 +79,8 @@ body {
 
 /* TIME CONTAINER */
 .t-container {
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
