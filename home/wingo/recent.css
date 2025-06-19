@@ -1,61 +1,103 @@
-#success-sound {
-    display: none;
+@font-face {
+    font-family: 'godofwar';
+    src: url('fonts/godofwar.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'lm-medium';
+    src: url('fonts/lm-medium.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
-/* 设置所有文本元素的字体颜色为白色 */
-body, p, h1, h2, h3, h4, h5, h6, span, a, div, li, ul, ol, button {
-    color: #ffffff !important; /* 字体颜色设为白色，确保优先级 */
-}
-
+/* BODY元素设置 */
 body {
-    min-width: 320px; /* Set minimum width for the body */
-    background-color: #1a1a24; /* Set background color */
-    font-family: Arial, sans-serif; /* Use a common font family */
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #ffffff;
 }
 
-.container {
+/* LOGO-TEXT */
+.logo {
+    font-family: 'godofwar', sans-serif;
+    font-size: 36px;
+    text-align: center;
     margin-top: 20px;
-    max-width: 600px; /* Set maximum width for the container */ 
-}
-
-.button-container {
     margin-bottom: 20px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    position: relative;
+    z-index: 1001;
+}
+.logo span {
+    opacity: 0;
+    transform: translateY(-20px);
+    display: inline-block;
+    animation: dropIn 0.5s ease forwards;
+}
+.logo span:nth-child(1) { animation-delay: 0s; }
+.logo span:nth-child(2) { animation-delay: 0.1s; }
+.logo span:nth-child(3) { animation-delay: 0.2s; }
+.logo span:nth-child(4) { animation-delay: 0.3s; }
+.logo span:nth-child(5) { animation-delay: 0.4s; }
+.logo span:nth-child(6) { animation-delay: 0.5s; }
+@keyframes dropIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-#prediction-button {
-    width: 150px; /* 设置按钮宽度 */
-    margin: 0 auto; /* 居中按钮 */
-    border-radius: 15px;
-    display: block; /* 确保按钮作为块元素，居中显示 */
-    background: linear-gradient(90deg, #775DEE, #6445E2); /* 灰色渐变颜色，从亮灰到暗灰 */
-    color: white; /* 按钮文字颜色 */
-    border: none; /* 移除边框 */
-    padding: 20px; /* 内边距 */
-    font-size: 16px; /* 字体大小 */
-    cursor: pointer;
-    transition: background 0.6s ease; /* 添加渐变过渡效果 */
-}
-
-#prediction-button:hover {
-    background: linear-gradient(90deg, #5F4ABE, #5037B5); /* 悬停时的渐变颜色 */
-}
-
-#loadingScreen {
+/* NAV-BAR */
+.nav-bar {
     position: fixed;
-    top: 50%;
+    bottom: 20px;
     left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+    transform: translateX(-50%);
+    width: auto;
+    max-width: 360px;
+    background: white;
+    border-radius: 30px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
-
-.spinner-border {
-    color: #0080ff;
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #555;
+    opacity: 0.5;
+    transition: all 0.2s ease;
+    font-family: sans-serif;
+    text-decoration: none; /* 防止<a>标签默认样式 */
 }
-
-.loadingMessage {
-    color: black;
+.nav-item:hover:not(.active),
+.nav-item:focus-visible:not(.active) {
+    opacity: 1;
+    color: #de1e1d;
+}
+.nav-item.active {
+    opacity: 1;
+    color: #de1e1d;
+    cursor: default;
+}
+.nav-icon {
+    width: 35px;
+    height: 35px;
+}
+.nav-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
