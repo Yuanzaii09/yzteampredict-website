@@ -58,7 +58,9 @@ body {
 }
 
 .title {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px 10px;
+    border-radius: 20px;
     margin: auto;
     width: fit-content;
     text-align: center;
