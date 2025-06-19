@@ -285,14 +285,14 @@ body {
 .note {
     text-align: center;
     width: 100%;
-    color: #717185;
+    color: #000;
     font-size: 12px;
     margin-top: -5px;
     font-family: 'lm-medium', san-serif;
 } 
 /* MADE BY @YZTEAM */
 .madeby {
-    color: #717185;
+    color: #000;
     text-align: center;
     margin: 30px 0; 
     font-family: 'lm-medium', san-serif;
