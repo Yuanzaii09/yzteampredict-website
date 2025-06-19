@@ -78,6 +78,16 @@ body {
 }
 
 /* TIME CONTAINER */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        visibility: hidden;
+    }
+    to {
+        opacity: 1;
+        visibility: visible;
+    }
+}
 .t-container {
     position: relative;
     z-index: 1;
@@ -91,16 +101,6 @@ body {
     visibility: hidden;
     animation: fadeIn 0.4s ease-out forwards;
     animation-delay: 0.2s;
-}
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        visibility: hidden;
-    }
-    to {
-        opacity: 1;
-        visibility: visible;
-    }
 }
 
 /* CARD STYLES */
