@@ -169,8 +169,8 @@ body {
     top: 0;
     left: 50%;
     transform: translateX(-50%) scale(0.9);
-    width: 60px;
-    height: 60px;
+    width: auto;
+    height: auto;
     background: linear-gradient(135deg, #de1e1d, #800000);
     border-radius: 15px;
     z-index: 1;
