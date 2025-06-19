@@ -79,10 +79,10 @@ body {
 
 /* CONTENT BG */
 .content-bg {
-    width: 90%;
+    width: 85%;
     max-width: 360px;
     height: auto;
-    background-color: #FFFFFF;
+    background-color: #fff;
     border-radius: 50px;
     margin: 20px 20px;
     text-align: center;
