@@ -58,7 +58,7 @@ body {
 }
 
 .title {
-    background-color: rgba(0, 0, 0, 0.5)
+    background-color: rgba(0, 0, 0, 0.5);
     margin: auto;
     width: fit-content;
     text-align: center;
