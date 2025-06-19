@@ -66,7 +66,8 @@ body {
     width: fit-content;
     text-align: center;
     position: relative;
-    margin-top: 50px;
+    margin-top: 20px;
+    border-bottom: 3px solid #555;
 }
 .title h1 {
     font-size: 30px;
@@ -87,7 +88,7 @@ body {
     height: auto;
     background-color: #FFFFFF;
     border-radius: 50px;
-    margin: 50px auto;
+    margin: 20px auto 20px auto;
     text-align: center;
     padding: 0px 20px 20px 20px;
     color: #333;
