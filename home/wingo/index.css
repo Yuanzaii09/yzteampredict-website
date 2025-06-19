@@ -116,7 +116,7 @@ body {
 /* SHORT & FULL TEXT */
 .card span {
     position: absolute;
-    transition: opacity 0.2s ease-out, color 0.2s ease-out;
+    transition: opacity 0.1s ease-out, color 0.1s ease-out;
     pointer-events: none;
     color: inherit;
 }
