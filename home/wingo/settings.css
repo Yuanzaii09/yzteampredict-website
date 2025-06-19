@@ -110,10 +110,6 @@ body {
     transition: all 0.2s ease;
     font-family: sans-serif;
     text-decoration: none;
-    outline: none;
-}
-.nav-item:focus{
-    outline: none;
 }
 .nav-item:hover:not(.active),
 .nav-item:focus-visible:not(.active) {
@@ -130,8 +126,6 @@ body {
     width: 35px;
     height: 35px;
     transition: transform 0.2s ease;
-    -webkit-tap-highlight-color: transparent;
-    tap-highlight-color: transparent;
 }
 .nav-label {
     font-size: 11px;
