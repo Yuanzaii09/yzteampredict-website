@@ -272,9 +272,6 @@ body {
 
 /* 底部元素 */
 .bottom-container {
-    position: fixed;
-    bottom: 0;
-    left: 0;
     width: 100%;
     padding: 10px 0;
     text-align: center;
