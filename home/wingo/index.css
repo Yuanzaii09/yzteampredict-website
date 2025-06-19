@@ -85,6 +85,7 @@ body {
     padding: 0 10px;
     gap: 10px;
     /* 淡入动画 */
+    will-change: opacity, transform;
     opacity: 0;
     transform: translateY(10px);
     animation: fadeInUp 0.5s ease-out forwards;
