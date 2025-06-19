@@ -87,17 +87,19 @@ body {
     padding: 0 10px;
     gap: 10px;
     /* 淡入动画 */
-    will-change: opacity, transform;
     opacity: 0;
-    animation: fadeIn 0.5s ease-out forwards;
-    animation-delay: 0.5s;
+    visibility: hidden;
+    animation: fadeIn 0.4s ease-out forwards;
+    animation-delay: 0.2s;
 }
 @keyframes fadeIn {
     from {
         opacity: 0;
+        visibility: hidden;
     }
     to {
         opacity: 1;
+        visibility: visible;
     }
 }
 
