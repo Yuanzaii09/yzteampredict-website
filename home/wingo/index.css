@@ -1,3 +1,32 @@
+/* 全局移除点击时的高亮/边框/阴影/选择效果 */
+* {
+    -webkit-tap-highlight-color: transparent; /* 去除点击时灰色或蓝色高亮（移动端） */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 部分浏览器需要这个兼容 */
+    -webkit-touch-callout: none; /* iOS 长按菜单 */
+    outline: none !important; /* 去除 outline 高亮框 */
+    box-shadow: none !important; /* 去除 box-shadow 点击阴影 */
+    user-select: none; /* 禁止选中文本 */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+/* 针对 a / button / input 移除点击样式 */
+a,
+button,
+input,
+textarea,
+select {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+}
+/* 禁止 svg 被单独选中或点亮 */
+svg {
+    pointer-events: none;
+}
+
 @font-face {
     font-family: 'godofwar';
     src: url('fonts/godofwar.ttf') format('truetype');
@@ -139,10 +168,6 @@ body {
     transition: all 0.2s ease;
     font-family: sans-serif;
     text-decoration: none;
-    outline: none;
-}
-.nav-item:focus{
-    outline: none;
 }
 .nav-item:hover:not(.active),
 .nav-item:focus-visible:not(.active) {
@@ -159,8 +184,6 @@ body {
     width: 35px;
     height: 35px;
     transition: transform 0.2s ease;
-    -webkit-tap-highlight-color: transparent;
-    tap-highlight-color: transparent;
 }
 .nav-label {
     font-size: 11px;
