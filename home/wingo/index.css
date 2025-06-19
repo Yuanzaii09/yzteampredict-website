@@ -172,6 +172,8 @@ body {
     /* 取消任何动画或 transition */
     animation: none !important;
     transition: none !important;
+    will-change: transform;
+    backface-visibility: hidden;
 }
 .nav-item {
     display: flex;
