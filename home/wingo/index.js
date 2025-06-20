@@ -10,7 +10,7 @@ cards.forEach(card => {
 
 // 获取 MZPLAY Period 的函数
 function updatePeriod() {
-  fetch("https://mzplay-fixed.zfx.workers.dev")
+  fetch("https://frosty-heart-7946.yuanzaii09.workers.dev/")
     .then(res => res.json())
     .then(data => {
       document.getElementById("period").textContent = "Period: " + data.data.issueNumber;
