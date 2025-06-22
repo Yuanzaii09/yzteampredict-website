@@ -52,6 +52,7 @@ body {
 }
 
 .bg {
+  display-: flex;
   justify-content: center;
   align-item: center;
   width: 80%;
