@@ -52,7 +52,6 @@ body {
 }
 
 .bg {
-  left: 50%;
   width: 80%;
   max-width: 360px;
   background: white;
@@ -60,6 +59,7 @@ body {
   border-radius: 50px;
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
   text-align: center;
+  item-align: center;
   font-family: 'lm-medium', sans-serif;
 }
 
