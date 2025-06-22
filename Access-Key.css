@@ -93,7 +93,7 @@ input:focus {
 /* 按钮 */
 button {
     text-align: center;
-    width: 100%;
+    width: 70%;
     max-width: 350px;
     padding: 12.5px 0;
     font-size: 16px;
