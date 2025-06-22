@@ -73,6 +73,7 @@ h1 {
   font-family: 'lm-medium', sans-serif;
 }
 
+/* INPUT */
 input {
   width: 100%;
   padding: 10px 0px;
@@ -83,6 +84,10 @@ input {
   text-align: center;
   font-family: 'Noto-Sans', sans-serif;
   font-weight: 600;
+}
+input:focus {
+    border-color: #8A2BE2;
+    outline: none; /* 移除默认的蓝色高亮 */
 }
 
 /* 按钮 */
