@@ -69,7 +69,7 @@ body {
 h1 {
   margin-bottom: 20px;
   font-size: 24px;
-  font-weight: bold;
+  font-family: 'lm-medium', sans-serif;
 }
 
 input {
