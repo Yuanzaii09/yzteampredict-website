@@ -54,7 +54,7 @@ body {
 .bg {
     position: relative;
     top: 50vh;
-    transform: translateY(-50%);
+    transform: translateY(-40%);
     width: 80%;
     max-width: 360px;
     height: auto;
