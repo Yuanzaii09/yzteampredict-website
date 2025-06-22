@@ -51,14 +51,11 @@ body {
     }
 }
 
-.bgg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* 占满整个视口高度 */
-}
-
 .bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 80%;
     max-width: 360px;
     background-color: #fff;
