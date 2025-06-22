@@ -12,12 +12,7 @@
 }
 
 body {
-  font-family: 'lm-medium', sans-serif;
-  background-color: #f9f9f9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  background-color: #fff;
 }
 
 .logo {
