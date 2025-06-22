@@ -13,7 +13,6 @@
 
 body {
   font-family: 'lm-medium', sans-serif;
-  font-weight: 800;
   background-color: #f9f9f9;
   display: flex;
   justify-content: center;
@@ -30,7 +29,6 @@ body {
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
   text-align: center;
   font-family: 'lm-medium', sans-serif;
-  font-weight: 800;
 }
 
 h1 {
@@ -47,6 +45,7 @@ input {
   font-size: 16px;
   margin-bottom: 20px;
   text-align: center;
+  font-family: 'lm-medium', sans-serif;
 }
 
 /* 按钮 */
