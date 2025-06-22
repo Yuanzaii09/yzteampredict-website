@@ -52,6 +52,8 @@ body {
 }
 
 .bg {
+  justify-content: center;
+  align-item: center;
   width: 80%;
   max-width: 360px;
   background: white;
