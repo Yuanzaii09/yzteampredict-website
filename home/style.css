@@ -54,7 +54,7 @@ body {
 
 /* TOGGLE容器 */
 .toggle-container {
-    background-color: #f0f0f0;
+    background-color: #aaa;
     padding: 5px 5px;
     border-radius: 25px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
