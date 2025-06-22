@@ -52,9 +52,7 @@ body {
 }
 
 .bg {
-  display-: flex;
-  justify-content: center;
-  align-item: center;
+  left: 50%;
   width: 80%;
   max-width: 360px;
   background: white;
