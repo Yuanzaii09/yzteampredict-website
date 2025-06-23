@@ -1,6 +1,5 @@
 const cards = document.querySelectorAll('.card');
 
-// 卡片点击高亮效果
 cards.forEach(card => {
   card.addEventListener('click', () => {
     document.querySelector('.card.active')?.classList.remove('active');
@@ -8,30 +7,72 @@ cards.forEach(card => {
   });
 });
 
-// 每秒向后端获取最新的 period 和结果
-async function fetchPeriodData() {
-  try {
-    const res = await fetch("https://predict-gamma.vercel.app/api/result");
-    const data = await res.json();
+let countdown = 30;
+let isPredicting = false;
 
-    // 更新 Period 显示
-    const periodEl = document.getElementById("period");
-    if (periodEl) periodEl.textContent = data.period;
+function updatePeriod() {
+  const now = new Date();
 
-    // 更新倒计时显示
-    const cdEl = document.querySelector(".cd");
-    if (cdEl) cdEl.textContent = `00 : ${String(data.countdown).padStart(2, "0")}`;
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
 
-    // 更新结果显示
-    const resultEl = document.getElementById("result");
-    if (resultEl) resultEl.textContent = data.result;
+  const start = new Date();
+  start.setHours(8, 0, 0, 0);
+  const diffMs = now - start;
 
-  } catch (e) {
-    const resultEl = document.getElementById("result");
-    if (resultEl) resultEl.textContent = "获取失败";
+  let periodNum = 0;
+  if (diffMs >= 0) {
+    const diffSec = Math.floor(diffMs / 1000);
+    periodNum = Math.floor(diffSec / 30);
+    countdown = 30 - (diffSec % 30);
+  } else {
+    countdown = 30;
+  }
+
+  const fixedCode = "10005";
+  const nextPeriodNum = periodNum + 1;
+  const periodStr = String(nextPeriodNum).padStart(5, "0");
+  const nextPeriod = `${year}${month}${day}${fixedCode}${periodStr}`;
+
+  const periodEl = document.getElementById("period");
+  if (periodEl) periodEl.textContent = nextPeriod;
+
+  const cdEl = document.querySelector(".cd");
+  const resultEl = document.getElementById("result");
+
+  if (countdown === 0 && !isPredicting) {
+    isPredicting = true;
+
+    if (resultEl) resultEl.innerHTML = `<span>AI运作中...</span>`;
+
+    const delay = Math.floor(Math.random() * 3000) + 2000;
+
+    setTimeout(() => {
+      const result = Math.random() < 0.5 ? "BIG" : "SMALL";
+
+      // 概率逻辑：85% 概率为 45%-69%，其余为 70%-85%
+      const isHighChance = Math.random() < 0.15;
+      const percentage = isHighChance
+        ? Math.floor(Math.random() * 16) + 70 // 70-85%
+        : Math.floor(Math.random() * 25) + 45; // 45-69%
+
+      const color = isHighChance ? "green" : "orange";
+
+      if (resultEl) {
+        resultEl.innerHTML = `
+          <span style="color: white;">${result}</span>
+          <span style="color: ${color};">（${percentage}%）</span>
+        `;
+      }
+
+      isPredicting = false;
+    }, delay);
+  } else if (!isPredicting) {
+    const padded = String(countdown).padStart(2, "0");
+    if (cdEl) cdEl.textContent = `00 : ${padded}`;
   }
 }
 
-// 初始执行一次 + 每秒执行
-fetchPeriodData();
-setInterval(fetchPeriodData, 1000);
+setInterval(updatePeriod, 1000);
+updatePeriod();
