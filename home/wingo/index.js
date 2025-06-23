@@ -8,6 +8,7 @@ cards.forEach(card => {
 });
 
 let countdown = 30;
+let isPredicting = false;
 
 function updatePeriod() {
   const now = new Date();
@@ -30,19 +31,33 @@ function updatePeriod() {
   }
 
   const fixedCode = "10005";
-  const nextPeriodNum = periodNum + 1; // ✅ 加一
+  const nextPeriodNum = periodNum + 1;
   const periodStr = String(nextPeriodNum).padStart(5, "0");
   const nextPeriod = `${year}${month}${day}${fixedCode}${periodStr}`;
 
-  // 显示预测的下一期
   const periodEl = document.getElementById("period");
   if (periodEl) periodEl.textContent = nextPeriod;
 
-  // 显示倒计时
   const cdEl = document.querySelector(".cd");
-  if (cdEl) {
+  const resultEl = document.getElementById("result");
+
+  if (countdown === 0 && !isPredicting) {
+    isPredicting = true;
+
+    if (resultEl) resultEl.textContent = "AI运作中...";
+
+    const delay = Math.floor(Math.random() * 2000) + 1000;
+
+    setTimeout(() => {
+      const result = Math.random() < 0.5 ? "BIG" : "SMALL";
+      if (resultEl) resultEl.textContent = result;
+
+      isPredicting = false;
+    }, delay);
+
+  } else if (!isPredicting) {
     const padded = String(countdown).padStart(2, "0");
-    cdEl.textContent = `00 : ${padded}`;
+    if (cdEl) cdEl.textContent = `00 : ${padded}`;
   }
 }
 
