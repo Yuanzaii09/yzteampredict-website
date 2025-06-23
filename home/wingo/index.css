@@ -93,29 +93,12 @@ body {
     position: relative;
 }
 
-/* CONTENT2 BG */
-.content2-bg {
-    width: 85%;
-    max-width: 360px;
-    height: auto;
-    background-color: #fff;
-    border-radius: 50px;
-    margin: 20px 20px;
-    text-align: center;
-    padding: 20px 10px;
-    color: #333;
-    border: 3px solid #eee;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    position: relative;
-}
-
 /* TIME CONTAINER */
 .t-container {
     position: relative;
     z-index: 1;
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
     padding: 0 10px;
     gap: 10px;
 }
@@ -169,6 +152,22 @@ body {
 .card:hover .text-hover,
 .card.active .text-hover {
     opacity: 1;
+}
+
+/* CONTENT2 BG */
+.content2-bg {
+    width: 85%;
+    max-width: 360px;
+    height: auto;
+    background-color: #fff;
+    border-radius: 50px;
+    margin: 20px 20px;
+    text-align: center;
+    padding: 20px 10px;
+    color: #333;
+    border: 3px solid #eee;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
 /* TIME */
