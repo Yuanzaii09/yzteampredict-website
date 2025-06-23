@@ -1,10 +1,4 @@
-// /api/result.js
-
-let lastPeriod = "";
-let lastResult = "";
-let lastProbability = 0;
-let lastShown = false;
-let startTime = Date.now();
+// api/result.js
 
 module.exports = async (req, res) => {
     const now = new Date();
@@ -25,25 +19,26 @@ module.exports = async (req, res) => {
     const periodStr = String(periodNum + 1).padStart(5, "0");
     const period = `${year}${month}${day}${fixedCode}${periodStr}`;
 
-    // 每一期只生成一次结果
-    if (lastPeriod !== period) {
-        lastPeriod = period;
-        startTime = Date.now();
-        lastShown = false;
-
-        const rand = Math.random();
-        lastResult = rand < 0.5 ? "BIG" : "SMALL";
-
-        const probRand = Math.random();
-        if (probRand < 0.9) {
-            lastProbability = Math.floor(Math.random() * 21) + 45; // 45-65 橙色
-        } else {
-            lastProbability = Math.floor(Math.random() * 21) + 66; // 66-86 绿色
-        }
+    // ⏱️ 用 period 生成可预测的 seed
+    const seed = period;
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) {
+        hash = seed.charCodeAt(i) + ((hash << 5) - hash);
     }
 
-    const elapsed = (Date.now() - startTime) / 1000;
-    const showResult = elapsed >= 2 && elapsed <= 3;
+    const result = (hash % 2 === 0) ? "BIG" : "SMALL";
+
+    const probSeed = Math.abs(hash) % 100;
+    let probability;
+    if (probSeed < 90) {
+        probability = Math.floor(Math.random() * 21) + 45; // 90% 概率：45-65%
+    } else {
+        probability = Math.floor(Math.random() * 21) + 66; // 10% 概率：66-86%
+    }
+
+    // 🧠 判断现在是否已到结果展示时间：每期的 27s-30s 才展示结果（后端决定）
+    const timeInPeriod = seconds % 30;
+    const showResult = timeInPeriod >= 27; // 显示结果时间段
 
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Cache-Control", "no-store");
@@ -51,7 +46,7 @@ module.exports = async (req, res) => {
     res.status(200).json({
         period,
         countdown,
-        result: showResult ? lastResult : "AI运作中...",
-        probability: showResult ? lastProbability : null
+        result: showResult ? result : "AI运作中...",
+        probability: showResult ? probability : null
     });
 };
