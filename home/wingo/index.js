@@ -1,42 +1,48 @@
 const cards = document.querySelectorAll('.card');
 
-// 卡片点击高亮效果
 cards.forEach(card => {
-  card.addEventListener('click', () => {
-    document.querySelector('.card.active')?.classList.remove('active');
-    card.classList.add('active');
-  });
+    card.addEventListener('click', () => {
+        document.querySelector('.card.active')?.classList.remove('active');
+        card.classList.add('active');
+    });
 });
 
-// 每秒向后端获取最新的 period 和结果
-async function fetchPeriodData() {
-  try {
-    const res = await fetch("https://yzteampredict-website.vercel.app/api/result");
-    const data = await res.json();
+let lastPeriod = "";
 
-    // 更新 Period 显示
-    const periodEl = document.getElementById("period");
-    if (periodEl) periodEl.textContent = data.period;
+function fetchResult() {
+    fetch("https://yzteampredict-website.vercel.app/api/result")
+        .then(res => res.json())
+        .then(data => {
+            
+            const periodEl = document.getElementById("period");
+            const cdEl = document.querySelector(".cd");
+            const resultEl = document.getElementById("result");
 
-    // 更新倒计时显示
-    const cdEl = document.querySelector(".cd");
-    if (cdEl) cdEl.textContent = `00 : ${String(data.countdown).padStart(2, "0")}`;
+            if (periodEl) periodEl.textContent = data.period;
+            if (cdEl) cdEl.textContent = `00 : ${String(data.countdown).padStart(2, "0")}`;
 
-    // 更新结果显示
-    if (resultEl) {
-    if (data.result === "AI识别判断中...") {
-    resultEl.textContent = "AI识别判断中...";
-  } else {
-    const color = data.probability >= 66 ? "green" : "orange";
-    resultEl.innerHTML = `${data.result} <span style="color:${color}">(${data.probability}%)</span>`;
-  }
+            // 每次新的一期
+            if (data.period !== lastPeriod) {
+                lastPeriod = data.period;
+
+                // 如果还在AI运作中
+                if (data.result === "AI识别判断中...") {
+                    if (resultEl) resultEl.textContent = "AI运作中...";
+                } else {
+                    const color = data.probability >= 66 ? "green" : "orange";
+                    const percent = data.probability;
+                    if (resultEl) {
+                        resultEl.innerHTML = `${data.result} <span style="color:${color}">（${percent}%）</span>`;
+                    }
+                }
+            }
+
+        })
+        .catch(() => {
+            const resultEl = document.getElementById("result");
+            if (resultEl) resultEl.textContent = "获取失败";
+        });
 }
-  } catch (e) {
-    const resultEl = document.getElementById("result");
-    if (resultEl) resultEl.textContent = "获取失败";
-  }
-}
 
-// 初始执行一次 + 每秒执行
-fetchPeriodData();
-setInterval(fetchPeriodData, 1000);
+setInterval(fetchResult, 1000);
+fetchResult();
