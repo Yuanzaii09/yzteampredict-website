@@ -1,10 +1,12 @@
+// /api/result.js
+
+let lastPeriod = "";
+let lastResult = "";
+let lastProbability = 0;
+let lastShown = false;
 let startTime = Date.now();
-let lastPeriod = null;
-let lastResult = null;
-let lastProbability = null;
 
 module.exports = async (req, res) => {
-    
     const now = new Date();
 
     const year = now.getFullYear();
@@ -23,31 +25,33 @@ module.exports = async (req, res) => {
     const periodStr = String(periodNum + 1).padStart(5, "0");
     const period = `${year}${month}${day}${fixedCode}${periodStr}`;
 
+    // 每一期只生成一次结果
     if (lastPeriod !== period) {
         lastPeriod = period;
         startTime = Date.now();
+        lastShown = false;
 
-        const randomResult = Math.random();
-        lastResult = randomResult < 0.5 ? "BIG" : "SMALL";
+        const rand = Math.random();
+        lastResult = rand < 0.5 ? "BIG" : "SMALL";
 
-        const probRoll = Math.random();
-        if (probRoll < 0.9) {
-            lastProbability = Math.floor(Math.random() * (65 - 45 + 1)) + 45;
+        const probRand = Math.random();
+        if (probRand < 0.9) {
+            lastProbability = Math.floor(Math.random() * 21) + 45; // 45-65 橙色
         } else {
-            lastProbability = Math.floor(Math.random() * (86 - 66 + 1)) + 66;
+            lastProbability = Math.floor(Math.random() * 21) + 66; // 66-86 绿色
         }
     }
 
     const elapsed = (Date.now() - startTime) / 1000;
-    const showResult = elapsed > 2 + Math.random();  // 2~3 秒之间随机
+    const showResult = elapsed >= 2 && elapsed <= 3;
 
-    res.setHeader("Cache-Control", "no-store");
     res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Cache-Control", "no-store");
 
     res.status(200).json({
         period,
         countdown,
-        result: showResult ? lastResult : "AI识别判断中...",
+        result: showResult ? lastResult : "AI运作中...",
         probability: showResult ? lastProbability : null
     });
 };
