@@ -23,7 +23,7 @@ export default function handler(req, res) {
   const periodStr = String(nextPeriodNum).padStart(5, '0');
   const period = `${year}${month}${day}${fixedCode}${periodStr}`;
 
-  const seed = period;
+  const seed = `${period}`;
   let hash = 0;
   for (let i = 0; i < seed.length; i++) {
     hash = seed.charCodeAt(i) + ((hash << 5) - hash);
