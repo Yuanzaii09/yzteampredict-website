@@ -11,7 +11,7 @@ cards.forEach(card => {
 // 每秒向后端获取最新的 period 和结果
 async function fetchPeriodData() {
   try {
-    const res = await fetch("https://predict-gamma.vercel.app/");
+    const res = await fetch("https://predict-gamma.vercel.app/api/result");
     const data = await res.json();
 
     // 更新 Period 显示
