@@ -60,7 +60,7 @@ module.exports = async (req, res) => {
     const elapsed = (Date.now() - aiStartTime) / 1000;
     const showResult = elapsed >= (2 + Math.random()); // 2~3秒之间
 
-    let displayResult = "AI运作中...";
+    let displayResult = "AI分析中...";
     let displayProbability = null;
 
     if (showResult) {
