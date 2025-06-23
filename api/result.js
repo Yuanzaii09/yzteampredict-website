@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     const seconds = Math.floor(diffMs / 1000);
 
     // ✅ 你实际需要的偏移（手动试一下：如果你现在看到 mzplay 是 1881，而你网站是 0938，偏移量为 943）
-    const baseOffset = 958;
+    const baseOffset = 960;
 
     // ✅ 计算期数，加 baseOffset，并 +1 表示预测下一期
     const periodNum = Math.floor(seconds / 30) + baseOffset + 1;
