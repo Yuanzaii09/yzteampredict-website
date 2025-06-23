@@ -165,11 +165,6 @@ body {
   color: #333;
   text-align: center;
 }
-/* PERIOD */
-.title {
-    font-family: 'lm-medium', san-serif;
-    text-align: center;
-}
 #period {
   font-size: 24px;
   font-weight: bold;
