@@ -23,7 +23,7 @@ async function fetchPeriodData() {
             if (data.result === "AI运作中...") {
                 resultEl.textContent = data.result;
             } else {
-                const color = data.probability >= 66 ? "green" : "orange";
+                const color = data.probability >= 66 ? "light-green" : "orange";
                 resultEl.innerHTML = `${data.result} <span style="color:${color}">(${data.probability}%)</span>`;
             }
         }
