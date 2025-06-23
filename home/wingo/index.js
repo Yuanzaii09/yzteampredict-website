@@ -7,7 +7,6 @@ cards.forEach(card => {
   });
 });
 
-let lastPeriod = "";
 let countdown = 30;
 
 function updatePeriod() {
@@ -31,21 +30,20 @@ function updatePeriod() {
   }
 
   const fixedCode = "10005";
-  const periodStr = String(periodNum).padStart(5, "0");
-  const finalPeriod = `${year}${month}${day}${fixedCode}${periodStr}`;
+  const nextPeriodNum = periodNum + 1; // ✅ 加一
+  const periodStr = String(nextPeriodNum).padStart(5, "0");
+  const nextPeriod = `${year}${month}${day}${fixedCode}${periodStr}`;
 
-  // ✅ 显示完整期号
+  // 显示预测的下一期
   const periodEl = document.getElementById("period");
-  if (periodEl) periodEl.textContent = finalPeriod;
+  if (periodEl) periodEl.textContent = nextPeriod;
 
-  // ✅ 倒计时格式 00 : SS
+  // 显示倒计时
   const cdEl = document.querySelector(".cd");
   if (cdEl) {
     const padded = String(countdown).padStart(2, "0");
     cdEl.textContent = `00 : ${padded}`;
   }
-
-  lastPeriod = finalPeriod;
 }
 
 setInterval(updatePeriod, 1000);
