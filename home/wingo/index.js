@@ -25,7 +25,7 @@ async function fetchPeriodData() {
             } else {
                 let color;
         if (data.probability >= 66) {
-            color = '#70FF70'; // 浅绿色 (Light Green)
+            color = '#80FF80';
         } else {
             color = 'orange';
         }
