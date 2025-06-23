@@ -23,9 +23,14 @@ async function fetchPeriodData() {
     if (cdEl) cdEl.textContent = `00 : ${String(data.countdown).padStart(2, "0")}`;
 
     // 更新结果显示
-    const resultEl = document.getElementById("result");
-    if (resultEl) resultEl.textContent = data.result;
-
+    if (resultEl) {
+    if (data.result === "AI识别判断中...") {
+    resultEl.textContent = "AI识别判断中...";
+  } else {
+    const color = data.probability >= 66 ? "green" : "orange";
+    resultEl.innerHTML = `${data.result} <span style="color:${color}">(${data.probability}%)</span>`;
+  }
+}
   } catch (e) {
     const resultEl = document.getElementById("result");
     if (resultEl) resultEl.textContent = "获取失败";
