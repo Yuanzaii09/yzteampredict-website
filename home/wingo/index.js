@@ -41,10 +41,11 @@ function fetchResult() {
         }, delay);
       }
     })
-    .catch(() => {
-      const resultEl = document.getElementById("result");
-      if (resultEl) resultEl.textContent = "获取失败";
-    });
+    .catch((err) => {
+    const resultEl = document.getElementById("result");
+    if (resultEl) resultEl.textContent = "获取失败";
+    console.error("Fetch error:", err); // ✅ 加这句调试
+  });
 }
 
 // 每秒更新
