@@ -158,11 +158,11 @@ body {
 .title {
     font-size: 24px;
     font-family: 'lm-medium', san-serif;
-    color: #bbb;
+    color: #aaa;
     text-align: center;
 }
 .cd {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
   color: #333;
   text-align: center;
