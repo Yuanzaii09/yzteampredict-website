@@ -20,7 +20,7 @@ async function fetchPeriodData() {
         if (cdEl) cdEl.textContent = `00 : ${String(data.countdown).padStart(2, "0")}`;
 
         if (resultEl) {
-            if (data.result === "AI运作中...") {
+            if (data.result === "AI分析推断中...") {
                 resultEl.textContent = data.result;
             } else {
                 let color;
