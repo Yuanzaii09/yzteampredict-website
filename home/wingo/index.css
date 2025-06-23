@@ -160,10 +160,12 @@ body {
     font-family: 'lm-medium', san-serif;
     text-align: center;
 }
-.countdown {
-    font-family: 'lm-medium', san-serif;
-    text-align: center;
-    font-size: 15px;
+#countdown {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 10px;
+  text-align: center;
 }
 
 /* PERIOD */
@@ -171,10 +173,12 @@ body {
     font-family: 'lm-medium', san-serif;
     text-align: center;
 }
-.period {
-    font-family: 'lm-medium', san-serif;
-    text-align: center;
-    font-size: 15px;
+#period {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 10px;
+  text-align: center;
 }
 
 /* NAV-BAR */
