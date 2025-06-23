@@ -36,7 +36,7 @@ function getCurrentPeriod() {
   const periodStr = String(periodNum).padStart(5, "0"); // 保证五位数
   const finalPeriod = `${year}${month}${day}${fixedCode}${periodStr}`;
 
-  document.getElementById("period").textContent = "当前 Period: " + finalPeriod;
+  document.getElementById("period").textContent = finalPeriod;
 }
 
 // 初次加载 + 每30秒刷新
