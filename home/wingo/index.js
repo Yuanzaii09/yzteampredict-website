@@ -12,7 +12,7 @@ let isPredicting = false;
 let latestPeriod = ""; // 用来避免重复请求
 
 function fetchResult() {
-  fetch('https://yzteampredict-website.vercel.app/api/result')
+  fetch('https://yzteampredict-website.vercel.app/api/result.js')
     .then(res => res.json())
     .then(data => {
       const periodEl = document.getElementById("period");
