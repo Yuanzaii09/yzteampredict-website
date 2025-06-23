@@ -38,6 +38,6 @@ module.exports = async (req, res) => {
   res.status(200).json({
     period,
     countdown,
-    result: showResult ? lastResult : "AI运作中..."
+    result: showResult ? lastResult : "AI识别判断中..."
   });
 };
