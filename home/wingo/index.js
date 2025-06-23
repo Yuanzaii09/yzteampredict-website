@@ -1,3 +1,4 @@
+// 点击卡片时切换 active
 const cards = document.querySelectorAll('.card');
 
 cards.forEach(card => {
@@ -7,62 +8,29 @@ cards.forEach(card => {
   });
 });
 
-let countdown = 30;
-let isPredicting = false;
-let aiTimeout = null;
+// 每秒更新 UI，从服务器获取当前 period 和 result
+function updateFromServer() {
+  fetch("https://your-vercel-api-url.vercel.app/") // ← ← ← 修改为你自己的 API 地址
+    .then(res => res.json())
+    .then(data => {
+      // 显示期号
+      const periodEl = document.getElementById("period");
+      if (periodEl) periodEl.textContent = data.period || "无数据";
 
-function updatePeriod() {
-  const now = new Date();
+      // 显示倒计时
+      const cdEl = document.querySelector(".cd");
+      if (cdEl) cdEl.textContent = `00 : ${String(data.countdown).padStart(2, "0")}`;
 
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-
-  const start = new Date();
-  start.setHours(8, 0, 0, 0);
-  const diffMs = now - start;
-
-  let periodNum = 0;
-  if (diffMs >= 0) {
-    const diffSec = Math.floor(diffMs / 1000);
-    periodNum = Math.floor(diffSec / 30);
-    countdown = 30 - (diffSec % 30);
-  } else {
-    countdown = 30;
-  }
-
-  const fixedCode = "10005";
-  const nextPeriodNum = periodNum + 1;
-  const periodStr = String(nextPeriodNum).padStart(5, "0");
-  const nextPeriod = `${year}${month}${day}${fixedCode}${periodStr}`;
-
-  const periodEl = document.getElementById("period");
-  if (periodEl) periodEl.textContent = nextPeriod;
-
-  const cdEl = document.querySelector(".cd");
-  const resultEl = document.getElementById("result");
-
-  if (countdown === 0 && !isPredicting) {
-    isPredicting = true;
-
-    if (resultEl) resultEl.textContent = "AI运作中...";
-
-    const delay = Math.floor(Math.random() * 3000) + 2000; // 2～5秒
-
-    aiTimeout = setTimeout(() => {
-      const seed = parseInt(nextPeriod.slice(-2)); // 最后两位作为种子
-      const result = seed % 2 === 0 ? "BIG" : "SMALL";
-      if (resultEl) resultEl.textContent = result;
-
-      isPredicting = false;
-    }, delay);
-
-  } else if (!isPredicting) {
-    const padded = String(countdown).padStart(2, "0");
-    if (cdEl) cdEl.textContent = `00 : ${padded}`;
-  }
+      // 显示 BIG / SMALL 或 "AI运作中..."
+      const resultEl = document.getElementById("result");
+      if (resultEl) resultEl.textContent = data.result || "AI运作中...";
+    })
+    .catch(() => {
+      const resultEl = document.getElementById("result");
+      if (resultEl) resultEl.textContent = "获取失败";
+    });
 }
 
-// 每秒执行
-setInterval(updatePeriod, 1000);
-updatePeriod();
+// 初次加载 + 每秒自动更新
+updateFromServer();
+setInterval(updateFromServer, 1000);
