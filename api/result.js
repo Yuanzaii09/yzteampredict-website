@@ -31,7 +31,8 @@ module.exports = async (req, res) => {
     // 构造最终期号
     const fixedCode = "10005";
     const periodStr = String(periodNum).padStart(5, "0");
-    const period = `${year}${month}${day}${fixedCode}${periodStr}`;
+    let rawPeriod = `${year}${month}${day}${fixedCode}${periodStr}`;
+    let period = rawPeriod.slice(0, 13) + rawPeriod.slice(14);
 
     // 每期更新结果
     if (period !== latestPeriod) {
