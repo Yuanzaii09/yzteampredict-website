@@ -36,13 +36,13 @@ function updatePeriod() {
 
   if (finalPeriod !== lastPeriod) {
     lastPeriod = finalPeriod;
-    document.getElementById("period").textContent = "当前 Period: " + finalPeriod;
+    document.getElementById("period").textContent = finalPeriod;
   }
 
   // 更新倒计时显示
   const cdElement = document.querySelector('.cd');
   if (cdElement) {
-    cdElement.textContent = `距离下期还有：${countdown} 秒`;
+    cdElement.textContent = `00 : ${countdown}`;
   }
 }
 
