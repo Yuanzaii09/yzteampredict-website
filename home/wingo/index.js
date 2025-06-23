@@ -1,7 +1,4 @@
-<!-- Period 显示区 -->
-<div id="period">加载中...</div>
 
-<script>
 // 原本的卡片点击逻辑
 const cards = document.querySelectorAll('.card');
 
@@ -42,4 +39,3 @@ function getCurrentPeriod() {
 // 初次加载 + 每30秒刷新
 getCurrentPeriod();
 setInterval(getCurrentPeriod, 30000);
-</script>
