@@ -7,12 +7,12 @@ cards.forEach(card => {
   });
 });
 
-// === Period + 倒计时逻辑 ===
 let lastPeriod = "";
 let countdown = 30;
 
 function updatePeriod() {
   const now = new Date();
+
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, "0");
   const day = String(now.getDate()).padStart(2, "0");
@@ -34,24 +34,19 @@ function updatePeriod() {
   const periodStr = String(periodNum).padStart(5, "0");
   const finalPeriod = `${year}${month}${day}${fixedCode}${periodStr}`;
 
-  if (finalPeriod !== lastPeriod) {
-    lastPeriod = finalPeriod;
-    document.getElementById("period").textContent = finalPeriod;
+  // ✅ 显示完整期号
+  const periodEl = document.getElementById("period");
+  if (periodEl) periodEl.textContent = finalPeriod;
+
+  // ✅ 倒计时格式 00 : SS
+  const cdEl = document.querySelector(".cd");
+  if (cdEl) {
+    const padded = String(countdown).padStart(2, "0");
+    cdEl.textContent = `00 : ${padded}`;
   }
 
-  // 更新倒计时显示
-  const cdElement = document.querySelector('.cd');
-  if (cdElement) {
-    cdElement.textContent = `00 : ${countdown}`;
-  }
+  lastPeriod = finalPeriod;
 }
 
-// 每秒刷新一次 period 和倒计时
-setInterval(() => {
-  updatePeriod();
-  countdown--;
-  if (countdown <= 0) countdown = 30;
-}, 1000);
-
-// 首次加载
+setInterval(updatePeriod, 1000);
 updatePeriod();
