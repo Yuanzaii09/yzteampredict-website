@@ -158,7 +158,8 @@ body {
 .title {
     font-size: 24px;
     font-family: 'lm-medium', san-serif;
-    color: #666;
+    color: #000;
+    opacity: 0.8;
     text-align: center;
 }
 .cd {
