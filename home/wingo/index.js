@@ -1,4 +1,3 @@
-// card 点击逻辑保持不变
 const cards = document.querySelectorAll('.card');
 
 cards.forEach(card => {
@@ -8,30 +7,16 @@ cards.forEach(card => {
   });
 });
 
-// 获取最新一期 issueNumber
+// 获取 MZPLAY Period 的函数（使用 zfx workers 中转接口）
 function updatePeriod() {
-  fetch("https://mzplayapi.com/api/webapi/getNoaverageEmerdList", {
-    method: "POST",
-    headers: {
-      "Authorization": "Bearer 你的_Bearer_Token", // ⚠️ 替换为你自己的 Token
-      "Content-Type": "application/json;charset=UTF-8",
-      "Origin": "https://mzplayj.com",
-      "Referer": "https://mzplayj.com/"
-    },
-    body: JSON.stringify({
-      gameId: 1,
-      pageNo: 1,
-      pageSize: 1 // 只要最新一期
+  fetch("https://mzplay-period.zfx.workers.dev/")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("period").textContent = "Period: " + (data.period || "无数据");
     })
-  })
-  .then(res => res.json())
-  .then(data => {
-    const latest = data?.data?.list?.[0]?.issueNumber || "未知";
-    document.getElementById("period").textContent = "Period: " + latest;
-  })
-  .catch(() => {
-    document.getElementById("period").textContent = "Period 获取失败";
-  });
+    .catch(() => {
+      document.getElementById("period").textContent = "Period 获取失败";
+    });
 }
 
 // 初次加载 + 每30秒刷新
