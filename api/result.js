@@ -17,11 +17,8 @@ module.exports = async (req, res) => {
     const diffMs = now - start;
 
     const seconds = Math.floor(diffMs / 1000);
-    // ✅ 偏移量，让你的期数和 mzplay 对齐（实际差多少就填多少）
-    const baseOffset = 959;
-    // ✅ 加 1 是因为你要预测“下一期”
-    const periodNum = Math.floor(seconds / 30) + baseOffset + 1;
-
+    const periodNum = Math.floor(seconds / 30);
+    
     const predictedPeriodNum = currentPeriodNum + 1; // ✅ 预测下一期
     const countdown = 30 - (seconds % 30);
 
