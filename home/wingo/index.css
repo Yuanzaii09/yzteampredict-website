@@ -161,6 +161,7 @@ body {
     color: #000;
     opacity: 0.5;
     text-align: center;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 .cd {
     font-size: 30px;
