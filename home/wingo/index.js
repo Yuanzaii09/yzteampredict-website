@@ -1,4 +1,4 @@
-// card 选中效果
+// card 点击逻辑保持不变
 const cards = document.querySelectorAll('.card');
 
 cards.forEach(card => {
@@ -8,12 +8,12 @@ cards.forEach(card => {
   });
 });
 
-// 获取最新10期 issueNumber
+// 获取最新一期 issueNumber
 function updatePeriod() {
   fetch("https://mzplayapi.com/api/webapi/getNoaverageEmerdList", {
     method: "POST",
     headers: {
-      "Authorization": "Bearer 你的_Bearer_Token", // ⬅️ 换成你自己抓到的
+      "Authorization": "Bearer 你的_Bearer_Token", // ⚠️ 替换为你自己的 Token
       "Content-Type": "application/json;charset=UTF-8",
       "Origin": "https://mzplayj.com",
       "Referer": "https://mzplayj.com/"
@@ -21,20 +21,13 @@ function updatePeriod() {
     body: JSON.stringify({
       gameId: 1,
       pageNo: 1,
-      pageSize: 10
+      pageSize: 1 // 只要最新一期
     })
   })
   .then(res => res.json())
   .then(data => {
-    const list = data?.data?.list || [];
-    if (list.length === 0) {
-      document.getElementById("period").textContent = "未找到数据";
-      return;
-    }
-
-    // 组合显示10个期号
-    const issuesHTML = list.map(item => `<li>${item.issueNumber}</li>`).join("");
-    document.getElementById("period").innerHTML = `<ul>${issuesHTML}</ul>`;
+    const latest = data?.data?.list?.[0]?.issueNumber || "未知";
+    document.getElementById("period").textContent = "Period: " + latest;
   })
   .catch(() => {
     document.getElementById("period").textContent = "Period 获取失败";
