@@ -156,6 +156,7 @@ body {
 
 /* COUNTDOWN */
 .title {
+    font-size: 30px;
     font-family: 'lm-medium', san-serif;
     text-align: center;
 }
