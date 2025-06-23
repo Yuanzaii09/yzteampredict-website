@@ -7,11 +7,7 @@ cards.forEach(card => {
   });
 });
 
-let countdown = 30;
-let periodNum = 0;
-let isPredicting = false;
-
-function generatePeriod() {
+function getNextPeriod() {
   const now = new Date();
 
   const year = now.getFullYear();
@@ -21,11 +17,10 @@ function generatePeriod() {
   const start = new Date();
   start.setHours(8, 0, 0, 0);
   const diffSec = Math.floor((now - start) / 1000);
-  periodNum = Math.floor(diffSec / 30);
+  const periodNum = Math.floor(diffSec / 30) + 1;
 
   const fixedCode = "10005";
-  const nextPeriodNum = periodNum + 1;
-  const periodStr = String(nextPeriodNum).padStart(5, "0");
+  const periodStr = String(periodNum).padStart(5, "0");
   return `${year}${month}${day}${fixedCode}${periodStr}`;
 }
 
@@ -40,27 +35,26 @@ function showPrediction() {
   }, delay);
 }
 
-function updateDisplay() {
-  const periodEl = document.getElementById("period");
-  if (periodEl) periodEl.textContent = generatePeriod();
+function updatePeriodAndCountdown() {
+  const now = new Date();
+  const seconds = now.getSeconds();
+  const milliseconds = now.getMilliseconds();
 
-  const cdEl = document.querySelector(".cd");
-  if (cdEl) cdEl.textContent = `00 : ${String(countdown).padStart(2, "0")}`;
+  const secondsPast = seconds % 30;
+  const remaining = 30 - secondsPast;
+
+  // 更新时间和倒计时
+  document.getElementById("period").textContent = getNextPeriod();
+  document.querySelector(".cd").textContent = `00 : ${String(remaining).padStart(2, "0")}`;
+
+  // 如果刚好整点触发
+  if (secondsPast === 0) {
+    showPrediction();
+  }
 }
 
-// 每秒更新倒计时
-setInterval(() => {
-  countdown--;
-  if (countdown <= 0) {
-    countdown = 30;
-    updateDisplay();
-    showPrediction();
-  } else {
-    updateDisplay();
-  }
-}, 1000);
+// 每 500 毫秒刷新（确保同步精准）
+setInterval(updatePeriodAndCountdown, 500);
 
-// 初次加载
-countdown = 30;
-updateDisplay();
-showPrediction();
+// 初始立即执行
+updatePeriodAndCountdown();
