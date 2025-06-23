@@ -9,6 +9,7 @@ cards.forEach(card => {
 
 let countdown = 30;
 let isPredicting = false;
+let lastPeriod = "";
 
 function updatePeriod() {
   const now = new Date();
@@ -41,33 +42,45 @@ function updatePeriod() {
   const cdEl = document.querySelector(".cd");
   const resultEl = document.getElementById("result");
 
-  if (countdown === 0 && !isPredicting) {
+  // 当 countdown 到 0，开始预测
+  if (countdown === 0 && !isPredicting && nextPeriod !== lastPeriod) {
     isPredicting = true;
+    lastPeriod = nextPeriod;
 
-    if (resultEl) resultEl.innerHTML = `<span>AI运作中...</span>`;
+    if (resultEl) resultEl.textContent = "AI运作中...";
 
-    const delay = Math.floor(Math.random() * 3000) + 2000;
+    const delay = Math.floor(Math.random() * 3000) + 2000; // 2-5秒
 
     setTimeout(() => {
-      const result = Math.random() < 0.5 ? "BIG" : "SMALL";
+      fetch("https://predict-gamma.vercel.app/api/result")
+        .then(res => res.json())
+        .then(data => {
+          const result = data.result;
+          
+          // 生成随机概率
+          const rand = Math.random();
+          let probability = 0;
+          let color = "orange";
 
-      // 概率逻辑：85% 概率为 45%-69%，其余为 70%-85%
-      const isHighChance = Math.random() < 0.15;
-      const percentage = isHighChance
-        ? Math.floor(Math.random() * 16) + 70 // 70-85%
-        : Math.floor(Math.random() * 25) + 45; // 45-69%
+          if (rand < 0.85) {
+            probability = Math.floor(Math.random() * 25) + 45; // 45-69
+            color = "orange";
+          } else {
+            probability = Math.floor(Math.random() * 16) + 70; // 70-85
+            color = "green";
+          }
 
-      const color = isHighChance ? "green" : "orange";
+          resultEl.innerHTML = `<span style="color:${color};">${result} (${probability}%)</span>`;
+        })
+        .catch(() => {
+          resultEl.textContent = "结果获取失败";
+        })
+        .finally(() => {
+          isPredicting = false;
+        });
 
-      if (resultEl) {
-        resultEl.innerHTML = `
-          <span style="color: white;">${result}</span>
-          <span style="color: ${color};">（${percentage}%）</span>
-        `;
-      }
-
-      isPredicting = false;
     }, delay);
+
   } else if (!isPredicting) {
     const padded = String(countdown).padStart(2, "0");
     if (cdEl) cdEl.textContent = `00 : ${padded}`;
