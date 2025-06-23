@@ -160,11 +160,23 @@ body {
     font-family: 'lm-medium', san-serif;
     text-align: center;
 }
+.countdown {
+    font-family: 'lm-medium', san-serif;
+    text-align: center;
+    font-size: 15px;
+}
+
 /* PERIOD */
 .period-title {
     font-family: 'lm-medium', san-serif;
     text-align: center;
-    
+}
+.period {
+    font-family: 'lm-medium', san-serif;
+    text-align: center;
+    font-size: 15px;
+}
+
 /* NAV-BAR */
 .nav-bar {
     position: fixed;
