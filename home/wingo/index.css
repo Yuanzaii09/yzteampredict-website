@@ -155,7 +155,7 @@ body {
 }
 
 /* COUNTDOWN */
-.cd-title {
+.title {
     font-family: 'lm-medium', san-serif;
     text-align: center;
 }
@@ -165,9 +165,8 @@ body {
   color: #333;
   text-align: center;
 }
-
 /* PERIOD */
-.period-title {
+.title {
     font-family: 'lm-medium', san-serif;
     text-align: center;
 }
