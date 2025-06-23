@@ -20,9 +20,9 @@ module.exports = async (req, res) => {
   const countdown = 30 - (seconds % 30);
 
   const fixedCode = "10005";
-  const periodStr = String(periodNum + 1).padStart(5, "0");
+  const periodStr = String(periodNum + 1).padStart(4, "0"); // 只要4位期数
   const period = `${year}${month}${day}${fixedCode}${periodStr}`;
-
+  
   // 自动同步 result：每 30 秒刷新一次
   if (lastPeriod !== period) {
     lastPeriod = period;
