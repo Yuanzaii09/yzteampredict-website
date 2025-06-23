@@ -23,8 +23,7 @@ export default function handler(req, res) {
   const periodStr = String(nextPeriodNum).padStart(5, '0');
   const period = `${year}${month}${day}${fixedCode}${periodStr}`;
 
-  // 固定 seed 生成一致的 result
-  const seed = `${period}`;
+  const seed = period;
   let hash = 0;
   for (let i = 0; i < seed.length; i++) {
     hash = seed.charCodeAt(i) + ((hash << 5) - hash);
@@ -32,13 +31,12 @@ export default function handler(req, res) {
 
   const result = (hash % 2 === 0) ? 'BIG' : 'SMALL';
 
-  // 概率生成（固定策略）
   const random = Math.abs(hash) % 100;
   let probability;
   if (random < 85) {
-    probability = Math.floor(Math.random() * 25) + 45; // 45-69%
+    probability = Math.floor(Math.random() * 25) + 45;
   } else {
-    probability = Math.floor(Math.random() * 16) + 70; // 70-85%
+    probability = Math.floor(Math.random() * 16) + 70;
   }
 
   res.status(200).json({
@@ -47,4 +45,4 @@ export default function handler(req, res) {
     result,
     probability
   });
-    }
+}
