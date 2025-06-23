@@ -1,5 +1,3 @@
-
-// 原本的卡片点击逻辑
 const cards = document.querySelectorAll('.card');
 
 cards.forEach(card => {
@@ -9,33 +7,51 @@ cards.forEach(card => {
   });
 });
 
-// Period 自动生成逻辑
-function getCurrentPeriod() {
-  const now = new Date();
+// === Period + 倒计时逻辑 ===
+let lastPeriod = "";
+let countdown = 30;
 
-  // 获取今天的年月日
+function updatePeriod() {
+  const now = new Date();
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, "0");
   const day = String(now.getDate()).padStart(2, "0");
 
-  // 计算从早上 8:00 到现在过去了多少秒
   const start = new Date();
-  start.setHours(8, 0, 0, 0); // 今天的8:00AM
+  start.setHours(8, 0, 0, 0);
   const diffMs = now - start;
 
   let periodNum = 0;
   if (diffMs >= 0) {
-    const diffSec = Math.floor(diffMs / 1000); // 毫秒转秒
-    periodNum = Math.floor(diffSec / 30);      // 每30秒一期开
+    const diffSec = Math.floor(diffMs / 1000);
+    periodNum = Math.floor(diffSec / 30);
+    countdown = 30 - (diffSec % 30);
+  } else {
+    countdown = 30;
   }
 
   const fixedCode = "10005";
-  const periodStr = String(periodNum).padStart(5, "0"); // 保证五位数
+  const periodStr = String(periodNum).padStart(5, "0");
   const finalPeriod = `${year}${month}${day}${fixedCode}${periodStr}`;
 
-  document.getElementById("period").textContent = finalPeriod;
+  if (finalPeriod !== lastPeriod) {
+    lastPeriod = finalPeriod;
+    document.getElementById("period").textContent = "当前 Period: " + finalPeriod;
+  }
+
+  // 更新倒计时显示
+  const cdElement = document.querySelector('.cd');
+  if (cdElement) {
+    cdElement.textContent = `距离下期还有：${countdown} 秒`;
+  }
 }
 
-// 初次加载 + 每30秒刷新
-getCurrentPeriod();
-setInterval(getCurrentPeriod, 30000);
+// 每秒刷新一次 period 和倒计时
+setInterval(() => {
+  updatePeriod();
+  countdown--;
+  if (countdown <= 0) countdown = 30;
+}, 1000);
+
+// 首次加载
+updatePeriod();
