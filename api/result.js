@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
   }
 
   const elapsed = (Date.now() - startTime) / 1000;
-  const showResult = elapsed > 2 + Math.random() * 3; // 2~5 秒
+  const showResult = elapsed > 2 + Math.random();
 
   res.setHeader("Cache-Control", "no-store");
   res.setHeader("Access-Control-Allow-Origin", "*");
