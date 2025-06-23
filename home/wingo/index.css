@@ -156,7 +156,7 @@ body {
 
 /* COUNTDOWN */
 .title {
-    font-size: 24px;
+    font-size: 20px;
     font-family: 'lm-medium', san-serif;
     color: #000;
     opacity: 0.5;
@@ -164,7 +164,7 @@ body {
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 .cd {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
     font-family: 'lm-medium', san-serif;
     color: #333;
@@ -172,7 +172,7 @@ body {
     margin-bottom: 20px;
 }
 #period {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
     font-family: 'lm-medium', san-serif;
     color: #333;
