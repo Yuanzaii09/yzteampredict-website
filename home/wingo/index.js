@@ -1,6 +1,6 @@
 const cards = document.querySelectorAll('.card');
 
-// 卡片切换激活
+// 卡片点击高亮效果
 cards.forEach(card => {
   card.addEventListener('click', () => {
     document.querySelector('.card.active')?.classList.remove('active');
@@ -8,46 +8,30 @@ cards.forEach(card => {
   });
 });
 
-let isPredicting = false;
-let latestPeriod = ""; // 用来避免重复请求
+// 每秒向后端获取最新的 period 和结果
+async function fetchPeriodData() {
+  try {
+    const res = await fetch("https://your-project-name.vercel.app/api/result"); // 替换成你的 Vercel API 地址
+    const data = await res.json();
 
-function fetchResult() {
-  fetch('https://yzteampredict-website.vercel.app/api/result.js')
-    .then(res => res.json())
-    .then(data => {
-      const periodEl = document.getElementById("period");
-      const cdEl = document.querySelector(".cd");
-      const resultEl = document.getElementById("result");
+    // 更新 Period 显示
+    const periodEl = document.getElementById("period");
+    if (periodEl) periodEl.textContent = data.period;
 
-      if (periodEl) periodEl.textContent = data.period;
-      if (cdEl) cdEl.textContent = `00 : ${String(data.countdown).padStart(2, "0")}`;
+    // 更新倒计时显示
+    const cdEl = document.querySelector(".cd");
+    if (cdEl) cdEl.textContent = `00 : ${String(data.countdown).padStart(2, "0")}`;
 
-      // 判断是否进入新一期（倒计时归0，换期）
-      if (data.period !== latestPeriod) {
-        latestPeriod = data.period;
+    // 更新结果显示
+    const resultEl = document.getElementById("result");
+    if (resultEl) resultEl.textContent = data.result;
 
-        // 显示 AI 运作中...
-        if (resultEl) resultEl.textContent = "AI运作中...";
-
-        isPredicting = true;
-        const delay = Math.floor(Math.random() * 3000) + 2000; // 2-5 秒之间
-
-        setTimeout(() => {
-          const color = data.probability >= 70 ? 'green' : 'orange';
-          if (resultEl) {
-            resultEl.innerHTML = `${data.result} <span style="color:${color}">(${data.probability}%)</span>`;
-          }
-          isPredicting = false;
-        }, delay);
-      }
-    })
-    .catch((err) => {
+  } catch (e) {
     const resultEl = document.getElementById("result");
     if (resultEl) resultEl.textContent = "获取失败";
-    console.error("Fetch error:", err); // ✅ 加这句调试
-  });
+  }
 }
 
-// 每秒更新
-setInterval(fetchResult, 1000);
-fetchResult(); // 初次加载
+// 初始执行一次 + 每秒执行
+fetchPeriodData();
+setInterval(fetchPeriodData, 1000);
