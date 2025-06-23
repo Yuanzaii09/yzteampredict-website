@@ -154,7 +154,7 @@ body {
     opacity: 1;
 }
 
-/* TIME */
+/* COUNTDOWN */
 .cd-title {
     font-family: 'lm-medium', san-serif;
     text-align: center;
@@ -175,7 +175,6 @@ body {
   font-size: 24px;
   font-weight: bold;
   color: #333;
-  margin-top: 10px;
   text-align: center;
 }
 
