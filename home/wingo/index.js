@@ -1,6 +1,6 @@
-// 点击卡片时切换 active
 const cards = document.querySelectorAll('.card');
 
+// 卡片点击高亮效果
 cards.forEach(card => {
   card.addEventListener('click', () => {
     document.querySelector('.card.active')?.classList.remove('active');
@@ -8,29 +8,30 @@ cards.forEach(card => {
   });
 });
 
-// 每秒更新 UI，从服务器获取当前 period 和 result
-function updateFromServer() {
-  fetch("https://your-vercel-api-url.vercel.app/") // ← ← ← 修改为你自己的 API 地址
-    .then(res => res.json())
-    .then(data => {
-      // 显示期号
-      const periodEl = document.getElementById("period");
-      if (periodEl) periodEl.textContent = data.period || "无数据";
+// 每秒向后端获取最新的 period 和结果
+async function fetchPeriodData() {
+  try {
+    const res = await fetch("https://your-project-name.vercel.app/api/result"); // 替换成你的 Vercel API 地址
+    const data = await res.json();
 
-      // 显示倒计时
-      const cdEl = document.querySelector(".cd");
-      if (cdEl) cdEl.textContent = `00 : ${String(data.countdown).padStart(2, "0")}`;
+    // 更新 Period 显示
+    const periodEl = document.getElementById("period");
+    if (periodEl) periodEl.textContent = data.period;
 
-      // 显示 BIG / SMALL 或 "AI运作中..."
-      const resultEl = document.getElementById("result");
-      if (resultEl) resultEl.textContent = data.result || "AI运作中...";
-    })
-    .catch(() => {
-      const resultEl = document.getElementById("result");
-      if (resultEl) resultEl.textContent = "获取失败";
-    });
+    // 更新倒计时显示
+    const cdEl = document.querySelector(".cd");
+    if (cdEl) cdEl.textContent = `00 : ${String(data.countdown).padStart(2, "0")}`;
+
+    // 更新结果显示
+    const resultEl = document.getElementById("result");
+    if (resultEl) resultEl.textContent = data.result;
+
+  } catch (e) {
+    const resultEl = document.getElementById("result");
+    if (resultEl) resultEl.textContent = "获取失败";
+  }
 }
 
-// 初次加载 + 每秒自动更新
-updateFromServer();
-setInterval(updateFromServer, 1000);
+// 初始执行一次 + 每秒执行
+fetchPeriodData();
+setInterval(fetchPeriodData, 1000);
