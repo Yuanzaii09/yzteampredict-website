@@ -155,11 +155,16 @@ body {
     opacity: 1;
 }
 
+/* TIME */
+.cd-title {
+    font-family: 'lm-medium', san-serif;
+    text-align: center;
+}
 /* PERIOD */
 .period-title {
     font-family: 'lm-medium', san-serif;
     text-align: center;
-}
+    
 /* NAV-BAR */
 .nav-bar {
     position: fixed;
