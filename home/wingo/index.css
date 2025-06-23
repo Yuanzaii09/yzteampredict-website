@@ -165,6 +165,7 @@ body {
 .cd {
     font-size: 30px;
     font-weight: bold;
+    font-family: 'lm-medium', san-serif;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
@@ -172,6 +173,7 @@ body {
 #period {
     font-size: 30px;
     font-weight: bold;
+    font-family: 'lm-medium', san-serif;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
