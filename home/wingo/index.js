@@ -33,7 +33,9 @@ function showPrediction() {
 
   const delay = Math.floor(Math.random() * 2000) + 1000;
   setTimeout(() => {
-    const result = Math.random() < 0.5 ? "BIG" : "SMALL";
+    // 替换原来的随机逻辑
+    const seed = parseInt(nextPeriod.slice(-2)); 
+    const result = seed % 2 === 0 ? "BIG" : "SMALL";
     resultEl.textContent = result;
   }, delay);
 }
