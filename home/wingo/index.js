@@ -1,5 +1,5 @@
+// 卡片点击状态（你原本有的）
 const cards = document.querySelectorAll('.card');
-
 cards.forEach(card => {
   card.addEventListener('click', () => {
     document.querySelector('.card.active')?.classList.remove('active');
@@ -7,15 +7,15 @@ cards.forEach(card => {
   });
 });
 
+// 生成下一期的期号
 function getNextPeriod() {
   const now = new Date();
-
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, "0");
   const day = String(now.getDate()).padStart(2, "0");
 
   const start = new Date();
-  start.setHours(8, 0, 0, 0);
+  start.setHours(8, 0, 0, 0); // 今天早上8点
   const diffSec = Math.floor((now - start) / 1000);
   const periodNum = Math.floor(diffSec / 30) + 1;
 
@@ -24,37 +24,45 @@ function getNextPeriod() {
   return `${year}${month}${day}${fixedCode}${periodStr}`;
 }
 
+// 显示 BIG / SMALL 的 AI预测
 function showPrediction() {
   const resultEl = document.getElementById("result");
-  if (resultEl) resultEl.textContent = "AI运作中...";
+  if (!resultEl) return;
+
+  resultEl.textContent = "AI运作中...";
 
   const delay = Math.floor(Math.random() * 2000) + 1000;
   setTimeout(() => {
     const result = Math.random() < 0.5 ? "BIG" : "SMALL";
-    if (resultEl) resultEl.textContent = result;
+    resultEl.textContent = result;
   }, delay);
 }
 
+// 更新周期和倒计时
 function updatePeriodAndCountdown() {
   const now = new Date();
   const seconds = now.getSeconds();
-  const milliseconds = now.getMilliseconds();
-
   const secondsPast = seconds % 30;
   const remaining = 30 - secondsPast;
 
-  // 更新时间和倒计时
-  document.getElementById("period").textContent = getNextPeriod();
-  document.querySelector(".cd").textContent = `00 : ${String(remaining).padStart(2, "0")}`;
+  // 更新倒计时显示
+  const cdEl = document.querySelector(".cd");
+  if (cdEl) {
+    cdEl.textContent = `00 : ${String(remaining).padStart(2, "0")}`;
+  }
 
-  // 如果刚好整点触发
+  // 更新期号
+  const periodEl = document.getElementById("period");
+  if (periodEl) {
+    periodEl.textContent = getNextPeriod();
+  }
+
+  // 如果刚好整 30 秒（如 00、30、60）时触发预测
   if (secondsPast === 0) {
     showPrediction();
   }
 }
 
-// 每 500 毫秒刷新（确保同步精准）
-setInterval(updatePeriodAndCountdown, 500);
-
-// 初始立即执行
+// 每 1 秒执行一次
+setInterval(updatePeriodAndCountdown, 1000);
 updatePeriodAndCountdown();
