@@ -8,7 +8,7 @@ cards.forEach(card => {
 });
 
 function updatePeriod() {
-  fetch("https://你的项目名.vercel.app/api/period")
+  fetch("https://mzplay-period-server.vercel.app/api/period")
     .then(res => res.json())
     .then(data => {
       document.getElementById("period").textContent = "Period: " + data.period;
