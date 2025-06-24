@@ -24,7 +24,7 @@ async function fetchAndDisplayResult() {
         if (periodEl) periodEl.textContent = data.period;
 
         // 立即显示 AI分析中...
-        if (resultEl) resultEl.textContent = "AI分析中...";
+        if (resultEl) resultEl.textContent = "AI Analyzing•••";
 
         // 清除旧定时器
         if (resultTimeout) clearTimeout(resultTimeout);
