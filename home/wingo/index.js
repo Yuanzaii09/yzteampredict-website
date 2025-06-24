@@ -98,7 +98,7 @@ async function fetchAndDisplayResult() {
     }
 
     updateCountdown();
-    const interval = setInterval(updateCountdown, 100);
+    const interval = setInterval(updateCountdown, 500);
 }
 
 // 启动倒计时
