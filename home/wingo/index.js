@@ -59,7 +59,8 @@ function startRealCountdown() {
             clearInterval(interval);
             startRealCountdown(); // 进入下一轮
         } else {
-            const seconds = Math.floor((timeLeft % 60000) / 1000);
+            let seconds = Math.floor((timeLeft % 60000) / 1000);
+            if (seconds < 1) seconds = 1; // 不让它显示 00:00
             if (cdEl) cdEl.textContent = `00 : ${seconds.toString().padStart(2, "0")}`;
         }
     }
