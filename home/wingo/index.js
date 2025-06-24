@@ -36,7 +36,6 @@ function getPeriodString(secondsPerRound) {
  */
 async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
     try {
-        // 动态选择 API 接口
         const apiMap = {
             30: "30sResult",
             60: "1mResult",
@@ -48,7 +47,9 @@ async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
         const res = await fetch(`https://yzteampredict-website.vercel.app/api/${endpoint}`);
         const data = await res.json();
 
-        if (periodEl) periodEl.textContent = getPeriodString(secondsPerRound);
+        if (periodEl) {
+            periodEl.textContent = getPeriodString(secondsPerRound);
+        }
 
         if (resultEl) resultEl.textContent = "AI Analyzing•••";
 
@@ -58,6 +59,7 @@ async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
             if (data.result && data.result !== "AI Analyzing•••" && data.probability !== null) {
                 const label = data.probability >= 65 ? "➠STABLE" : "➠UNSTABLE";
                 const color = data.probability >= 65 ? "#00dd00" : "#ffcc00";
+
                 resultEl.innerHTML = `
                     ${data.result}<br>
                     <span style="color:${color}; font-size:smaller">
@@ -135,14 +137,28 @@ cards.forEach((card, index) => {
     });
 });
 
-const navBar = document.querySelector(".nav-bar");
-let scrollTimeout = null;
+// 页面加载时初始化默认卡片
+window.addEventListener("load", () => {
+    const defaultCard = document.querySelector(".card.active");
+    if (defaultCard) {
+        const index = Array.from(cards).indexOf(defaultCard);
+        const selectedBox = boxes[index];
+        selectedBox.classList.remove("hidden");
+        const time = parseInt(selectedBox.getAttribute("data-time"));
+        startCountdown(selectedBox, time);
+    }
 
-navBar?.classList.remove("hidden");
+    // 显示导航栏后自动隐藏
+    navBar?.classList.remove("hidden");
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        navBar?.classList.add("hidden");
+    }, 2000);
+});
 
+// 滚动时显示导航栏并重置隐藏计时
 window.addEventListener("scroll", () => {
     navBar?.classList.remove("hidden");
-
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
         navBar?.classList.add("hidden");
