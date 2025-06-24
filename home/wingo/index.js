@@ -36,6 +36,12 @@ function getPeriodString(secondsPerRound) {
  */
 async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
     try {
+        // 1. 显示 period 立即更新
+        if (periodEl) {
+            periodEl.textContent = getPeriodString(secondsPerRound);
+        }
+
+        // 2. 确定 API 端点
         const apiMap = {
             30: "30sResult",
             60: "1mResult",
@@ -44,35 +50,39 @@ async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
         };
         const endpoint = apiMap[secondsPerRound] || "30sResult";
 
-        const res = await fetch(`https://yzteampredict-website.vercel.app/api/${endpoint}`);
-        const data = await res.json();
-
-        if (periodEl) {
-            periodEl.textContent = getPeriodString(secondsPerRound);
-        }
-
+        // 3. 显示加载状态
         if (resultEl) resultEl.textContent = "AI Analyzing•••";
 
+        // 4. 发起请求
+        const res = await fetch(`https://yzteampredict-website.vercel.app/api/${endpoint}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const data = await res.json();
+
+        // 5. 延迟2秒再显示结果
         if (resultEl.resultTimeout) clearTimeout(resultEl.resultTimeout);
 
         resultEl.resultTimeout = setTimeout(() => {
-            if (data.result && data.result !== "AI Analyzing•••" && data.probability !== null) {
+            if (data.result && data.probability !== null) {
                 const label = data.probability >= 65 ? "➠STABLE" : "➠UNSTABLE";
                 const color = data.probability >= 65 ? "#00dd00" : "#ffcc00";
-
                 resultEl.innerHTML = `
                     ${data.result}<br>
                     <span style="color:${color}; font-size:smaller">
                         ${label} (${data.probability}%)
                     </span>
                 `;
+            } else {
+                resultEl.textContent = "结果异常";
             }
         }, 2000);
+
     } catch (error) {
-        console.error(error);
+        console.error("获取失败", error);
         if (periodEl) periodEl.textContent = "-";
         if (resultEl) resultEl.textContent = "获取失败";
     }
+}
 }
 
 /**
