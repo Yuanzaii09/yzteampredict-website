@@ -48,7 +48,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 20px 20px;
     background: #fff;
     color: black;
 }
@@ -105,7 +105,7 @@ body {
     background-color: #fff;
     border-radius: 50px;
     text-align: center;
-    padding: 20px 10px;
+    padding: 20px 20px;
     color: #333;
     border: 3px solid #eee;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
