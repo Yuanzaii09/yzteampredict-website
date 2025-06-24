@@ -14,29 +14,28 @@ module.exports = async (req, res) => {
     const day = String(now.getDate()).padStart(2, "0");
 
     // 设置每天起始时间为 8:00 AM
-    const start = new Date();
-    start.setHours(8, 0, 0, 0);
-    const diffMs = now - start;
+    const start = new Date(year, now.getMonth(), now.getDate(), 8, 0, 0, 0);
 
-    // ✅ 正确倒计时（稳定从 30 到 0）
-    const seconds = Math.floor(diffMs / 1000);
-    const countdown = 30 - (seconds % 30);
+    // ✅ 总秒数，精确取整
+    const totalSeconds = Math.floor((now - start) / 1000);
 
-    // ✅ 期数偏移 +1 为预测
+    // ✅ 倒计时（30 → 0）
+    const countdown = 30 - (totalSeconds % 30);
+
+    // ✅ 当前期数（用于锁定结果）
     const baseOffset = 960;
-    const currentPeriodNum = Math.floor(seconds / 30);
+    const currentPeriodNum = Math.floor(totalSeconds / 30);
     const predictedPeriodNum = currentPeriodNum + baseOffset + 1;
 
     const fixedCode = "10005";
 
-    // 当前真实期号（用于结果锁定）
     const currentPeriodId = `${year}${month}${day}${fixedCode}${String(currentPeriodNum + baseOffset).padStart(5, "0")}`;
 
-    // 前端显示的预测期号，删除第14位的 0
-    const predictedRaw = `${year}${month}${day}${fixedCode}${String(predictedPeriodNum).padStart(5, "0")}`;
-    const period = predictedRaw.slice(0, 13) + predictedRaw.slice(14);
+    // ✅ 显示的预测期号，删除第14位的0
+    const rawPeriod = `${year}${month}${day}${fixedCode}${String(predictedPeriodNum).padStart(5, "0")}`;
+    const period = rawPeriod.slice(0, 13) + rawPeriod.slice(14);
 
-    // 每期更新一次结果
+    // 每期只生成一次结果
     if (currentPeriodId !== latestPeriod) {
         latestPeriod = currentPeriodId;
         aiStartTime = Date.now();
@@ -51,13 +50,13 @@ module.exports = async (req, res) => {
 
         const probSeed = Math.abs(hash) % 100;
         if (probSeed < 90) {
-            latestProbability = Math.floor(Math.random() * 21) + 45; // 90%：45-65
+            latestProbability = Math.floor(Math.random() * 21) + 45; // 90%：45-65%
         } else {
-            latestProbability = Math.floor(Math.random() * 21) + 66; // 10%：66-86
+            latestProbability = Math.floor(Math.random() * 21) + 66; // 10%：66-86%
         }
     }
 
-    // AI 延迟（2-3 秒后显示）
+    // ✅ 判断是否显示结果（2~3 秒后）
     const elapsed = (Date.now() - aiStartTime) / 1000;
     const showResult = elapsed >= (2 + Math.random());
 
@@ -71,7 +70,6 @@ module.exports = async (req, res) => {
 
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Cache-Control", "no-store");
-
     res.status(200).json({
         period,
         countdown,
