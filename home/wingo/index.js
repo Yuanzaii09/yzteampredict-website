@@ -48,14 +48,8 @@ function startRealCountdown() {
     const intervalTime = 30 * 1000;
     let endTime = Math.ceil(Date.now() / intervalTime) * intervalTime;
 
-    // ✅ 初始显示 00:30（解决跳过）
-    if (cdEl) cdEl.textContent = "00 : 30";
-
-    async function fetchAndDisplay() {
-        // ...你已有的逻辑
-    }
-
-    fetchAndDisplay();
+    // 一开始就执行 fetch
+    fetchAndDisplayResult();
 
     function updateCountdown() {
         const now = Date.now();
@@ -63,10 +57,9 @@ function startRealCountdown() {
 
         if (timeLeft <= 0) {
             clearInterval(interval);
-            startRealCountdown();
+            startRealCountdown(); // 进入下一轮
         } else {
-            let seconds = Math.floor((timeLeft % 60000) / 1000);
-            if (seconds < 1) seconds = 1;
+            const seconds = Math.floor((timeLeft % 60000) / 1000);
             if (cdEl) cdEl.textContent = `00 : ${seconds.toString().padStart(2, "0")}`;
         }
     }
