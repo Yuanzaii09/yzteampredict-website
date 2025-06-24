@@ -150,16 +150,13 @@ cards.forEach((card, index) => {
 const navBar = document.querySelector(".nav-bar");
 let scrollTimeout = null;
 
-if (navBar) {
-    // 初始不隐藏
-    navBar.classList.remove("hidden");
+navBar?.classList.remove("hidden");
 
-    window.addEventListener("scroll", () => {
-        navBar.classList.remove("hidden");
+window.addEventListener("scroll", () => {
+    navBar?.classList.remove("hidden");
 
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            navBar.classList.add("hidden");
-        }, 2000);
-    });
-}
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        navBar?.classList.add("hidden");
+    }, 2000);
+});
