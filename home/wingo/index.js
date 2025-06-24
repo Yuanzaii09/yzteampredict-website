@@ -4,10 +4,18 @@ const navBar = document.querySelector(".nav-bar");
 let countdownIntervals = {};
 let scrollTimeout = null;
 
+// 固定码映射，秒数 => 固定数字字符串
+const fixedCodes = {
+    30: "10005",
+    60: "10001",
+    180: "10002",
+    300: "10003"
+};
+
 /**
- * 根据秒数计算期数
- * @param {number} secondsPerRound 每期秒数
- * @returns {string} 期号，格式 YYYYMMDDxxxxx（5位数期号，从8点开始算）
+ * 根据秒数计算期数，返回格式：YYYYMMDD + 固定码(5位) + 期号(4位)
+ * @param {number} secondsPerRound
+ * @returns {string} 期号字符串
  */
 function getPeriodString(secondsPerRound) {
     const now = new Date();
@@ -19,9 +27,10 @@ function getPeriodString(secondsPerRound) {
     let periodNumber = secondsSince8AM < 0 ? 0 : Math.floor(secondsSince8AM / secondsPerRound) + 1;
 
     const yyyymmdd = `${year}${(month + 1).toString().padStart(2, "0")}${date.toString().padStart(2, "0")}`;
-    const paddedPeriod = periodNumber.toString().padStart(5, "0");
+    const fixedCode = fixedCodes[secondsPerRound] || "00000";
+    const paddedPeriod = periodNumber.toString().padStart(4, "0"); // 4位数字
 
-    return `${yyyymmdd}${paddedPeriod}`;
+    return `${yyyymmdd}${fixedCode}${paddedPeriod}`;
 }
 
 /**
@@ -69,8 +78,6 @@ async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
 
 /**
  * 启动倒计时逻辑
- * @param {HTMLElement} container countdown-box 容器
- * @param {number} secondsPerRound 每期秒数
  */
 function startCountdown(container, secondsPerRound) {
     const cdEl = container.querySelector(".cd");
@@ -91,7 +98,6 @@ function startCountdown(container, secondsPerRound) {
                 cdEl.style.color = "";
                 cdEl.style.visibility = "visible";
             }
-            // 重新开始倒计时和拉取数据
             startCountdown(container, secondsPerRound);
         } else {
             const seconds = Math.floor((timeLeft % 60000) / 1000);
