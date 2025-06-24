@@ -34,6 +34,7 @@ async function fetchAndDisplayResult() {
             if (data.result && data.result !== "AI分析中..." && data.probability !== null) {
                 let label = "";
                 let color = "";
+                let fontSize = "smaller";
         
                 if (data.probability >= 65) {
                     label = "STABLE";
@@ -43,7 +44,12 @@ async function fetchAndDisplayResult() {
                     color = "#dddd00";
                 }
         
-                resultEl.innerHTML = `${data.result}<br><span style="color:${color}">${label} (${data.probability}%)</span>`;
+                resultEl.innerHTML = `
+                    ${data.result}<br>
+                    <span style="color:${color}; font-size:${fontSize}">
+                        ${label} (${data.probability}%)
+                    </span>
+                `;
             }
         }, 2000);
     } catch (err) {
