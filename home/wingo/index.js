@@ -32,8 +32,18 @@ async function fetchAndDisplayResult() {
         // 固定 2 秒延迟后显示结果
         resultTimeout = setTimeout(() => {
             if (data.result && data.result !== "AI分析中..." && data.probability !== null) {
-                const color = (data.probability >= 66) ? "#ccffcc" : "orange";
-                resultEl.innerHTML = `${data.result}<br><span style="color:${color}">(${data.probability}%)</span>`;
+                let label = "";
+                let color = "";
+        
+                if (data.probability >= 65) {
+                    label = "STABLE";
+                    color = "#ccffcc";
+                } else {
+                    label = "UNSTABLE";
+                    color = "orange";
+                }
+        
+                resultEl.innerHTML = `${data.result}<br><span style="color:${color}">${label} (${data.probability}%)</span>`;
             }
         }, 2000);
     } catch (err) {
