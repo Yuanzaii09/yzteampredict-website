@@ -35,10 +35,12 @@ function getPeriodString(secondsPerRound) {
 
 /**
  * 异步获取结果并显示，带延迟2秒
+ * 根据 secondsPerRound 传参数给接口，后台返回对应结果
  */
 async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
     try {
-        const res = await fetch("https://yzteampredict-website.vercel.app/api/result");
+        // 请求接口时带参数区分秒数
+        const res = await fetch(`https://yzteampredict-website.vercel.app/api/result?period=${secondsPerRound}`);
         const data = await res.json();
 
         if (periodEl) {
