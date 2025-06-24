@@ -148,22 +148,18 @@ cards.forEach((card, index) => {
 });
 
 const navBar = document.querySelector(".nav-bar");
-let navBarTimeout = null;
+let scrollTimeout = null;
 
-// 初始状态：3秒后淡出
-setTimeout(() => {
-    if (navBar) {
-        navBar.classList.add("hidden");
-    }
-}, 3000);
+if (navBar) {
+    // 初始不隐藏
+    navBar.classList.remove("hidden");
 
-// 监听滚动时显示，然后倒计时再隐藏
-window.addEventListener("scroll", () => {
-    if (navBar) {
+    window.addEventListener("scroll", () => {
         navBar.classList.remove("hidden");
-        clearTimeout(navBarTimeout);
-        navBarTimeout = setTimeout(() => {
+
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
             navBar.classList.add("hidden");
-        }, 2000); // 停止滑动2秒后隐藏
-    }
-});
+        }, 2000);
+    });
+}
