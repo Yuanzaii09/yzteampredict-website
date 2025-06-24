@@ -41,7 +41,7 @@ async function fetchAndDisplayResult() {
                     color = "#00dd00";
                 } else {
                     label = "UNSTABLE";
-                    color = "#dddd00";
+                    color = "#ccdd00";
                 }
         
                 resultEl.innerHTML = `
