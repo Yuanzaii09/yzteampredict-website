@@ -1,46 +1,39 @@
-// 文件位置：/api/result.js
-
 let latestPeriod = "";
 let latestResult = "";
 let latestProbability = 0;
 let aiStartTime = 0;
 
 module.exports = async (req, res) => {
-
     const now = new Date();
 
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, "0");
     const day = String(now.getDate()).padStart(2, "0");
 
-    // 设置每天起始时间为 8:00 AM
+    // ✅ 设置今天早上 8:00 为起点，精确避免 UTC 错误
     const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0);
 
-    // ✅ 总秒数，精确取整
-    const totalSeconds = Math.floor((now - start) / 1000);
+    const diffSeconds = Math.floor((now.getTime() - start.getTime()) / 1000);
+    const currentPeriodNum = Math.floor(diffSeconds / 30);  // 当前期数（真实）
+    const baseOffset = 960;                                 // 手动偏移
+    const countdown = 30 - (diffSeconds % 30);              // 倒计时（0～30 秒）
 
-    // ✅ 倒计时（30 → 0）
-    const countdown = 30 - (totalSeconds % 30);
+    // 当前真实期号（用于内部判断）
+    const currentPeriodId = `${year}${month}${day}10005${String(currentPeriodNum + baseOffset).padStart(5, "0")}`;
 
-    // ✅ 当前期数（用于锁定结果）
-    const baseOffset = 960;
-    const currentPeriodNum = Math.floor(totalSeconds / 30);
+    // ✅ 用于展示的预测期数：多加 1
     const predictedPeriodNum = currentPeriodNum + baseOffset + 1;
+    const rawPeriod = `${year}${month}${day}10005${String(predictedPeriodNum).padStart(5, "0")}`;
 
-    const fixedCode = "10005";
-
-    const currentPeriodId = `${year}${month}${day}${fixedCode}${String(currentPeriodNum + baseOffset).padStart(5, "0")}`;
-
-    // ✅ 显示的预测期号，删除第14位的0
-    const rawPeriod = `${year}${month}${day}${fixedCode}${String(predictedPeriodNum).padStart(5, "0")}`;
+    // ✅ 删除第 14 位 0（模拟外挂显示格式）
     const period = rawPeriod.slice(0, 13) + rawPeriod.slice(14);
 
-    // 每期只生成一次结果
+    // ✅ 如果进入新期，就更新结果
     if (currentPeriodId !== latestPeriod) {
         latestPeriod = currentPeriodId;
         aiStartTime = Date.now();
 
-        // 稳定 hash
+        // 稳定 hash，生成 BIG / SMALL
         let hash = 0;
         for (let i = 0; i < period.length; i++) {
             hash = period.charCodeAt(i) + ((hash << 5) - hash);
@@ -48,15 +41,16 @@ module.exports = async (req, res) => {
 
         latestResult = (hash % 2 === 0) ? "BIG" : "SMALL";
 
+        // ✅ 概率（90%：45~65%，10%：66~86%）
         const probSeed = Math.abs(hash) % 100;
         if (probSeed < 90) {
-            latestProbability = Math.floor(Math.random() * 21) + 45; // 90%：45-65%
+            latestProbability = Math.floor(Math.random() * 21) + 45;
         } else {
-            latestProbability = Math.floor(Math.random() * 21) + 66; // 10%：66-86%
+            latestProbability = Math.floor(Math.random() * 21) + 66;
         }
     }
 
-    // ✅ 判断是否显示结果（2~3 秒后）
+    // ✅ 判断是否显示结果（AI分析中... 等待 2~3 秒）
     const elapsed = (Date.now() - aiStartTime) / 1000;
     const showResult = elapsed >= (2 + Math.random());
 
