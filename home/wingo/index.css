@@ -44,6 +44,13 @@ body {
     background-color: #ffffff;
 }
 
+.top-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: #222;
+    color: white;
 /* LOGO-TEXT */
 .logo {
     font-family: 'godofwar', sans-serif;
