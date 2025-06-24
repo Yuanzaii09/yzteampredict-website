@@ -13,32 +13,31 @@ const resultEl = document.getElementById("result");
 let resultTimeout = null;
 
 /**
- * 获取最新结果并延迟显示
+ * 获取结果并延迟 2 秒显示
  */
 async function fetchAndDisplayResult() {
     try {
         const res = await fetch("https://yzteampredict-website.vercel.app/api/result");
         const data = await res.json();
 
-        // 更新期数
+        // 显示期号
         if (periodEl) periodEl.textContent = data.period;
 
-        // 立即先显示 AI分析中...
+        // 立即显示 AI分析中...
         if (resultEl) resultEl.textContent = "AI分析中...";
 
-        // 清除旧的 timeout（避免多次延迟冲突）
+        // 清除旧定时器
         if (resultTimeout) clearTimeout(resultTimeout);
 
-        // 延迟 2~3 秒后显示结果
-        const delay = Math.random() * 1000 + 2000;
+        // 固定 2 秒延迟后显示结果
         resultTimeout = setTimeout(() => {
             if (data.result && data.result !== "AI分析中..." && data.probability !== null) {
-                const color = (data.probability >= 66) ? "#ccffcc" : "orange";
+                const color = (data.probability >= 66) ? "#80FF80" : "orange";
                 resultEl.innerHTML = `${data.result} <span style="color:${color}">(${data.probability}%)</span>`;
             }
-        }, delay);
+        }, 2000);
     } catch (err) {
-        if (resultEl) resultEl.textContent = "*ERROR*";
+        if (resultEl) resultEl.textContent = "获取失败";
     }
 }
 
@@ -49,7 +48,7 @@ function startRealCountdown() {
     const intervalTime = 30 * 1000;
     let endTime = Math.ceil(Date.now() / intervalTime) * intervalTime;
 
-    // 一进入新倒计时就立即触发分析
+    // 一开始就执行 fetch
     fetchAndDisplayResult();
 
     function updateCountdown() {
@@ -58,7 +57,7 @@ function startRealCountdown() {
 
         if (timeLeft <= 0) {
             clearInterval(interval);
-            startRealCountdown(); // 重启循环
+            startRealCountdown(); // 进入下一轮
         } else {
             const seconds = Math.floor((timeLeft % 60000) / 1000);
             if (cdEl) cdEl.textContent = `00 : ${seconds.toString().padStart(2, "0")}`;
@@ -69,5 +68,5 @@ function startRealCountdown() {
     const interval = setInterval(updateCountdown, 100);
 }
 
-// 启动
+// 启动倒计时 + 自动调用
 startRealCountdown();
