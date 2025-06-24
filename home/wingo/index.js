@@ -163,8 +163,27 @@ if (defaultCard) {
     startCountdown(selectedBox, time);
 }
 
+const navBar = document.querySelector(".nav-bar");
+let scrollTimeout = null;
+
+// 初始显示
 navBar?.classList.remove("hidden");
-clearTimeout(navBarHideTimeout);
-navBarHideTimeout = setTimeout(() => {
-    navBar?.classList.add("hidden");
-}, 2000);
+
+// 滚动触发显示，然后2秒后隐藏
+window.addEventListener("scroll", () => {
+    if (!navBar) return;
+
+    navBar.classList.remove("hidden");
+
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        navBar.classList.add("hidden");
+    }, 2000);
+});
+
+// 可选：页面加载后3秒隐藏一次
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        navBar?.classList.add("hidden");
+    }, 3000);
+});
