@@ -148,19 +148,10 @@ window.addEventListener("load", () => {
         startCountdown(selectedBox, time);
     }
 
-    // 显示导航栏后自动隐藏
-    navBar?.classList.remove("hidden");
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        navBar?.classList.add("hidden");
-    }, 2000);
-});
+/* MENU */
+const menuToggle = document.getElementById("menu-toggle");
+const navBar = document.querySelector(".nav-bar");
 
-// 滚动时显示导航栏并重置隐藏计时
-window.addEventListener("scroll", () => {
-    navBar?.classList.remove("hidden");
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        navBar?.classList.add("hidden");
-    }, 2000);
+menuToggle.addEventListener("click", () => {
+    navBar.classList.toggle("show");
 });
