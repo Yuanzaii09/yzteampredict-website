@@ -33,12 +33,12 @@ async function fetchAndDisplayResult() {
         const delay = Math.random() * 1000 + 2000;
         resultTimeout = setTimeout(() => {
             if (data.result && data.result !== "AI分析中..." && data.probability !== null) {
-                const color = (data.probability >= 66) ? "#80FF80" : "orange";
+                const color = (data.probability >= 66) ? "#ccffcc" : "orange";
                 resultEl.innerHTML = `${data.result} <span style="color:${color}">(${data.probability}%)</span>`;
             }
         }, delay);
     } catch (err) {
-        if (resultEl) resultEl.textContent = "获取失败";
+        if (resultEl) resultEl.textContent = "*ERROR*";
     }
 }
 
