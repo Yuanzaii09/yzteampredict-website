@@ -31,7 +31,7 @@ async function fetchAndDisplayResult() {
 
         // 固定 2 秒延迟后显示结果
         resultTimeout = setTimeout(() => {
-            if (data.result && data.result !== "AI分析中..." && data.probability !== null) {
+            if (data.result && data.result !== "AI Analyzing•••" && data.probability !== null) {
                 let label = "";
                 let color = "";
                 let fontSize = "smaller";
