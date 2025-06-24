@@ -38,12 +38,19 @@ function getPeriodString(secondsPerRound) {
  */
 async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
     try {
-        const res = await fetch("https://yzteampredict-website.vercel.app/api/result");
+        // 动态选择 API 接口
+        const apiMap = {
+            30: "30sResult",
+            60: "1mResult",
+            180: "3mResult",
+            300: "5mResult"
+        };
+        const endpoint = apiMap[secondsPerRound] || "30sResult";
+
+        const res = await fetch(`https://yzteampredict-website.vercel.app/api/${endpoint}`);
         const data = await res.json();
 
-        if (periodEl) {
-            periodEl.textContent = getPeriodString(secondsPerRound);
-        }
+        if (periodEl) periodEl.textContent = getPeriodString(secondsPerRound);
 
         if (resultEl) resultEl.textContent = "AI Analyzing•••";
 
@@ -51,27 +58,18 @@ async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
 
         resultEl.resultTimeout = setTimeout(() => {
             if (data.result && data.result !== "AI Analyzing•••" && data.probability !== null) {
-                let label = "";
-                let color = "";
-                let fontSize = "smaller";
-
-                if (data.probability >= 65) {
-                    label = "➠STABLE";
-                    color = "#00dd00";
-                } else {
-                    label = "➠UNSTABLE";
-                    color = "#ffcc00";
-                }
-
+                const label = data.probability >= 65 ? "➠STABLE" : "➠UNSTABLE";
+                const color = data.probability >= 65 ? "#00dd00" : "#ffcc00";
                 resultEl.innerHTML = `
                     ${data.result}<br>
-                    <span style="color:${color}; font-size:${fontSize}">
+                    <span style="color:${color}; font-size:smaller">
                         ${label} (${data.probability}%)
                     </span>
                 `;
             }
         }, 2000);
-    } catch {
+    } catch (error) {
+        console.error(error);
         if (resultEl) resultEl.textContent = "获取失败";
     }
 }
