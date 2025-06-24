@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
         }
     }
 
-    // 返回结果（不需要 countdown 了）
+    // 返回结果
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Cache-Control", "no-store");
     res.status(200).json({
