@@ -216,7 +216,7 @@ body {
     gap: 25px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.3s ease-in-out;
     opacity: 1;
 }
 .nav-bar.hidden {
