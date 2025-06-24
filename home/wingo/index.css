@@ -79,7 +79,7 @@ body {
 
 /* HIDDEN */
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 /* ALL-CONTAINER */
