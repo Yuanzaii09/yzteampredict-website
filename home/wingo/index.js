@@ -164,3 +164,11 @@ window.addEventListener("scroll", () => {
         navBar?.classList.add("hidden");
     }, 2000);
 });
+
+// 菜单展开/收起按钮逻辑
+const menuToggle = document.getElementById("menuToggle");
+const navBarElement = document.querySelector(".nav-bar");
+
+menuToggle?.addEventListener("click", () => {
+    navBarElement.classList.toggle("show");
+});
