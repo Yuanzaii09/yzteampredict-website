@@ -53,7 +53,12 @@ function getPeriodString(secondsPerRound) {
 async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
     try {
         const res = await fetch(`https://yzteampredict-website.vercel.app/api/result?period=${secondsPerRound}`);
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
         const data = await res.json();
+
+        console.log("Fetched data:", data); // 观察数据是否正确
 
         if (periodEl) {
             periodEl.textContent = getPeriodString(secondsPerRound);
@@ -85,7 +90,8 @@ async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
                 `;
             }
         }, 2000);
-    } catch {
+    } catch (error) {
+        console.error("Fetch error:", error);
         if (resultEl) resultEl.textContent = "获取失败";
     }
 }
