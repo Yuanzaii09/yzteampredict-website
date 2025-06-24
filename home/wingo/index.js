@@ -164,7 +164,6 @@ if (defaultCard) {
 }
 
 // 导航栏显示隐藏逻辑
-navBar?.classList.remove("hidden");
 window.addEventListener("scroll", () => {
     navBar?.classList.remove("hidden");
     clearTimeout(scrollTimeout);
