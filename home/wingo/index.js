@@ -13,11 +13,44 @@ const resultEl = document.getElementById("result");
 let resultTimeout = null;
 
 /**
- * 主逻辑：30 秒循环倒计时 + 显示结果
+ * 获取最新结果并延迟显示
+ */
+async function fetchAndDisplayResult() {
+    try {
+        const res = await fetch("https://yzteampredict-website.vercel.app/api/result");
+        const data = await res.json();
+
+        // 更新期数
+        if (periodEl) periodEl.textContent = data.period;
+
+        // 立即先显示 AI分析中...
+        if (resultEl) resultEl.textContent = "AI分析中...";
+
+        // 清除旧的 timeout（避免多次延迟冲突）
+        if (resultTimeout) clearTimeout(resultTimeout);
+
+        // 延迟 2~3 秒后显示结果
+        const delay = Math.random() * 1000 + 2000;
+        resultTimeout = setTimeout(() => {
+            if (data.result && data.result !== "AI分析中..." && data.probability !== null) {
+                const color = (data.probability >= 66) ? "#80FF80" : "orange";
+                resultEl.innerHTML = `${data.result} <span style="color:${color}">(${data.probability}%)</span>`;
+            }
+        }, delay);
+    } catch (err) {
+        if (resultEl) resultEl.textContent = "获取失败";
+    }
+}
+
+/**
+ * 启动 30 秒倒计时
  */
 function startRealCountdown() {
     const intervalTime = 30 * 1000;
     let endTime = Math.ceil(Date.now() / intervalTime) * intervalTime;
+
+    // 一进入新倒计时就立即触发分析
+    fetchAndDisplayResult();
 
     function updateCountdown() {
         const now = Date.now();
@@ -25,13 +58,9 @@ function startRealCountdown() {
 
         if (timeLeft <= 0) {
             clearInterval(interval);
-
-            const delay = Math.random() * 1000 + 2000;
-            setTimeout(fetchAndDisplayResult, delay);
-
-            startRealCountdown(); // 重启倒计时
+            startRealCountdown(); // 重启循环
         } else {
-            const seconds = Math.floor((timeLeft % (60 * 1000)) / 1000);
+            const seconds = Math.floor((timeLeft % 60000) / 1000);
             if (cdEl) cdEl.textContent = `00 : ${seconds.toString().padStart(2, "0")}`;
         }
     }
@@ -40,29 +69,5 @@ function startRealCountdown() {
     const interval = setInterval(updateCountdown, 100);
 }
 
-/**
- * 获取预测结果并显示
- */
-async function fetchAndDisplayResult() {
-    try {
-        const res = await fetch("https://yzteampredict-website.vercel.app/api/result");
-        const data = await res.json();
-
-        if (periodEl) periodEl.textContent = data.period;
-
-        if (data.result === "AI分析中...") {
-            resultEl.textContent = data.result;
-        } else {
-            const color = (data.probability >= 66) ? "#80FF80" : "orange";
-            resultEl.innerHTML = `${data.result} <span style="color:${color}">(${data.probability}%)</span>`;
-        }
-    } catch (err) {
-        if (resultEl) resultEl.textContent = "获取失败";
-    }
-}
-
-// ✅ 页面加载时立即获取一次（防止刷新页面后空白）
-fetchAndDisplayResult();
-
-// ✅ 启动倒计时循环
+// 启动
 startRealCountdown();
