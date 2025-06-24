@@ -101,9 +101,9 @@ async function fetchAndDisplayResult() {
     const interval = setInterval(updateCountdown, 250);
 }
 
-// 启动倒计时
-startRealCountdown();
-
+    // 启动倒计时
+    startRealCountdown();
+    
     const navBar = document.querySelector(".nav-bar");
     let scrollTimeout = null;
     
