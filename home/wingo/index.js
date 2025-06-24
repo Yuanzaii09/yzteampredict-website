@@ -37,10 +37,10 @@ async function fetchAndDisplayResult() {
                 let fontSize = "smaller";
         
                 if (data.probability >= 65) {
-                    label = "STABLE";
+                    label = "STABLE➟";
                     color = "#00dd00";
                 } else {
-                    label = "UNSTABLE";
+                    label = "UNSTABLE➟";
                     color = "#ffcc00";
                 }
         
