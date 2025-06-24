@@ -100,10 +100,20 @@ function startCountdown(container, secondsPerRound) {
             }
             startCountdown(container, secondsPerRound);
         } else {
-            const seconds = Math.floor((timeLeft % 60000) / 1000);
+            // 计算分钟和秒数显示
+            let totalSecondsLeft = Math.floor(timeLeft / 1000);
+            let minutes = Math.floor(totalSecondsLeft / 60);
+            let seconds = totalSecondsLeft % 60;
+
             if (cdEl) {
-                cdEl.textContent = `00 : ${seconds.toString().padStart(2, "0")}`;
-                if (seconds <= 5) {
+                // 根据秒数判断格式，30秒的显示 00:xx，其他显示 mm:ss
+                if (secondsPerRound === 30) {
+                    cdEl.textContent = `00 : ${seconds.toString().padStart(2, "0")}`;
+                } else {
+                    cdEl.textContent = `${minutes.toString().padStart(2, "0")} : ${seconds.toString().padStart(2, "0")}`;
+                }
+
+                if (totalSecondsLeft <= 5) {
                     cdEl.style.color = "#ff3333";
                     cdEl.style.visibility = blinkState ? "visible" : "hidden";
                     blinkState = !blinkState;
