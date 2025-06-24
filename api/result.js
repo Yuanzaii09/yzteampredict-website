@@ -1,68 +1,62 @@
-let resultMap = {
-    30: { period: "", result: "", probability: 0 },
-    60: { period: "", result: "", probability: 0 },
-    180: { period: "", result: "", probability: 0 },
-    300: { period: "", result: "", probability: 0 }
+// 独立存储每个周期的数据
+const storage = {
+    30: { latestPeriod: "", latestResult: "", latestProbability: 0 },
+    60: { latestPeriod: "", latestResult: "", latestProbability: 0 },
+    180: { latestPeriod: "", latestResult: "", latestProbability: 0 },
+    300: { latestPeriod: "", latestResult: "", latestProbability: 0 },
 };
 
 module.exports = async (req, res) => {
     const now = new Date();
     const secondsPerRound = parseInt(req.query.period || "30");
-
-    const validPeriods = [30, 60, 180, 300];
-    if (!validPeriods.includes(secondsPerRound)) {
+    const valid = [30, 60, 180, 300];
+    if (!valid.includes(secondsPerRound)) {
         return res.status(400).json({ error: "Invalid period" });
     }
 
-    // 计算偏移量和固定码
-    const offsetMap = {
-        30: 960,
-        60: 960,
-        180: 320,
-        300: 192
-    };
+    const offsetMap = { 30: 960, 60: 960, 180: 320, 300: 192 };
+    const fixedCodeMap = { 30: "10005", 60: "10001", 180: "10002", 300: "10003" };
 
-    const fixedCodeMap = {
-        30: "10005",
-        60: "10001",
-        180: "10002",
-        300: "10003"
-    };
-
-    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0);
-    const diffSeconds = Math.floor((now - start) / 1000);
     const offset = offsetMap[secondsPerRound];
     const fixedCode = fixedCodeMap[secondsPerRound];
-    const roundIndex = Math.floor(diffSeconds / secondsPerRound) + offset + 1;
 
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
+    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0);
+    const diff = Math.floor((now - start) / 1000);
+    const index = Math.floor(diff / secondsPerRound);
+    const predictedIndex = index + offset + 1;
 
-    const raw = `${year}${month}${day}${fixedCode}${String(roundIndex).padStart(4, "0")}`;
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, "0");
+    const d = String(now.getDate()).padStart(2, "0");
+
+    const raw = `${y}${m}${d}${fixedCode}${String(predictedIndex).padStart(4, "0")}`;
     const period = raw.slice(0, 13) + raw.slice(14); // 删除第14位
 
-    // 只有当期号变动时才重新生成
-    if (resultMap[secondsPerRound].period !== period) {
-        resultMap[secondsPerRound].period = period;
+    // 当前周期记录
+    const slot = storage[secondsPerRound];
 
-        // hash 决定结果和概率
+    if (slot.latestPeriod !== period) {
+        slot.latestPeriod = period;
+
+        // 生成 hash
         let hash = 0;
         for (let i = 0; i < period.length; i++) {
             hash = period.charCodeAt(i) + ((hash << 5) - hash);
         }
 
-        const result = (hash % 2 === 0) ? "BIG" : "SMALL";
-        const probSeed = Math.abs(hash) % 100;
-        const probability = probSeed < 90
-            ? Math.floor(Math.random() * 21) + 45   // 90%：45-65%
-            : Math.floor(Math.random() * 21) + 66;  // 10%：66-86%
+        slot.latestResult = (hash % 2 === 0) ? "BIG" : "SMALL";
+        const seed = Math.abs(hash) % 100;
 
-        resultMap[secondsPerRound].result = result;
-        resultMap[secondsPerRound].probability = probability;
+        slot.latestProbability = seed < 90
+            ? Math.floor(Math.random() * 21) + 45   // 90% 概率为 45~65%
+            : Math.floor(Math.random() * 21) + 66;  // 10% 概率为 66~86%
     }
 
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Cache-Control", "no-store");
-    res.status(200).json(resultMap[secondsPerRound]);
+    return res.status(200).json({
+        period: slot.latestPeriod,
+        result: slot.latestResult,
+        probability: slot.latestProbability
+    });
 };
