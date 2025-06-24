@@ -36,10 +36,10 @@ async function fetchAndDisplayResult() {
                 let color = "";
         
                 if (data.probability >= 65) {
-                    label = "STABLE";
-                    color = "#ccffcc";
+                    label = "stable";
+                    color = "#00dd00";
                 } else {
-                    label = "UNSTABLE";
+                    label = "unstable";
                     color = "orange";
                 }
         
