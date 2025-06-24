@@ -1,53 +1,69 @@
-let latestPeriod = "";
-let latestResult = "";
-let latestProbability = 0;
+let latestResults = {
+  "30": { period: "", result: "", probability: 0 },
+  "60": { period: "", result: "", probability: 0 },
+  "180": { period: "", result: "", probability: 0 },
+  "300": { period: "", result: "", probability: 0 },
+};
+
+const fixedCodes = {
+  "30": "10005",
+  "60": "10001",
+  "180": "10002",
+  "300": "10003",
+};
 
 module.exports = async (req, res) => {
-    const now = new Date();
+  const now = new Date();
+  const query = req.query || {};
+  // 取周期秒数参数，默认30秒
+  const periodSec = query.period ? query.period.toString() : "30";
+  const fixedCode = fixedCodes[periodSec] || "10005";
 
-    // 1. 计算时间差
-    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0);
-    const diffSeconds = Math.floor((now - start) / 1000);
-    const baseOffset = 960;
+  // 计算当天8点作为基准时间
+  const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0);
+  const diffSeconds = Math.floor((now - start) / 1000);
 
-    // 2. 计算当前期数（预测用 +1）
-    const currentPeriodIndex = Math.floor(diffSeconds / 30);
-    const predictedPeriod = currentPeriodIndex + baseOffset + 1;
+  // 计算当前期数索引（预测 +1）
+  const currentPeriodIndex = Math.floor(diffSeconds / Number(periodSec));
+  const baseOffset = 960;
+  const predictedPeriod = currentPeriodIndex + baseOffset + 1;
 
-    // 3. 构造期号
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
-    const fixedCode = "10005";
-    const rawPeriod = `${year}${month}${day}${fixedCode}${String(predictedPeriod).padStart(5, "0")}`;
-    const period = rawPeriod.slice(0, 13) + rawPeriod.slice(14); // 删除第14位的0
+  // 构造期号字符串
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const rawPeriod = `${year}${month}${day}${fixedCode}${String(predictedPeriod).padStart(4, "0")}`;
 
-    // 4. 每新一期就生成新结果
-    if (latestPeriod !== period) {
-        latestPeriod = period;
+  // 删除第14位字符（索引13），合成最终期号
+  const period = rawPeriod.slice(0, 13) + rawPeriod.slice(14);
 
-        // hash 生成 BIG / SMALL
-        let hash = 0;
-        for (let i = 0; i < period.length; i++) {
-            hash = period.charCodeAt(i) + ((hash << 5) - hash);
-        }
+  // 如果是新期号，则重新生成结果
+  const last = latestResults[periodSec];
+  if (last.period !== period) {
+    last.period = period;
 
-        latestResult = (hash % 2 === 0) ? "BIG" : "SMALL";
-
-        const probSeed = Math.abs(hash) % 100;
-        if (probSeed < 90) {
-            latestProbability = Math.floor(Math.random() * 21) + 45; // 90%：45-65%
-        } else {
-            latestProbability = Math.floor(Math.random() * 21) + 66; // 10%：66-86%
-        }
+    // 哈希计算 BIG / SMALL
+    let hash = 0;
+    for (let i = 0; i < period.length; i++) {
+      hash = period.charCodeAt(i) + ((hash << 5) - hash);
     }
 
-    // 返回结果
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Cache-Control", "no-store");
-    res.status(200).json({
-        period,
-        result: latestResult,
-        probability: latestProbability
-    });
+    last.result = (hash % 2 === 0) ? "BIG" : "SMALL";
+
+    const probSeed = Math.abs(hash) % 100;
+    if (probSeed < 90) {
+      last.probability = Math.floor(Math.random() * 21) + 45; // 45-65%
+    } else {
+      last.probability = Math.floor(Math.random() * 21) + 66; // 66-86%
+    }
+  }
+
+  // 返回结果
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Cache-Control", "no-store");
+  res.status(200).json({
+    period: last.period,
+    result: last.result,
+    probability: last.probability,
+  });
 };
