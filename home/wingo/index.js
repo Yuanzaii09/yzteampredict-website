@@ -58,14 +58,12 @@ async function fetchAndDisplayResult() {
     }
 }
 
-/**
- * 启动 30 秒倒计时
- */
-function startRealCountdown() {
-    const intervalTime = 30 * 1000;
-    let endTime = Math.ceil(Date.now() / intervalTime) * intervalTime;
-
-    fetchAndDisplayResult();
+    /* 启动 30 秒倒计时 */
+    function startRealCountdown() {
+        const intervalTime = 30 * 1000;
+        let endTime = Math.ceil(Date.now() / intervalTime) * intervalTime;
+    
+        fetchAndDisplayResult();
 
     function updateCountdown() {
         const now = Date.now();
@@ -88,13 +86,11 @@ function startRealCountdown() {
                 if (seconds <= 5) {
                     // 添加红色、缩放和闪烁
                     cdEl.style.color = "#ff3333";
-                    cdEl.style.transform = "scale(1.2)";
                     cdEl.style.visibility = blinkState ? "visible" : "hidden";
                     blinkState = !blinkState;
                 } else {
                     // 恢复正常
                     cdEl.style.color = "";
-                    cdEl.style.transform = "scale(1)";
                     cdEl.style.visibility = "visible";
                 }
             }
