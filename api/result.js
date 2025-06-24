@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
     const day = String(now.getDate()).padStart(2, "0");
 
     // 设置每天起始时间为 8:00 AM
-    const start = new Date(year, now.getMonth(), now.getDate(), 8, 0, 0, 0);
+    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0);
 
     // ✅ 总秒数，精确取整
     const totalSeconds = Math.floor((now - start) / 1000);
