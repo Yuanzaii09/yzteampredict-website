@@ -58,12 +58,12 @@ async function fetchAndDisplayResult() {
     }
 }
 
-    /* 启动 30 秒倒计时 */
-    function startRealCountdown() {
-        const intervalTime = 30 * 1000;
-        let endTime = Math.ceil(Date.now() / intervalTime) * intervalTime;
-    
-        fetchAndDisplayResult();
+/* 启动 30 秒倒计时 */
+function startRealCountdown() {
+    const intervalTime = 30 * 1000;
+    let endTime = Math.ceil(Date.now() / intervalTime) * intervalTime;
+
+    fetchAndDisplayResult();
 
     function updateCountdown() {
         const now = Date.now();
@@ -101,24 +101,38 @@ async function fetchAndDisplayResult() {
     const interval = setInterval(updateCountdown, 250);
 }
 
-    // 启动倒计时
-    startRealCountdown();
-    
+// 启动倒计时
+startRealCountdown();
+
+// 导航栏滚动显示/隐藏逻辑
+(function handleNavBarAutoHide() {
     const navBar = document.querySelector(".nav-bar");
+    if (!navBar) return;
+
     let scrollTimeout = null;
-    
-    // 页面初始显示导航栏
-    navBar?.classList.remove("hidden");
-    
+    let lastScrollY = window.scrollY;
+
+    const showNavBar = () => {
+        navBar.classList.remove("hidden");
+    };
+
+    const hideNavBar = () => {
+        navBar.classList.add("hidden");
+    };
+
+    // 页面刚加载时显示导航栏
+    showNavBar();
+
     window.addEventListener("scroll", () => {
-        // 每次滚动都显示导航栏
-        navBar?.classList.remove("hidden");
-    
-        // 清除上一个隐藏计时器
-        clearTimeout(scrollTimeout);
-    
-        // 设置新的计时器，在静止 2 秒后隐藏
-        scrollTimeout = setTimeout(() => {
-            navBar?.classList.add("hidden");
-        }, 2000);
-    });
+        const currentScrollY = window.scrollY;
+
+        // 过滤微小抖动
+        if (Math.abs(currentScrollY - lastScrollY) > 2) {
+            showNavBar();
+            lastScrollY = currentScrollY;
+
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(hideNavBar, 2000);
+        }
+    }, { passive: true });
+})();
