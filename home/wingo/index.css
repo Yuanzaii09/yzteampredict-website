@@ -215,7 +215,7 @@ body {
     opacity: 1;
 }
 .nav-bar.hidden {
-    opacity: 0.2;
+    opacity: 0;
     pointer-events: none;
 }
 .nav-item {
