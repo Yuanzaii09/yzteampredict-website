@@ -137,30 +137,29 @@ cards.forEach((card, index) => {
     });
 });
 
-// 页面加载时初始化默认卡片
-window.addEventListener("load", () => {
-    const defaultCard = document.querySelector(".card.active");
-    if (defaultCard) {
-        const index = Array.from(cards).indexOf(defaultCard);
-        const selectedBox = boxes[index];
-        selectedBox.classList.remove("hidden");
-        const time = parseInt(selectedBox.getAttribute("data-time"));
-        startCountdown(selectedBox, time);
-    }
+const navBar = document.querySelector(".nav-bar");
+let scrollTimeout = null;
 
-    // 显示导航栏后自动隐藏
-    navBar?.classList.remove("hidden");
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        navBar?.classList.add("hidden");
-    }, 2000);
-});
+if (navBar) {
+    // 初次加载后 3 秒淡出
+    setTimeout(() => {
+        navBar.style.transition = "opacity 0.3s ease-in-out";
+        navBar.classList.add("hidden");
+    }, 3000);
 
-// 滚动时显示导航栏并重置隐藏计时
-window.addEventListener("scroll", () => {
-    navBar?.classList.remove("hidden");
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        navBar?.classList.add("hidden");
-    }, 2000);
-});
+    // 滚动时触发淡入
+    window.addEventListener("scroll", () => {
+        // 淡入动画：0.2s
+        navBar.style.transition = "opacity 0.2s ease-in-out";
+        navBar.classList.remove("hidden");
+
+        // 清除之前定时器
+        clearTimeout(scrollTimeout);
+
+        // 停止滑动后 2 秒自动隐藏
+        scrollTimeout = setTimeout(() => {
+            navBar.style.transition = "opacity 0.2s ease-in-out";
+            navBar.classList.add("hidden");
+        }, 2000);
+    });
+}
