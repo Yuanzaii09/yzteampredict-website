@@ -36,53 +36,42 @@ function getPeriodString(secondsPerRound) {
  */
 async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
     try {
-        // 1. 显示 period 立即更新
+        const res = await fetch("https://yzteampredict-website.vercel.app/api/result");
+        const data = await res.json();
+
         if (periodEl) {
             periodEl.textContent = getPeriodString(secondsPerRound);
         }
 
-        // 2. 确定 API 端点
-        const apiMap = {
-            30: "30sResult",
-            60: "1mResult",
-            180: "3mResult",
-            300: "5mResult"
-        };
-        const endpoint = apiMap[secondsPerRound] || "30sResult";
-
-        // 3. 显示加载状态
         if (resultEl) resultEl.textContent = "AI Analyzing•••";
 
-        // 4. 发起请求
-        const res = await fetch(`https://yzteampredict-website.vercel.app/api/${endpoint}`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        const data = await res.json();
-
-        // 5. 延迟2秒再显示结果
         if (resultEl.resultTimeout) clearTimeout(resultEl.resultTimeout);
 
         resultEl.resultTimeout = setTimeout(() => {
-            if (data.result && data.probability !== null) {
-                const label = data.probability >= 65 ? "➠STABLE" : "➠UNSTABLE";
-                const color = data.probability >= 65 ? "#00dd00" : "#ffcc00";
+            if (data.result && data.result !== "AI Analyzing•••" && data.probability !== null) {
+                let label = "";
+                let color = "";
+                let fontSize = "smaller";
+
+                if (data.probability >= 65) {
+                    label = "➠STABLE";
+                    color = "#00dd00";
+                } else {
+                    label = "➠UNSTABLE";
+                    color = "#ffcc00";
+                }
+
                 resultEl.innerHTML = `
                     ${data.result}<br>
-                    <span style="color:${color}; font-size:smaller">
+                    <span style="color:${color}; font-size:${fontSize}">
                         ${label} (${data.probability}%)
                     </span>
                 `;
-            } else {
-                resultEl.textContent = "结果异常";
             }
         }, 2000);
-
-    } catch (error) {
-        console.error("获取失败", error);
-        if (periodEl) periodEl.textContent = "-";
+    } catch {
         if (resultEl) resultEl.textContent = "获取失败";
     }
-}
 }
 
 /**
