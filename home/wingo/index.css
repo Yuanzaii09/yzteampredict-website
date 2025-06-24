@@ -182,7 +182,7 @@ body {
     text-align: center;
     margin-bottom: 20px;
 }
-#period {
+.period {
     font-size: 24px;
     font-weight: bold;
     font-family: 'lm-medium', san-serif;
@@ -190,7 +190,7 @@ body {
     text-align: center;
     margin-bottom: 20px;
 }
-#result {
+.result {
     font-size: 24px;
     font-weight: bold;
     font-family: 'lm-medium', san-serif;
