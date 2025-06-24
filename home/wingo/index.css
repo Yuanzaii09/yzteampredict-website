@@ -77,6 +77,11 @@ body {
     }
 }
 
+/* HIDDEN */
+.hidden {
+    display: none;
+}
+
 /* ALL-CONTAINER */
 .all-container {
     display: flex;
