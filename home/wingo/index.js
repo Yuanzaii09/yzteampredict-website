@@ -32,7 +32,7 @@ async function fetchAndDisplayResult() {
         // 固定 2 秒延迟后显示结果
         resultTimeout = setTimeout(() => {
             if (data.result && data.result !== "AI分析中..." && data.probability !== null) {
-                const color = (data.probability >= 66) ? "#80FF80" : "orange";
+                const color = (data.probability >= 66) ? "#ccffcc" : "orange";
                 resultEl.innerHTML = `${data.result} <span style="color:${color}">(${data.probability}%)</span>`;
             }
         }, 2000);
