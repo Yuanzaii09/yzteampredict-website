@@ -33,7 +33,7 @@ async function fetchAndDisplayResult() {
         resultTimeout = setTimeout(() => {
             if (data.result && data.result !== "AI分析中..." && data.probability !== null) {
                 const color = (data.probability >= 66) ? "#ccffcc" : "orange";
-                resultEl.innerHTML = `${data.result} <span style="color:${color}">(${data.probability}%)</span>`;
+                resultEl.innerHTML = `${data.result}<br><span style="color:${color}">(${data.probability}%)</span>`;
             }
         }, 2000);
     } catch (err) {
