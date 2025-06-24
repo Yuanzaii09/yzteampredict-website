@@ -216,6 +216,7 @@ body {
 }
 .nav-bar.hidden {
     opacity: 0;
+    transform: scale(0.95);
     pointer-events: none;
 }
 .nav-item {
