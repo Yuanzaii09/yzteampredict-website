@@ -47,6 +47,8 @@ async function fetchAndDisplayResult() {
 function startRealCountdown() {
     const intervalTime = 30 * 1000;
     let endTime = Math.ceil(Date.now() / intervalTime) * intervalTime;
+    // 初始化先显示 00:30
+    if (cdEl) cdEl.textContent = "00 : 30";
 
     // 一开始就执行 fetch
     fetchAndDisplayResult();
