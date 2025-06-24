@@ -36,11 +36,11 @@ async function fetchAndDisplayResult() {
                 let color = "";
         
                 if (data.probability >= 65) {
-                    label = "stable";
+                    label = "STABLE";
                     color = "#00dd00";
                 } else {
-                    label = "unstable";
-                    color = "orange";
+                    label = "UNSTABLE";
+                    color = "#dddd00";
                 }
         
                 resultEl.innerHTML = `${data.result}<br><span style="color:${color}">${label} (${data.probability}%)</span>`;
