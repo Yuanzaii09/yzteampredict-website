@@ -216,11 +216,13 @@ body {
     gap: 25px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease;
     opacity: 1;
+    transform: translateY(0);
 }
 .nav-bar.hidden {
     opacity: 0;
+    transform: translateY(-20px);
     pointer-events: none;
 }
 .nav-item {
