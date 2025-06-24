@@ -163,8 +163,19 @@ if (defaultCard) {
     startCountdown(selectedBox, time);
 }
 
+// 初始显示 navBar
 navBar?.classList.remove("hidden");
-clearTimeout(scrollTimeout);
-scrollTimeout = setTimeout(() => {
-    navBar?.classList.add("hidden");
-}, 2000);
+
+// 滚动控制导航栏动画隐藏
+window.addEventListener("scroll", () => {
+    // 滚动时立刻显示（如果隐藏了）
+    navBar?.classList.remove("hidden");
+
+    // 清除上次的倒计时
+    if (scrollTimeout) clearTimeout(scrollTimeout);
+
+    // 停止滚动后 2 秒隐藏
+    scrollTimeout = setTimeout(() => {
+        navBar?.classList.add("hidden");
+    }, 2000);
+});
