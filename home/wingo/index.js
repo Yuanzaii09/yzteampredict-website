@@ -163,11 +163,8 @@ if (defaultCard) {
     startCountdown(selectedBox, time);
 }
 
-// 导航栏显示隐藏逻辑
-window.addEventListener("scroll", () => {
-    navBar?.classList.remove("hidden");
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        navBar?.classList.add("hidden");
-    }, 2000);
-});
+navBar?.classList.remove("hidden");
+clearTimeout(scrollTimeout);
+scrollTimeout = setTimeout(() => {
+    navBar?.classList.add("hidden");
+}, 2000);
