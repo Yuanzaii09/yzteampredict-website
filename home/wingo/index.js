@@ -11,6 +11,7 @@ const cdEl = document.querySelector(".cd");
 const resultEl = document.getElementById("result");
 
 let resultTimeout = null;
+let blinkState = true;
 
 /**
  * 获取结果并延迟 2 秒显示
@@ -35,7 +36,7 @@ async function fetchAndDisplayResult() {
                 let label = "";
                 let color = "";
                 let fontSize = "smaller";
-        
+
                 if (data.probability >= 65) {
                     label = "➠STABLE";
                     color = "#00dd00";
@@ -43,7 +44,7 @@ async function fetchAndDisplayResult() {
                     label = "➠UNSTABLE";
                     color = "#ffcc00";
                 }
-        
+
                 resultEl.innerHTML = `
                     ${data.result}<br>
                     <span style="color:${color}; font-size:${fontSize}">
@@ -64,7 +65,6 @@ function startRealCountdown() {
     const intervalTime = 30 * 1000;
     let endTime = Math.ceil(Date.now() / intervalTime) * intervalTime;
 
-    // 一开始就执行 fetch
     fetchAndDisplayResult();
 
     function updateCountdown() {
@@ -73,10 +73,31 @@ function startRealCountdown() {
 
         if (timeLeft <= 0) {
             clearInterval(interval);
-            startRealCountdown(); // 进入下一轮
+            if (cdEl) {
+                cdEl.style.color = "";
+                cdEl.style.transform = "";
+                cdEl.style.visibility = "visible";
+            }
+            startRealCountdown();
         } else {
             const seconds = Math.floor((timeLeft % 60000) / 1000);
-            if (cdEl) cdEl.textContent = `00 : ${seconds.toString().padStart(2, "0")}`;
+
+            if (cdEl) {
+                cdEl.textContent = `00 : ${seconds.toString().padStart(2, "0")}`;
+
+                if (seconds <= 5) {
+                    // 添加红色、缩放和闪烁
+                    cdEl.style.color = "#ff3333";
+                    cdEl.style.transform = "scale(1.2)";
+                    cdEl.style.visibility = blinkState ? "visible" : "hidden";
+                    blinkState = !blinkState;
+                } else {
+                    // 恢复正常
+                    cdEl.style.color = "";
+                    cdEl.style.transform = "scale(1)";
+                    cdEl.style.visibility = "visible";
+                }
+            }
         }
     }
 
@@ -84,5 +105,5 @@ function startRealCountdown() {
     const interval = setInterval(updateCountdown, 100);
 }
 
-// 启动倒计时 + 自动调用
+// 启动倒计时
 startRealCountdown();
