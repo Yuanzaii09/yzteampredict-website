@@ -148,28 +148,22 @@ cards.forEach((card, index) => {
 });
 
 const navBar = document.querySelector(".nav-bar");
-let scrollTimeout = null;
+let navBarTimeout = null;
 
-if (navBar) {
-    // 初次加载后 3 秒淡出
-    setTimeout(() => {
-        navBar.style.transition = "opacity 0.3s ease-in-out";
+// 初始状态：3秒后淡出
+setTimeout(() => {
+    if (navBar) {
         navBar.classList.add("hidden");
-    }, 3000);
+    }
+}, 3000);
 
-    // 滚动时触发淡入
-    window.addEventListener("scroll", () => {
-        // 淡入动画：0.2s
-        navBar.style.transition = "opacity 0.2s ease-in-out";
+// 监听滚动时显示，然后倒计时再隐藏
+window.addEventListener("scroll", () => {
+    if (navBar) {
         navBar.classList.remove("hidden");
-
-        // 清除之前定时器
-        clearTimeout(scrollTimeout);
-
-        // 停止滑动后 2 秒自动隐藏
-        scrollTimeout = setTimeout(() => {
-            navBar.style.transition = "opacity 0.2s ease-in-out";
+        clearTimeout(navBarTimeout);
+        navBarTimeout = setTimeout(() => {
             navBar.classList.add("hidden");
-        }, 2000);
-    });
-}
+        }, 2000); // 停止滑动2秒后隐藏
+    }
+});
