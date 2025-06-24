@@ -208,59 +208,35 @@ body {
     margin-bottom: 20px;
 }
 
+/* 默认导航栏隐藏（移动端） */
+.nav-bar {
+    display: none;
+}
+
+/* 点击后显示菜单 */
+.nav-bar.show {
+    display: block;
+}
+
+/* 菜单按钮样式 */
 .menu-toggle {
+    font-size: 24px;
     background: none;
     border: none;
-    color: white;
-    font-size: 24px;
     cursor: pointer;
-    display: none; /* 默认隐藏按钮 */
 }
 
-.nav-bar {
-    transition: opacity 0.3s ease;
+/* 横排 logo 和菜单 */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
 }
 
+/* 导航项横排（桌面端） */
 .nav-links {
+    list-style: none;
     display: flex;
     gap: 20px;
-    list-style: none;
-}
-
-.nav-links li a {
-    color: white;
-    text-decoration: none;
-}
-
-/* 手机端样式 */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-
-    .nav-bar {
-        display: none;
-        width: 100%;
-        background: #333;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        z-index: 999;
-    }
-
-    .nav-bar.show {
-        display: block;
-        animation: fadeIn 0.3s ease-in-out;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
 }
