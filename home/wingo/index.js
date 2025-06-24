@@ -103,3 +103,22 @@ async function fetchAndDisplayResult() {
 
 // 启动倒计时
 startRealCountdown();
+
+    const navBar = document.querySelector(".nav-bar");
+    let scrollTimeout = null;
+    
+    // 页面初始显示导航栏
+    navBar?.classList.remove("hidden");
+    
+    window.addEventListener("scroll", () => {
+        // 每次滚动都显示导航栏
+        navBar?.classList.remove("hidden");
+    
+        // 清除上一个隐藏计时器
+        clearTimeout(scrollTimeout);
+    
+        // 设置新的计时器，在静止 2 秒后隐藏
+        scrollTimeout = setTimeout(() => {
+            navBar?.classList.add("hidden");
+        }, 2000);
+    });
