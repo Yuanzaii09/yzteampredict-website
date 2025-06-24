@@ -2,7 +2,7 @@ const cards = document.querySelectorAll(".card");
 const boxes = document.querySelectorAll(".countdown-box");
 const navBar = document.querySelector(".nav-bar");
 let countdownIntervals = {};
-let scrollTimeout = null;
+let navBarHideTimeout = null;
 
 // 固定码映射，秒数 => 固定数字字符串
 const fixedCodes = {
@@ -164,7 +164,7 @@ if (defaultCard) {
 }
 
 navBar?.classList.remove("hidden");
-clearTimeout(scrollTimeout);
-scrollTimeout = setTimeout(() => {
+clearTimeout(navBarHideTimeout);
+navBarHideTimeout = setTimeout(() => {
     navBar?.classList.add("hidden");
 }, 2000);
