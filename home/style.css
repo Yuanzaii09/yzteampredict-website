@@ -140,11 +140,11 @@ body {
 }
 
 /* WINGO BACKGROUND */
-.bg {
+.mz-bg {
     width: 80%;
     max-width: 360px;
     height: auto;
-    background-image: url("images/bg.png");
+    background-image: url("images/mz-bg.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -158,7 +158,30 @@ body {
     overflow: hidden;
     z-index: 1;
 }
-.bg * {
+.mz-bg * {
+    position: relative;
+    z-index: 1;
+}
+
+.mys-bg {
+    width: 80%;
+    max-width: 360px;
+    height: auto;
+    background-image: url("images/mys-bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50px;
+    margin: 30px auto;
+    text-align: center;
+    padding: 0px 20px 20px 20px;
+    color: #333;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+.mys-bg * {
     position: relative;
     z-index: 1;
 }
