@@ -233,6 +233,7 @@ body {
     transform: translateX(-50%);
     width: auto;
     max-width: 360px;
+    width: 85%;
     background: white;
     border-radius: 30px;
     padding: 15px 20px;
