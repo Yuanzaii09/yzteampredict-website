@@ -236,7 +236,7 @@ body {
     max-width: 360px;
     background: white;
     border-radius: 30px;
-    padding: 15px 20px;
+    padding: 15px 0;
     display: flex;
     justify-content: space-around;
     align-items: center;
