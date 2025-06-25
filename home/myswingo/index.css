@@ -35,6 +35,12 @@ svg {
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'lt';
+    src: url('fonts/lt.woff2') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 /* BODY元素设置 */
 body {
@@ -85,7 +91,7 @@ body {
     }
 }
 .lunar {
-    font-family: 'lm-medium', sans-serif;
+    font-family: 'lt', sans-serif;
     font-size: 36px;
     text-align: center;
     margin-bottom: 20px;
