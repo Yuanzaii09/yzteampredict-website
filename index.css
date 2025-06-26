@@ -81,6 +81,7 @@ body {
 }
 .pp {
     position: relative;
+    display: inline-block;
     font-family: 'lt', sans-serif;
     font-size: 26px;
     text-align: center;
