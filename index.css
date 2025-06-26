@@ -79,9 +79,8 @@ body {
     box-shadow: none;
     filter: none;
 }
-.pp {
+.pp-container {
     position: relative;
-    display: inline-block;
     item-align: center;
     justify-content: center;
     font-family: 'lt', sans-serif;
@@ -93,6 +92,8 @@ body {
     border-bottom: 3px solid #555;
     text-shadow: 0 1px 0.5px rgba(170, 0, 255, 0.4);
 }
+.pp {
+    display: inline-block;
 
 .hero {
     width: 100%;
