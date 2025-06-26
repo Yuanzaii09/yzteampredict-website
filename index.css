@@ -78,30 +78,6 @@ body {
     margin-top: 25px;
 }
 
-/* PLANS & PRICES */
-.title {
-    background-color: #fff;
-    padding: 0px 30px;
-    border-radius: 50px;
-    margin: auto;
-    width: fit-content;
-    text-align: center;
-    position: relative;
-    margin-top: 20px;
-    border-bottom: 3px solid rgba(250, 0, 250, 0.2);
-}
-.title h1 {
-    font-size: 30px;
-    font-weight: 500;
-    position: relative;
-    z-index: 10;
-    color: black;
-}
-
-.cn-title {
-    font-family: 'lm-medium', sans-serif;
-}
-
 /* PLAN BASIC */
 .plan-bg {
     width: 80%;
