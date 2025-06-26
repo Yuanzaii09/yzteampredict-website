@@ -239,14 +239,13 @@ body {
     width: auto;
     padding: 10px 20px;
     font-size: 16px;
-    font-weight: 600;
-    font-weight: 800;
-    background-color: #000;
-    color: white;
+    font-weight: bold;
+    background-color: #333;
+    color: #ccc;
     text-decoration: none;
     border: none;
     border-radius: 30px;
-    box-shadow: 0 0px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.4);
     cursor: pointer;
     font-family: 'Noto-Sans', sans-serif;
     transform: scale(1);
@@ -256,7 +255,8 @@ body {
 /* 购买按钮 - 激活 */
 .buy-btn:active {
     transform: scale(0.95);
-    background-color: #ddd;
+    color: #333;
+    background-color: #ccc;
     box-shadow: 0 0px 12px rgba(0, 0, 0, 0.4);
 }
 
