@@ -241,7 +241,7 @@ body {
     font-size: 16px;
     font-weight: bold;
     background-color: #333;
-    color: #ccc;
+    color: #fff;
     text-decoration: none;
     border: none;
     border-radius: 30px;
@@ -255,8 +255,7 @@ body {
 /* 购买按钮 - 激活 */
 .buy-btn:active {
     transform: scale(0.95);
-    color: #333;
-    background-color: #ccc;
+    background-color: #aaa;
     box-shadow: 0 0px 12px rgba(0, 0, 0, 0.4);
 }
 
