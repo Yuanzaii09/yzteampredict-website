@@ -81,13 +81,12 @@ body {
 }
 .pp {
     position: relative;
-    display: inline-block;
     font-family: 'lt', sans-serif;
     font-size: 26px;
     text-align: center;
+    margin-top: 5px;
     margin-bottom: 20px;
     color: #333;
-    border-bottom: 3px solid #555;
     text-shadow: 0 1px 0.5px rgba(170, 0, 255, 0.4);
 }
 
