@@ -82,6 +82,7 @@ body {
 .pp-container {
     position: relative;
     item-align: center;
+    text-align: center;
     justify-content: center;
     font-family: 'lt', sans-serif;
     font-size: 26px;
