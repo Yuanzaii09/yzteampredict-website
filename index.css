@@ -79,21 +79,16 @@ body {
     box-shadow: none;
     filter: none;
 }
-.pp-container {
+.pp {
     position: relative;
-    item-align: center;
+    display: inline-block;
     text-align: center;
-    justify-content: center;
     font-family: 'lt', sans-serif;
     font-size: 26px;
     margin-top: 5px;
     margin-bottom: 20px;
     color: #333;
-    border-bottom: 3px solid #555;
     text-shadow: 0 1px 0.5px rgba(170, 0, 255, 0.4);
-}
-.pp {
-    display: inline-block;
 }
 
 .hero {
