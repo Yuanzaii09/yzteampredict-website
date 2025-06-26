@@ -241,12 +241,12 @@ body {
     font-size: 16px;
     font-weight: 600;
     font-weight: 800;
-    background-color: #8A2BE2;
-    color: white;
+    background-color: #fff;
+    color: black;
     text-decoration: none;
     border: none;
     border-radius: 30px;
-    box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     cursor: pointer;
     font-family: 'Noto-Sans', sans-serif;
     transform: scale(1);
