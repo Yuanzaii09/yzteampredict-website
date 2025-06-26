@@ -80,6 +80,7 @@ body {
     filter: none;
 }
 .pp {
+    position: relative;
     font-family: 'lt', sans-serif;
     font-size: 26px;
     text-align: center;
