@@ -83,6 +83,7 @@ body {
     position: relative;
     display: inline-block;
     text-align: center;
+    item-align: center;
     font-family: 'lt', sans-serif;
     font-size: 26px;
     margin-top: 5px;
