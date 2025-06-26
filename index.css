@@ -78,6 +78,14 @@ body {
     box-shadow: none;
     filter: none;
 }
+.pp {
+    font-family: 'lt', sans-serif;
+    font-size: 30px;
+    text-align: center;
+    margin: 0px 20px 0px 0px;
+    color: #333;
+    text-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.4);
+}
 
 .hero {
     width: 100%;
