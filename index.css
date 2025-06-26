@@ -255,7 +255,7 @@ body {
 /* 购买按钮 - 激活 */
 .buy-btn:active {
     transform: scale(0.95);
-    background-color: #aaa;
+    background-color: #888;
     box-shadow: 0 0px 12px rgba(0, 0, 0, 0.4);
 }
 
