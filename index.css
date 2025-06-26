@@ -256,7 +256,6 @@ body {
 .buy-btn:active {
     transform: scale(0.95);
     background-color: #888;
-    box-shadow: 0 0px 12px rgba(0, 0, 0, 0.4);
 }
 
 /* 红色节省标签 */
