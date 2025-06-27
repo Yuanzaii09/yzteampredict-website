@@ -11,9 +11,9 @@ const firebaseConfig = {
   appId: "1:87001857450:web:07a64741cca650b001ffd3",
   measurementId: "G-3ZTKMQC0B8"
 };
-// ✅ 初始化 Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 // 获取 FingerprintJS visitorId
 const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
