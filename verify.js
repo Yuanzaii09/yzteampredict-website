@@ -26,52 +26,46 @@ function getDeviceId() {
 
 // ✅ 主验证函数（在 HTML 中通过按钮调用）
 async function verifyKey() {
-    const inputKey = document.getElementById("keyInput").value.trim();
-    const resultEl = document.getElementById("resultMessage");
+    const inputKey = document.getElementById("keyInput").value;
+    const deviceId = getDeviceId();
 
-    if (!inputKey) {
-        resultEl.textContent = "请输入密钥。";
+    // 🔐 输入为空检查
+    if (!inputKey || inputKey.trim() === "") {
+        alert("⚠️ 请输入密钥！");
         return;
     }
 
-    const deviceId = getDeviceId();
     const keyRef = database.ref("keys/" + inputKey);
 
     try {
         const snapshot = await keyRef.get();
 
         if (!snapshot.exists()) {
-            resultEl.textContent = "❌ 无效密钥。";
+            alert("❌ 无效密钥！");
             return;
         }
 
         const data = snapshot.val();
 
-        // ❌ 如果已经绑定其他设备
         if (data.deviceId && data.deviceId !== deviceId) {
-            resultEl.textContent = "❌ 此密钥已绑定其他设备。";
+            alert("❌ 此密钥已被其他设备使用！");
             return;
         }
 
-        // ❌ 检查是否过期
         if (data.expireAt && Date.now() > data.expireAt) {
-            resultEl.textContent = "❌ 此密钥已过期。";
+            alert("❌ 此密钥已过期！");
             return;
         }
 
-        // ✅ 没绑定过则绑定 deviceId
         if (!data.deviceId) {
-            await keyRef.update({ deviceId });
+            await keyRef.update({ deviceId: deviceId });
         }
 
-        // ✅ 验证通过，跳转
-        resultEl.textContent = "✅ 验证成功，正在跳转...";
-        setTimeout(() => {
-            window.location.href = "/home";
-        }, 1000);
+        alert("✅ 验证成功，正在进入...");
+        window.location.href = "/home";
 
     } catch (error) {
         console.error("验证出错:", error);
-        resultEl.textContent = "⚠️ 验证失败，请稍后重试。";
+        alert("⚠️ 验证失败，请稍后再试！");
     }
 }
