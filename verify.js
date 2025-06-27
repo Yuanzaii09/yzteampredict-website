@@ -12,9 +12,56 @@ const firebaseConfig = {
 
 // ✅ 初始化 Firebase
 firebase.initializeApp(firebaseConfig);
-
-// ✅ 获取 Realtime Database 实例
 const database = firebase.database();
 
-// ✅ 测试是否初始化成功
-console.log("Firebase 初始化完成");
+// ✅ 第2步：获取或生成 deviceId（写入 localStorage）
+function getDeviceId() {
+    let id = localStorage.getItem("deviceId");
+    if (!id) {
+        id = crypto.randomUUID(); // 生成全局唯一ID
+        localStorage.setItem("deviceId", id);
+    }
+    return id;
+}
+
+// ✅ 第3步：验证密钥逻辑
+async function verifyKey(inputKey) {
+    const deviceId = getDeviceId();
+    const keyRef = database.ref("keys/" + inputKey);
+
+    try {
+        const snapshot = await keyRef.get();
+
+        if (!snapshot.exists()) {
+            alert("❌ 无效密钥！");
+            return;
+        }
+
+        const data = snapshot.val();
+
+        // 已绑定其他设备
+        if (data.deviceId && data.deviceId !== deviceId) {
+            alert("❌ 此密钥已被其他设备使用！");
+            return;
+        }
+
+        // 密钥过期检查
+        if (data.expireAt && Date.now() > data.expireAt) {
+            alert("❌ 此密钥已过期！");
+            return;
+        }
+
+        // ✅ 未绑定则绑定
+        if (!data.deviceId) {
+            await keyRef.update({ deviceId: deviceId });
+        }
+
+        // ✅ 验证通过
+        alert("✅ 验证成功，正在进入...");
+        window.location.href = "/home";
+
+    } catch (error) {
+        console.error("验证出错:", error);
+        alert("⚠️ 验证失败，请稍后再试！");
+    }
+}
