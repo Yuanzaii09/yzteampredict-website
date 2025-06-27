@@ -30,17 +30,13 @@
         <div class="bgg">
             <div class="bg">
                 <h1>Verify</h1>
-        
-                <!-- ✅ 输入框：添加 autofocus（可选） -->
-                <input type="text" id="keyInput" placeholder="ACCESS-KEY" autofocus />
-        
-                <!-- ✅ 按钮触发 verifyKey()，传入 input 的值 -->
-                <button onclick="verifyKey(document.getElementById('keyInput').value)">Enter</button>
-        
-                <!-- ✅ 提示信息显示区域 -->
+                <input type="text" id="keyInput" placeholder="ACCESS-KEY" />
+                <button onclick="verifyKey()">Enter</button>
                 <p id="resultMessage"></p>
             </div>
         </div>
+
+我的html 有什么要修改的吗
         
         <script src="verify.js"></script>
     </body>
