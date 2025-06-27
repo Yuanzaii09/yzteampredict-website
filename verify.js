@@ -1,3 +1,6 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyDLivUd6auK1QwZ0UG0r11eI9LZWMaakdY",
   authDomain: "yzteampredict-4598e.firebaseapp.com",
