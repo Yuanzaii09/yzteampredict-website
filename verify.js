@@ -7,13 +7,15 @@ if (localStorage.getItem("needReload") === "true") {
   location.reload();
 }
 
-const firebaseConfig = {Add commentMore actions
-  apiKey: "AIzaSyDIF9BvbOD_8LxOsQ55XVWdLtxOWdoY6xw",
-  authDomain: "yzteampredict-store.firebaseapp.com",
-  projectId: "yzteampredict-store",
-  storageBucket: "yzteampredict-store.firebasestorage.app",
-  messagingSenderId: "1072979545774",
-  appId: "1:1072979545774:web:e9c13fac268c01f7fde73f"
+const firebaseConfig = {
+  apiKey: "AIzaSyDLivUd6auK1QwZ0UG0r11eI9LZWMaakdY",
+  authDomain: "yzteampredict-4598e.firebaseapp.com",
+  databaseURL: "https://yzteampredict-4598e-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "yzteampredict-4598e",
+  storageBucket: "yzteampredict-4598e.firebasestorage.app",
+  messagingSenderId: "87001857450",
+  appId: "1:87001857450:web:07a64741cca650b001ffd3",
+  measurementId: "G-3ZTKMQC0B8"
 };
 
 let deviceId = null;
