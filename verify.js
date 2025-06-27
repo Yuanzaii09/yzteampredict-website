@@ -26,11 +26,11 @@ function getDeviceId() {
 
 // ✅ 主验证函数（在 HTML 中通过按钮调用）
 async function verifyKey() {
-    const inputKey = document.getElementById("keyInput").value;
+    const inputKey = document.getElementById("keyInput").value.trim();
     const deviceId = getDeviceId();
 
     // 🔐 输入为空检查
-    if (!inputKey || inputKey.trim() === "") {
+    if (!inputKey) {
         alert("⚠️ 请输入密钥！");
         return;
     }
