@@ -1,11 +1,13 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
-
-// Supabase 配置
-const SUPABASE_URL = 'https://myovkkdrzewrxoeqedyh.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // 请使用你自己的 key
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-let deviceId = null;
+const firebaseConfig = {
+  apiKey: "AIzaSyDLivUd6auK1QwZ0UG0r11eI9LZWMaakdY",
+  authDomain: "yzteampredict-4598e.firebaseapp.com",
+  databaseURL: "https://yzteampredict-4598e-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "yzteampredict-4598e",
+  storageBucket: "yzteampredict-4598e.firebasestorage.app",
+  messagingSenderId: "87001857450",
+  appId: "1:87001857450:web:07a64741cca650b001ffd3",
+  measurementId: "G-3ZTKMQC0B8"
+};
 
 // 获取 FingerprintJS visitorId
 const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
