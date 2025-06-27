@@ -1,71 +1,111 @@
-// ✅ 替换成你自己的 Firebase 配置
-const firebaseConfig = {
-    apiKey: "AIzaSyDLivUd6auK1QwZ0UG0r11eI9LZWMaakdY",
-    authDomain: "yzteampredict-4598e.firebaseapp.com",
-    databaseURL: "https://yzteampredict-4598e-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "yzteampredict-4598e",
-    storageBucket: "yzteampredict-4598e.appspot.com",
-    messagingSenderId: "87001857450",
-    appId: "1:87001857450:web:07a64741cca650b001ffd3",
-    measurementId: "G-3ZTKMQC0B8"
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+// Supabase 配置
+const SUPABASE_URL = 'https://myovkkdrzewrxoeqedyh.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // 请使用你自己的 key
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let deviceId = null;
+
+// 获取 FingerprintJS visitorId
+const fpPromise = import("https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js")
+  .then(FingerprintJS => FingerprintJS.load())
+  .then(fp => fp.get())
+  .then(result => {
+    deviceId = result.visitorId;
+  })
+  .catch(err => {
+    console.error("设备识别失败：", err);
+  });
+
+window.verifyKey = async function () {
+  const keyInput = document.getElementById("keyInput");
+  const result = document.getElementById("resultMessage");
+  const key = keyInput.value.trim();
+
+  result.style.color = "red";
+  result.textContent = "";
+
+  // step 1: 检查是否输入密钥
+  if (!key) {
+    result.textContent = "请输入密钥";
+    return;
+  }
+
+  // 等待 deviceId 加载
+  await fpPromise;
+
+  try {
+    // step 2: 查询密钥是否存在
+    const { data, error } = await supabase
+      .from('keys')
+      .select('*')
+      .eq('key', key)
+      .single();
+
+    if (error || !data) {
+      result.textContent = "此密钥无效";
+      return;
+    }
+
+    // step 3: 检查是否已绑定其他设备
+    const boundDevice = data.deviceId || null;
+    const isUsed = data.used || false;
+    const now = new Date();
+
+    if (isUsed && boundDevice && boundDevice !== deviceId) {
+      result.textContent = "此密钥已被其他设备绑定";
+      return;
+    }
+
+    // step 4: 检查是否过期/未生效
+    const validFrom = new Date(data.validFrom);
+    const validDurationDays = data.validDurationDays;
+
+    if (!validFrom || typeof validDurationDays !== "number") {
+      result.textContent = "密钥数据异常，请联系管理员";
+      return;
+    }
+
+    const expireTime = validDurationDays === -1
+      ? null
+      : new Date(validFrom.getTime() + validDurationDays * 24 * 60 * 60 * 1000);
+
+    if (now < validFrom) {
+      const secondsLeft = Math.ceil((validFrom - now) / 1000);
+      result.textContent = `密钥将在 ${secondsLeft} 秒后生效`;
+      return;
+    }
+
+    if (expireTime && now > expireTime) {
+      result.textContent = "此密钥已过期";
+      return;
+    }
+
+    // step 5: 更新 Supabase 数据库
+    await supabase
+      .from('keys')
+      .update({
+        used: true,
+        deviceId: deviceId,
+        activatedAt: now.toISOString()
+      })
+      .eq('key', key);
+
+    // step 6: 显示成功并跳转
+    result.style.color = "#4CAF50";
+    result.textContent = "验证成功，正在跳转...";
+
+    setTimeout(() => {
+      window.location.href = "index.html";
+
+      // 🔄 跳转后刷新原验证页面，避免卡住
+      window.opener?.location?.reload();  // 如果是弹窗打开的
+      window.location.replace("access-key.html"); // 自刷新 fallback
+    }, 1200);
+
+  } catch (err) {
+    console.error("验证出错：", err);
+    result.textContent = "验证出错，请稍后尝试";
+  }
 };
-
-// ✅ 初始化 Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-
-// ✅ 获取 deviceId（每台设备唯一）
-function getDeviceId() {
-    let id = localStorage.getItem("deviceId");
-    if (!id) {
-        id = crypto.randomUUID(); // 生成全局唯一 ID（支持现代浏览器）
-        localStorage.setItem("deviceId", id);
-    }
-    return id;
-}
-
-// ✅ 主验证函数（在 HTML 中通过按钮调用）
-async function verifyKey() {
-    const inputKey = document.getElementById("keyInput").value.trim();
-    const deviceId = getDeviceId();
-
-    // 🔐 输入为空检查
-    if (!inputKey) {
-        alert("⚠️ 请输入密钥！");
-        return;
-    }
-
-    const keyRef = database.ref("keys/" + inputKey);
-
-    try {
-        const snapshot = await keyRef.get();
-
-        if (!snapshot.exists()) {
-            alert("❌ 无效密钥！");
-            return;
-        }
-
-        const data = snapshot.val();
-
-        if (data.deviceId && data.deviceId !== deviceId) {
-            alert("❌ 此密钥已被其他设备使用！");
-            return;
-        }
-
-        if (data.expireAt && Date.now() > data.expireAt) {
-            alert("❌ 此密钥已过期！");
-            return;
-        }
-
-        if (!data.deviceId) {
-            await keyRef.update({ deviceId: deviceId });
-        }
-
-        alert("✅ 验证成功，正在进入...");
-        window.location.href = "/home";
-
-    } catch (error) {
-        console.error("验证出错:", error);
-        alert("⚠️ 验证失败，请稍后再试！");
-    }
-}
