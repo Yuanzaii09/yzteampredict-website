@@ -1,50 +1,47 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>PredictPro - Verify</title>
-
-    <!-- 加载字体 -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@800&display=swap" rel="stylesheet">
-
-    <!-- 正确绑定你的外部 CSS 文件 -->
-    <link rel="stylesheet" href="verify.css" />
-
-    <!-- 外部 JS 文件（含密钥验证逻辑） -->
-    <script type="module" src="verify.js" defer></script>
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
-</head>
-
-<body>
-    <!-- 1 // LOGO TEXT -->
-    <div class="logo">
-        <span>Y</span>
-        <span>Z</span>
-        <span>T</span>
-        <span>E</span>
-        <span>A</span>
-        <span>M</span>
-    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>PredictPro - Verify</title>
     
-    <!-- 2 // VERIFY -->
-    <div class="bgg">
-        <div class="bg">
-            <h1>Verify</h1>
+        <!-- 加载字体 -->
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@800&display=swap" rel="stylesheet">
     
-            <!-- ✅ 输入框：添加 autofocus（可选） -->
-            <input type="text" id="keyInput" placeholder="ACCESS-KEY" autofocus />
-    
-            <!-- ✅ 按钮触发 verifyKey()，传入 input 的值 -->
-            <button onclick="verifyKey(document.getElementById('keyInput').value)">Enter</button>
-    
-            <!-- ✅ 提示信息显示区域 -->
-            <p id="resultMessage"></p>
+        <!-- 正确绑定你的外部 CSS 文件 -->
+        <link rel="stylesheet" href="verify.css" />
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
+    </head>
+
+    <body>
+        <!-- 1 // LOGO TEXT -->
+        <div class="logo">
+            <span>Y</span>
+            <span>Z</span>
+            <span>T</span>
+            <span>E</span>
+            <span>A</span>
+            <span>M</span>
         </div>
-    </div>
-    
-</body>
-
+        
+        <!-- 2 // VERIFY -->
+        <div class="bgg">
+            <div class="bg">
+                <h1>Verify</h1>
+        
+                <!-- ✅ 输入框：添加 autofocus（可选） -->
+                <input type="text" id="keyInput" placeholder="ACCESS-KEY" autofocus />
+        
+                <!-- ✅ 按钮触发 verifyKey()，传入 input 的值 -->
+                <button onclick="verifyKey(document.getElementById('keyInput').value)">Enter</button>
+        
+                <!-- ✅ 提示信息显示区域 -->
+                <p id="resultMessage"></p>
+            </div>
+        </div>
+        
+        <script src="verify.js"></script>
+    </body>
 </html>
