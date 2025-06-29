@@ -23,8 +23,6 @@ body {
 
 /* LOGO-TEXT */
 .logo {
-    width: auto;
-    max-width: 360px;
     font-family: 'godofwar', sans-serif;
     font-size: 36px;
     text-align: center;
