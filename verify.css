@@ -22,7 +22,7 @@ body {
 }
 
 /* LOGO-TEXT */
-.logo-bg {
+.logo {
     font-family: 'godofwar', sans-serif;
     font-size: 36px;
     text-align: center;
@@ -35,7 +35,6 @@ body {
     position: relative;
     z-index: 1001;
 }
-    
 .logo span {
     opacity: 0;
     transform: translateY(-20px);
