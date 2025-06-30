@@ -4,12 +4,6 @@ body {
     background-color: #fff;
 }
 
-.hero {
-    width: 100%;
-    height: 100vh;
-    margin-top: 25px;
-}
-
 @font-face {
     font-family: 'godofwar';
     src: url('fonts/godofwar.ttf') format('truetype');
