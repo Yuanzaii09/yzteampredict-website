@@ -57,7 +57,7 @@ async function fetchAndDisplayResult(periodEl, resultEl, secondsPerRound) {
 
         resultEl.resultTimeout = setTimeout(() => {
             if (data.result && data.result !== "AI Analyzing•••" && data.probability !== null) {
-                const label = data.probability >= 65 ? "🟢STABLE" : "🟠UNSTABLE";
+                const label = data.probability >= 65 ? "➠STABLE" : "➠UNSTABLE";
                 const color = data.probability >= 65 ? "#00dd00" : "#ffcc00";
 
                 resultEl.innerHTML = `
