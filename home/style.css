@@ -155,6 +155,7 @@ body {
     border-bottom: 3px solid #eee;
     margin-bottom: 0;
     color: #fff;
+    text-shadow: 0 2px 1px solid;
     display: inline-block;
 }
 
