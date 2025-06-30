@@ -77,7 +77,7 @@ function verifyKey() {
 
         result.textContent = "✅ 验证成功，跳转中...";
         setTimeout(() => {
-            window.location.href = "https://yzteampredict.store/verify";
+            window.location.href = "https://yzteampredict.store/home";
         }, 1500);
     }).catch((error) => {
         console.error("验证错误：", error);
