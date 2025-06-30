@@ -124,6 +124,29 @@ body {
     z-index: 1;
 }
 
+.aviator-bg {
+    width: 80%;
+    max-width: 360px;
+    height: auto;
+    background-image: url("images/mys-bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50px;
+    margin: 30px auto;
+    text-align: center;
+    padding: 0px 20px 20px 20px;
+    color: #333;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+.aviator-bg * {
+    position: relative;
+    z-index: 1;
+}
+
 /* ALL-TITLE */
 .title {
     font-size: 20px;
