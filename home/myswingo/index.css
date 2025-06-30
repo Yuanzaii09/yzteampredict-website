@@ -1,0 +1,237 @@
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    outline: none !important;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+/* 精准取消按钮和输入框的点击阴影 */
+a,
+button,
+input,
+textarea,
+select {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+/* 禁止 svg 被选中 */
+svg {
+    pointer-events: none;
+}
+
+@font-face {
+    font-family: 'godofwar';
+    src: url('fonts/godofwar.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'lm-medium';
+    src: url('fonts/lm-medium.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'lt';
+    src: url('fonts/lt.woff2') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* BODY元素设置 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #fff;
+}
+
+.top-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px;
+    background: #fff;
+    color: black;
+}
+
+/* LOGO-TEXT */
+.logo {
+    font-family: 'godofwar', sans-serif;
+    font-size: 36px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px 0;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    position: relative;
+    z-index: 1001;
+}
+.logo span {
+    opacity: 0;
+    transform: translateY(-20px);
+    display: inline-block;
+    animation: dropIn 0.5s ease forwards;
+}
+.logo span:nth-child(1) { animation-delay: 0s; }
+.logo span:nth-child(2) { animation-delay: 0.1s; }
+.logo span:nth-child(3) { animation-delay: 0.2s; }
+.logo span:nth-child(4) { animation-delay: 0.3s; }
+.logo span:nth-child(5) { animation-delay: 0.4s; }
+.logo span:nth-child(6) { animation-delay: 0.5s; }
+@keyframes dropIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.lunar {
+    font-family: 'lt', sans-serif;
+    font-size: 36px;
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+    text-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* 控制 logo 和文字之间的间距 */
+
+    position: relative;
+    z-index: 1001;
+}
+.lunar .logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    box-shadow: none;
+    filter: none;
+}
+
+/* HIDDEN */
+.hidden {
+    display: none !important;
+}
+
+/* ALL-CONTAINER */
+.all-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* CONTENT BG */
+.content-bg {
+    width: 85%;
+    max-width: 360px;
+    height: auto;
+    background-color: #fff;
+    border-radius: 50px;
+    text-align: center;
+    padding: 20px 10px;
+    margin: 0 20px 20px 20px;
+    color: #333;
+    border: 3px solid #eee;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* TIME CONTAINER */
+.t-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+    gap: 10px;
+}
+
+/* CARD STYLES */
+.card {
+    position: relative;
+    border-radius: 20px;
+    height: 70px;
+    background-color: #eee;
+    flex: 1;
+    transition: 0.2s all ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'godofwar';
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    overflow: hidden;
+}
+.card.active {
+    flex: 2;
+    border-radius: 30px;
+    background-color: #de1e1d;
+    color: #fff;
+}
+.card:hover {
+    border-radius: 30px;
+    background-color: #de1e1d;
+    color: #fff;
+}
+/* SHORT & FULL TEXT */
+.card span {
+    position: absolute;
+    transition: opacity 0.1s ease-out, color 0.1s ease-out;
+    pointer-events: none;
+    color: inherit;
+}
+.card .text-default {
+    opacity: 1;
+}
+.card:hover .text-default,
+.card.active .text-default {
+    opacity: 0;
+}
+.card .text-hover {
+    opacity: 0;
+}
+.card:hover .text-hover,
+.card.active .text-hover {
+    opacity: 1;
+}
+
+/* COUNTDOWN */
+.title {
+    font-size: 20px;
+    font-family: 'lm-medium', san-serif;
+    color: #000;
+    opacity: 0.5;
+    text-align: center;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+.cd {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'lm-medium', san-serif;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.period {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'lm-medium', san-serif;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.result {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'lm-medium', san-serif;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
