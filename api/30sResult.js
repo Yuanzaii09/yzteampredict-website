@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
             hash = period.charCodeAt(i) + ((hash << 5) - hash);
         }
 
-        latestResult = (hash % 2 === 0) ? "BIG" : "SMALL";
+        latestResult = (hash % 2 === 0) ? "🚀BIG" : "🚀SMALL";
 
         const probSeed = Math.abs(hash) % 100;
         latestProbability = probSeed < 90
