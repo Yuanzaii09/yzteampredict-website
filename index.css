@@ -281,3 +281,28 @@ body {
     50%  { transform: translateY(-3px); }
     100% { transform: translateY(0); }
 }
+
+.site-footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    color: #555;
+    background-color: #f9f9f9; /* 可选，增加对比 */
+}
+
+.site-footer .footer-text {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.site-footer .footer-links a {
+    margin: 0 10px;
+    color: #555;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.site-footer .footer-links a:hover {
+    color: #000;
+    text-decoration: underline;
+}
