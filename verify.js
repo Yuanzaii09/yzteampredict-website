@@ -76,6 +76,6 @@ async function verifyKey() {
 
   result.textContent = "✅ 验证成功，跳转中...";
   setTimeout(() => {
-    window.location.href = "https://yzteampredict.store/verify/";
+    window.location.href = "https://yzteampredict.store/verify";
   }, 1500);
 }
