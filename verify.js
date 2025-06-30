@@ -76,6 +76,7 @@ function verifyKey() {
         }
 
         result.textContent = "🟢验证成功，跳转中...";
+        result.style.color = "green";
         setTimeout(() => {
             window.location.href = "https://yzteampredict.store/home";
         }, 1500);
