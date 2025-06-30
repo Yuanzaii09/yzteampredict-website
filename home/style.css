@@ -151,7 +151,7 @@ body {
 .title {
     font-size: 20px;
     font-weight: 800;
-    font-family: 'lm-medium', sans-serif;
+    font-family: 'lt', sans-serif;
     border-bottom: 3px solid #eee;
     margin-bottom: 0;
     color: #fff;
@@ -161,7 +161,7 @@ body {
 /* ALL-SUBTITLE */
 .subtitle {
     font-size: 30px;
-    font-family: 'lm-medium', sans-serif;
+    font-family: 'lt', sans-serif;
     margin-top: 4px;
     color: #fff;
 }
