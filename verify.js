@@ -29,6 +29,12 @@ function showMessage(text, color) {
         result.textContent = text;
         result.style.color = color;
         result.style.fontWeight = "bold";
+
+        if (color === "red") {
+            result.classList.remove("shake"); // 移除旧的 class
+            void result.offsetWidth;          // 强制重绘，重置动画
+            result.classList.add("shake");    // 重新加上动画
+        }
     }
 }
 
