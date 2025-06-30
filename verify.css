@@ -139,11 +139,11 @@ button:active {
 
 @keyframes shake {
     0%   { transform: translateX(0); }
-    33%  { transform: translateX(-5px); }
-    66%  { transform: translateX(5px); }
+    33%  { transform: translateX(-8px); }
+    66%  { transform: translateX(8px); }
     100% { transform: translateX(0); }
 }
 
 .shake {
-    animation: shake 0.4s ease;
+    animation: shake 0.3s ease;
 }
