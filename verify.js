@@ -22,14 +22,22 @@ function getDeviceId() {
     return id;
 }
 
+// 📢 显示提示信息（封装）
+function showMessage(text, color) {
+    const result = document.getElementById("result");
+    if (result) {
+        result.textContent = text;
+        result.style.color = color;
+    }
+}
+
 // 🔐 验证密钥函数
 function verifyKey() {
     const key = document.getElementById("keyInput").value.trim();
-    const result = document.getElementById("result");
     const deviceId = getDeviceId();
 
     if (!key) {
-        result.textContent = "🔴请输入密钥";
+        showMessage("🔴请输入密钥", "red");
         return;
     }
 
@@ -37,14 +45,14 @@ function verifyKey() {
 
     keyRef.once("value").then((snapshot) => {
         if (!snapshot.exists()) {
-            result.textContent = "🔴密钥无效";
+            showMessage("🔴密钥无效", "red");
             return;
         }
 
         const data = snapshot.val();
 
         if (data.active && data.deviceId !== deviceId) {
-            result.textContent = "🔴此密钥已绑定其他设备";
+            showMessage("🔴此密钥已绑定其他设备", "red");
             return;
         }
 
@@ -75,13 +83,12 @@ function verifyKey() {
             });
         }
 
-        result.textContent = "🟢验证成功，跳转中...";
-        result.style.color = "green";
+        showMessage("🟢验证成功 // 跳转中...", "green");
         setTimeout(() => {
             window.location.href = "https://yzteampredict.store/home";
         }, 1500);
     }).catch((error) => {
         console.error("验证错误：", error);
-        result.textContent = "❌ 出现错误，请稍后重试";
+        showMessage("⚠️出现错误 // 请稍后重试", "red");
     });
 }
