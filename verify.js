@@ -28,6 +28,7 @@ function showMessage(text, color) {
     if (result) {
         result.textContent = text;
         result.style.color = color;
+        result.style.fontWeight = "bold";
     }
 }
 
