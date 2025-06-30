@@ -29,7 +29,7 @@ function verifyKey() {
     const deviceId = getDeviceId();
 
     if (!key) {
-        result.textContent = "❌ 请输入密钥";
+        result.textContent = "🔴请输入密钥";
         return;
     }
 
@@ -37,14 +37,14 @@ function verifyKey() {
 
     keyRef.once("value").then((snapshot) => {
         if (!snapshot.exists()) {
-            result.textContent = "❌ 密钥无效";
+            result.textContent = "🔴密钥无效";
             return;
         }
 
         const data = snapshot.val();
 
         if (data.active && data.deviceId !== deviceId) {
-            result.textContent = "❌ 此密钥已绑定其他设备";
+            result.textContent = "🔴此密钥已绑定其他设备";
             return;
         }
 
@@ -75,7 +75,7 @@ function verifyKey() {
             });
         }
 
-        result.textContent = "✅ 验证成功，跳转中...";
+        result.textContent = "🟢验证成功，跳转中...";
         setTimeout(() => {
             window.location.href = "https://yzteampredict.store/home";
         }, 1500);
