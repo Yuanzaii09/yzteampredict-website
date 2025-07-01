@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
+// ✅ 初始化 Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyAN88MgeiYxOmb1OFfgL-wVmfJC60XFcoM",
     authDomain: "verify-b3d6c.firebaseapp.com",
@@ -14,11 +15,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// 获取本地设备ID
+// ✅ 获取设备ID
 const deviceId = localStorage.getItem("device_id");
 
+// ❌ 显示未验证提示
+function showUnauthorizedMessage() {
+    document.body.innerHTML = `
+        <div style="text-align: center; padding: 40px; font-family: 'Arial', sans-serif;">
+            <h2 style="color: #f39c12; font-size: 22px;">⚠️您尚未通过密钥验证 无法访问此页面</h2>
+            <p style="margin-top: 20px;">
+                <a href="https://yzteampredict.store/verify" style="color: #5dade2; font-size: 18px; text-decoration: underline; font-weight: bold;">
+                    前往验证页面
+                </a>
+            </p>
+        </div>
+    `;
+}
+
+// ✅ 核心验证逻辑
 if (!deviceId) {
-    window.location.href = "/verify.html";
+    showUnauthorizedMessage();
 } else {
     const keysRef = ref(db, "keys");
 
@@ -26,19 +42,19 @@ if (!deviceId) {
         let authorized = false;
 
         snapshot.forEach((childSnapshot) => {
-            const keyData = childSnapshot.val();
-            if (keyData.deviceId === deviceId && keyData.active) {
-                if (!keyData.expiresAt || Date.now() < keyData.expiresAt) {
+            const data = childSnapshot.val();
+            if (data.deviceId === deviceId && data.active) {
+                if (!data.expiresAt || Date.now() < data.expiresAt) {
                     authorized = true;
                 }
             }
         });
 
         if (!authorized) {
-            window.location.href = "/verify";
+            showUnauthorizedMessage();
         }
     }).catch((error) => {
-        console.error("验证失败：", error);
-        window.location.href = "/verify";
+        console.error("验证错误：", error);
+        showUnauthorizedMessage();
     });
 }
