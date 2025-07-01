@@ -77,12 +77,18 @@ function verifyKey() {
         }
 
         if (!data.active) {
-            keyRef.update({
-                active: true,
-                deviceId: deviceId,
-                activatedAt: now,
-                expiresAt: expiresAt
-            });
+            try {
+                await keyRef.update({
+                    active: true,
+                    deviceId: deviceId,
+                    activatedAt: now,
+                    expiresAt: expiresAt
+                });
+            } catch (err) {
+                console.error("写入失败：", err);
+                showMessage("❌ 激活失败，请稍后重试", "red");
+                return;
+            }
         }
 
         showMessage("🟢验证成功 // 跳转中...", "green");
