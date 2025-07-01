@@ -79,7 +79,7 @@ function verifyKey() {
             case "30":
                 expiresAt = now + 30 * 24 * 60 * 60 * 1000;
                 break;
-            case "forever":
+            case "0":
             default:
                 expiresAt = null;
         }
