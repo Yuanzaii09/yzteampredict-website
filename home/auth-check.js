@@ -35,10 +35,10 @@ if (!deviceId) {
         });
 
         if (!authorized) {
-            window.location.href = "/verify.html";
+            window.location.href = "/verify";
         }
     }).catch((error) => {
         console.error("验证失败：", error);
-        window.location.href = "/verify.html";
+        window.location.href = "/verify";
     });
 }
