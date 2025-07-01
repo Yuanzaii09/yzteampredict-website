@@ -22,10 +22,10 @@ const deviceId = localStorage.getItem("device_id");
 function showUnauthorizedMessage() {
     document.body.innerHTML = `
         <div style="text-align: center; padding: 40px; font-family: 'Arial', sans-serif;">
-            <h2 style="color: #f39c12; font-size: 22px;">⚠️您尚未通过密钥验证 无法访问此页面</h2>
+            <h2 style="color: #000; font-size: 24px;">⚠️ 您尚未通过密钥验证 // 无法访问此页面 ⚠️</h2>
             <p style="margin-top: 20px;">
                 <a href="https://yzteampredict.store/verify" style="color: #5dade2; font-size: 18px; text-decoration: underline; font-weight: bold;">
-                    前往验证页面
+                    点击前往验证页面
                 </a>
             </p>
         </div>
