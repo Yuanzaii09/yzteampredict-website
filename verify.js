@@ -66,26 +66,31 @@ function verifyKey() {
         const now = Date.now();
         let expiresAt;
 
-        let typeDays = parseInt(data.type);
-        if (!isNaN(typeDays) && typeDays >= 0) {
-            expiresAt = typeDays === 0 ? null : now + typeDays * 24 * 60 * 60 * 1000;
-        } else {
-            expiresAt = null;
+        switch (data.type) {
+            case "1days":
+                expiresAt = now + 1 * 24 * 60 * 60 * 1000;
+                break;
+            case "7days":
+                expiresAt = now + 7 * 24 * 60 * 60 * 1000;
+                break;
+            case "14days":
+                expiresAt = now + 14 * 24 * 60 * 60 * 1000;
+                break;
+            case "30days":
+                expiresAt = now + 30 * 24 * 60 * 60 * 1000;
+                break;
+            case "forever":
+            default:
+                expiresAt = null;
         }
 
         if (!data.active) {
-            try {
-                await keyRef.update({
-                    active: true,
-                    deviceId: deviceId,
-                    activatedAt: now,
-                    expiresAt: expiresAt
-                });
-            } catch (err) {
-                console.error("写入失败：", err);
-                showMessage("❌ 激活失败，请稍后重试", "red");
-                return;
-            }
+            keyRef.update({
+                active: true,
+                deviceId: deviceId,
+                activatedAt: now,
+                expiresAt: expiresAt
+            });
         }
 
         showMessage("🟢验证成功 // 跳转中...", "green");
@@ -96,4 +101,3 @@ function verifyKey() {
         console.error("验证错误：", error);
         showMessage("⚠️出现错误 // 请稍后重试", "red");
     });
-}
