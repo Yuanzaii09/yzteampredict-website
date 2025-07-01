@@ -101,3 +101,5 @@ function verifyKey() {
         console.error("验证错误：", error);
         showMessage("⚠️出现错误 // 请稍后重试", "red");
     });
+    
+document.getElementById("verifyBtn").addEventListener("click", verifyKey);
