@@ -66,14 +66,11 @@ function verifyKey() {
         const now = Date.now();
         let expiresAt;
 
-        if (typeof data.type === "number") {
-            if (data.type === 0) {
-                expiresAt = null; // 永久有效
-            } else {
-                expiresAt = now + data.type * 24 * 60 * 60 * 1000;
-            }
+        let typeDays = parseInt(data.type);
+        if (!isNaN(typeDays) && typeDays >= 0) {
+            expiresAt = typeDays === 0 ? null : now + typeDays * 24 * 60 * 60 * 1000;
         } else {
-            expiresAt = null; // 默认 fallback
+            expiresAt = null;
         }
 
         if (!data.active) {
