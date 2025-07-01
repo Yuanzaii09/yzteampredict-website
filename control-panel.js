@@ -1,12 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import {
-  getDatabase,
-  ref,
-  set,
-  get,
-  remove,
-  onValue
-} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
 // ✅ Firebase config
 const firebaseConfig = {
@@ -22,7 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// ✅ 添加密钥
+// 🔘 主处理函数
 document.getElementById("submitBtn").addEventListener("click", () => {
   const key = document.getElementById("keyInput").value.trim();
   const days = document.getElementById("daysInput").value.trim().toLowerCase();
@@ -34,14 +27,14 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     return;
   }
 
-  const validDays = ["1", "7", "14", "30", "0"];
+  const validDays = ["1", "7", "14", "30", "forever"];
   if (!validDays.includes(days)) {
-    status.textContent = "⚠️ 请输入合法天数（1/7/14/30/0）";
+    status.textContent = "⚠️ 请输入合法天数（1/7/14/30/forever）";
     status.style.color = "red";
     return;
   }
 
-  const type = parseInt(days);
+  const type = (days === "forever") ? "forever" : `${days}days`;
 
   const keyRef = ref(db, "keys/" + key);
 
@@ -59,42 +52,3 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     status.style.color = "red";
   });
 });
-
-// 🔄 显示密钥列表
-function loadKeyList() {
-  const listRef = ref(db, "keys/");
-  const keyList = document.getElementById("keyList");
-  keyList.innerHTML = "";
-
-  onValue(listRef, (snapshot) => {
-    keyList.innerHTML = "";
-    const data = snapshot.val();
-    if (!data) {
-      keyList.innerHTML = "<li>暂无密钥</li>";
-      return;
-    }
-
-    Object.entries(data).forEach(([key, info]) => {
-      const li = document.createElement("li");
-
-      const infoText = document.createElement("span");
-      infoText.className = "key-info";
-      infoText.textContent = `${key} — ${info.type} — active: ${info.active}`;
-
-      const delBtn = document.createElement("button");
-      delBtn.textContent = "删除";
-      delBtn.className = "delete-btn";
-      delBtn.onclick = () => {
-        if (confirm(`确定删除密钥 "${key}" 吗？`)) {
-          remove(ref(db, "keys/" + key));
-        }
-      };
-
-      li.appendChild(infoText);
-      li.appendChild(delBtn);
-      keyList.appendChild(li);
-    });
-  });
-}
-
-loadKeyList();
