@@ -34,9 +34,9 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     return;
   }
 
-  const validDays = ["1", "7", "14", "30", "forever"];
+  const validDays = ["1", "7", "14", "30", "0"];
   if (!validDays.includes(days)) {
-    status.textContent = "⚠️ 请输入合法天数（1/7/14/30/forever）";
+    status.textContent = "⚠️ 请输入合法天数（1/7/14/30/0）";
     status.style.color = "red";
     return;
   }
