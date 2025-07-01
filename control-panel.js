@@ -41,7 +41,7 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     return;
   }
 
-  const type = (days === "forever") ? "forever" : `${days}days`;
+  const type = parseInt(days);
 
   const keyRef = ref(db, "keys/" + key);
 
