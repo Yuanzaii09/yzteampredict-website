@@ -66,22 +66,14 @@ function verifyKey() {
         const now = Date.now();
         let expiresAt;
 
-        switch (data.type) {
-            case "1":
-                expiresAt = now + 1 * 24 * 60 * 60 * 1000;
-                break;
-            case "7":
-                expiresAt = now + 7 * 24 * 60 * 60 * 1000;
-                break;
-            case "14":
-                expiresAt = now + 14 * 24 * 60 * 60 * 1000;
-                break;
-            case "30":
-                expiresAt = now + 30 * 24 * 60 * 60 * 1000;
-                break;
-            case "0":
-            default:
-                expiresAt = null;
+        if (typeof data.type === "number") {
+            if (data.type === 0) {
+                expiresAt = null; // 永久有效
+            } else {
+                expiresAt = now + data.type * 24 * 60 * 60 * 1000;
+            }
+        } else {
+            expiresAt = null; // 默认 fallback
         }
 
         if (!data.active) {
