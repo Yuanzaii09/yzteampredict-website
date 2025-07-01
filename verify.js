@@ -31,9 +31,9 @@ function showMessage(text, color) {
         result.style.fontWeight = "bold";
 
         if (color === "red") {
-            result.classList.remove("shake"); // 移除旧的 class
-            void result.offsetWidth;          // 强制重绘，重置动画
-            result.classList.add("shake");    // 重新加上动画
+            result.classList.remove("shake");
+            void result.offsetWidth;
+            result.classList.add("shake");
         }
     }
 }
@@ -101,5 +101,7 @@ function verifyKey() {
         console.error("验证错误：", error);
         showMessage("⚠️出现错误 // 请稍后重试", "red");
     });
-    
+}
+
+// ✅ 添加按钮事件监听（放在 verifyKey 函数外面）
 document.getElementById("verifyBtn").addEventListener("click", verifyKey);
