@@ -67,7 +67,7 @@ function verifyKey() {
         let expiresAt;
 
         switch (data.type) {
-            case "1days":
+            case "1day":
                 expiresAt = now + 1 * 24 * 60 * 60 * 1000;
                 break;
             case "7days":
