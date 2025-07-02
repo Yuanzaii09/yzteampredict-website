@@ -44,7 +44,7 @@ function showCountdown(expiresAt) {
   const countdownEl = document.getElementById("countdown");
 
   if (!expiresAt) {
-    countdownEl.textContent = "剩余时间：永久有效";
+    countdownEl.textContent = "TIME-LEFT: UNLIMITED";
     return;
   }
 
@@ -61,7 +61,7 @@ function showCountdown(expiresAt) {
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
-    countdownEl.textContent = `剩余时间：${days}天${hours}小时${minutes}分钟`;
+    countdownEl.textContent = `TIME-LEFT: ${days}DAY ${hours}HOUR ${minutes}MIN`;
 
     setTimeout(update, 60000); // 每分钟更新一次
   }
