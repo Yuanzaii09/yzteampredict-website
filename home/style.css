@@ -77,6 +77,11 @@ body {
     filter: none;
 }
 
+#countdown {
+    font-weight: bold;
+    color: #008cff;
+}
+
 /* WINGO BACKGROUND */
 .mz-bg {
     width: 80%;
