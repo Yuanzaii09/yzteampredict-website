@@ -189,6 +189,7 @@ body {
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 .enter-btn:active {
+    opacity: 0.3;
     background-color: #000;
     transform: scale(0.90);
 }
