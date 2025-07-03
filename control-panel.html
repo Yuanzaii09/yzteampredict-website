@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>密钥控制面板</title>
-  <link rel="stylesheet" href="control-panel.css">
-  <script type="module" src="control-panel.js" defer></script>
+    <meta charset="UTF-8">
+    <title>密钥控制面板</title>
+    <link rel="stylesheet" href="control-panel.css">
+    <script type="module" src="control-panel.js" defer></script>
 </head>
-<body>
-  <div class="panel">
-    <h2>🔑密钥控制面板</h2>
 
-    <label for="keyInput">新增密钥：</label>
-    <input type="text" id="keyInput" placeholder="例如：abc123">
-
-    <label for="daysInput">有效天数：</label>
-    <input type="text" id="daysInput" placeholder="1 / 7 / 14 / 30 / forever">
-
-    <button id="submitBtn">✅ 添加密钥</button>
-
-    <div id="statusMsg"></div>
-
-    <h3>📋密钥列表</h3>
-    <ul id="keyList"></ul>
-  </div>
-</body>
+    <body>
+        <div class="panel">
+            <h2>🔑密钥控制面板</h2>
+    
+            <label for="keyInput">新增密钥：</label>
+            <input type="text" id="keyInput" placeholder="例如：abc123">
+        
+            <label for="daysInput">有效天数：</label>
+            <input type="text" id="daysInput" placeholder="1 / 7 / 14 / 30 / forever">
+        
+            <button id="submitBtn">✅ 添加密钥</button>
+        
+            <div id="statusMsg"></div>
+        
+            <h3>📋密钥列表</h3>
+            <ul id="keyList"></ul>
+        </div>
+    </body>
 </html>
