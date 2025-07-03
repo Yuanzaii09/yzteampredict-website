@@ -7,8 +7,10 @@
 .panel {
   background: #fff;
   padding: 30px;
-  border-radius: 12px;
+  border-radius: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: auto;
+  margin: 0 20px;
 }
 
 h2, h3 {
