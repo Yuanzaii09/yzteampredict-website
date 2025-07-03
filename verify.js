@@ -82,16 +82,10 @@ function verifyKey() {
         // 始终更新 deviceId，即使已绑定
         const updateData = {
             active: true,
-            lastDeviceId: data.deviceId || null,
             deviceId: deviceId,
             activatedAt: now,
             expiresAt: expiresAt
         };
-
-        // 如果之前绑定的是其他设备，显示提示
-        if (data.deviceId && data.deviceId !== deviceId) {
-            showMessage("⚠️ 密钥已绑定其他设备 // 已为你自动重绑定", "#e67e22");
-        }
 
         // 更新数据库
         keyRef.update(updateData).then(() => {
