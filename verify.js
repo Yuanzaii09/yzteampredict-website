@@ -80,8 +80,7 @@ function verifyKey() {
         }
 
          const updateData = {
-            deviceId: deviceId,
-            lastDeviceId: data.deviceId || null
+            deviceId: deviceId
         };
         
         if (!data.active) {
