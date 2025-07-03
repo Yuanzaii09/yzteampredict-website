@@ -57,14 +57,10 @@ function verifyKey() {
         }
 
         const data = snapshot.val();
-
-if (data.active && data.deviceId !== deviceId) {
-    showMessage("⚠️ 密钥已绑定其他设备 // 已为你自动重绑定", "#e67e22"); // 橙色
-}
-
         const now = Date.now();
         let expiresAt;
 
+        // 根据密钥类型设置过期时间
         switch (data.type) {
             case "1days":
                 expiresAt = now + 1 * 24 * 60 * 60 * 1000;
@@ -83,25 +79,33 @@ if (data.active && data.deviceId !== deviceId) {
                 expiresAt = null;
         }
 
-        if (!data.active) {
-            keyRef.update({
-                active: true,
-                lastDeviceId: data.deviceId || null,
-                deviceId: deviceId,
-                activatedAt: now,
-                expiresAt: expiresAt
-            });
+        // 始终更新 deviceId，即使已绑定
+        const updateData = {
+            active: true,
+            lastDeviceId: data.deviceId || null,
+            deviceId: deviceId,
+            activatedAt: now,
+            expiresAt: expiresAt
+        };
+
+        // 如果之前绑定的是其他设备，显示提示
+        if (data.deviceId && data.deviceId !== deviceId) {
+            showMessage("⚠️ 密钥已绑定其他设备 // 已为你自动重绑定", "#e67e22");
         }
 
-        showMessage("🟢验证成功 // 跳转中...", "green");
-        setTimeout(() => {
-            window.location.href = "https://yzteampredict.store/home";
-        }, 1500);
+        // 更新数据库
+        keyRef.update(updateData).then(() => {
+            showMessage("🟢验证成功 // 跳转中...", "green");
+            setTimeout(() => {
+                window.location.href = "https://yzteampredict.store/home";
+            }, 1500);
+        });
+
     }).catch((error) => {
         console.error("验证错误：", error);
         showMessage("⚠️出现错误 // 请稍后重试", "red");
     });
 }
 
-// ✅ 添加按钮事件监听（放在 verifyKey 函数外面）
+// ✅ 添加按钮事件监听
 document.getElementById("verifyBtn").addEventListener("click", verifyKey);
