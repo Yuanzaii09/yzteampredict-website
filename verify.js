@@ -87,6 +87,7 @@ function verifyKey() {
         if (!data.active) {
             keyRef.update({
                 active: true,
+                lastDeviceId: data.deviceId || null,
                 deviceId: deviceId,
                 activatedAt: now,
                 expiresAt: expiresAt
