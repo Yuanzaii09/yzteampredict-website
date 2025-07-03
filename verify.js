@@ -99,7 +99,7 @@ function verifyKey() {
             showMessage("🟢验证成功 // 跳转中...", "green");
             setTimeout(() => {
                 window.location.href = "https://yzteampredict.store/home";
-            }, 1500);
+            }, 1000);
         });
 
     }).catch((error) => {
