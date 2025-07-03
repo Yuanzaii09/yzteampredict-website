@@ -58,10 +58,9 @@ function verifyKey() {
 
         const data = snapshot.val();
 
-        if (data.active && data.deviceId !== deviceId) {
-            // 说明已经绑定其他设备，进行重绑定
-            showMessage("⚠️ 此密钥已绑定其他设备 // 已为你自动重绑定", "orange");
-        }
+if (data.active && data.deviceId !== deviceId) {
+    showMessage("⚠️ 密钥已绑定其他设备，现在已为你自动重绑定。", "#e67e22"); // 橙色
+}
 
         const now = Date.now();
         let expiresAt;
