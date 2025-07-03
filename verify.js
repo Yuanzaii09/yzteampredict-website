@@ -79,14 +79,21 @@ function verifyKey() {
                 expiresAt = null;
         }
 
-        // 始终更新 deviceId，即使已绑定
-        const updateData = {
-            active: true,
+         const updateData = {
             deviceId: deviceId,
-            activatedAt: now,
-            expiresAt: expiresAt
+            lastDeviceId: data.deviceId || null
         };
-
+        
+        if (!data.active) {
+            // 首次激活：设定时间
+            updateData.active = true;
+            updateData.activatedAt = now;
+            updateData.expiresAt = expiresAt;
+        } else {
+            // 已激活就不更新时间
+            updateData.active = true;
+        }
+        
         // 更新数据库
         keyRef.update(updateData).then(() => {
             showMessage("🟢验证成功 // 跳转中...", "green");
