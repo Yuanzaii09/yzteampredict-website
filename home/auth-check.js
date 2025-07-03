@@ -39,18 +39,26 @@ if (!deviceId) {
     const keysRef = ref(db, "keys");
 
     get(keysRef).then((snapshot) => {
-        let authorized = false;
+        let foundValid = false;
 
         snapshot.forEach((childSnapshot) => {
             const data = childSnapshot.val();
+
             if (data.deviceId === deviceId && data.active) {
-                if (!data.expiresAt || Date.now() < data.expiresAt) {
-                    authorized = true;
+                const now = Date.now();
+
+                if (data.expiresAt && now > data.expiresAt) {
+                    // 已过期，强制跳转
+                    window.location.href = "https://yzteampredict.store/verify";
+                    return;
                 }
+
+                // 有效密钥
+                foundValid = true;
             }
         });
 
-        if (!authorized) {
+        if (!foundValid) {
             showUnauthorizedMessage();
         }
     }).catch((error) => {
