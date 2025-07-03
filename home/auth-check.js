@@ -48,7 +48,8 @@ if (!deviceId) {
                 const now = Date.now();
 
                 if (data.expiresAt && now > data.expiresAt) {
-                    // 已过期，强制跳转
+                    // 密钥已过期，清除 device_id 并跳转
+                    localStorage.removeItem("device_id");
                     window.location.href = "https://yzteampredict.store/verify";
                     return;
                 }
@@ -59,10 +60,13 @@ if (!deviceId) {
         });
 
         if (!foundValid) {
+            // 找不到匹配或密钥未激活 → 清除并跳转
+            localStorage.removeItem("device_id");
             showUnauthorizedMessage();
         }
     }).catch((error) => {
         console.error("验证错误：", error);
+        localStorage.removeItem("device_id");
         showUnauthorizedMessage();
     });
 }
