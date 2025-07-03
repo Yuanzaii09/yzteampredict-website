@@ -53,7 +53,10 @@ function showCountdown(expiresAt) {
     const diff = expiresAt - now;
 
     if (diff <= 0) {
-      countdownEl.textContent = "密钥已过期 ❌";
+      countdownEl.textContent = "密钥已过期 ❌ 正在跳转...";
+      setTimeout(() => {
+        window.location.href = "https://yzteampredict.store/verify";
+      }, 2000); // 延迟 2 秒跳转
       return;
     }
 
