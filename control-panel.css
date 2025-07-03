@@ -1,17 +1,9 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f4f8;
-  display: flex;
-  justify-content: center;
-  padding-top: 50px;
-}
-
 .panel {
   background: #fff;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 360px;
+  width: auto;
 }
 
 h2, h3 {
