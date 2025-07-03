@@ -63,7 +63,7 @@ function showCountdown(expiresAt) {
 
     countdownEl.textContent = `EXPIRES: ${days} Day ${hours} Hour ${minutes} Min`;
 
-    setTimeout(update, 60000); // 每分钟更新一次
+    setTimeout(update, 1000); // 每秒更新一次
   }
 
   update();
