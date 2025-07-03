@@ -157,7 +157,6 @@ body {
 /* ALL-TITLE */
 .title {
     font-size: 20px;
-    font-weight: 800;
     font-family: 'lt', sans-serif;
     border-bottom: 3px solid #eee;
     margin-bottom: 0;
@@ -184,6 +183,7 @@ body {
     font-family: 'lm-medium', sans-serif;
     text-decoration: none;
     color: #000;
+    opacity: 0.7;
     background-color: #fff;
     border-radius: 30px;
     transition: background-color 0.2s ease, transform 0.2s ease;
