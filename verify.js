@@ -22,7 +22,7 @@ function getDeviceId() {
     return id;
 }
 
-// 📢 显示提示信息（封装）
+// 📢 显示提示信息
 function showMessage(text, color) {
     const result = document.getElementById("result");
     if (result) {
@@ -38,7 +38,7 @@ function showMessage(text, color) {
     }
 }
 
-// 🔐 验证密钥函数
+// 🔐 验证密钥
 function verifyKey() {
     const key = document.getElementById("keyInput").value.trim();
     const deviceId = getDeviceId();
@@ -58,49 +58,36 @@ function verifyKey() {
 
         const data = snapshot.val();
         const now = Date.now();
-        let expiresAt;
 
-        // 根据密钥类型设置过期时间
-        switch (data.type) {
-            case "1days":
-                expiresAt = now + 1 * 24 * 60 * 60 * 1000;
-                break;
-            case "7days":
-                expiresAt = now + 7 * 24 * 60 * 60 * 1000;
-                break;
-            case "14days":
-                expiresAt = now + 14 * 24 * 60 * 60 * 1000;
-                break;
-            case "30days":
-                expiresAt = now + 30 * 24 * 60 * 60 * 1000;
-                break;
-            case "forever":
-            default:
-                expiresAt = null;
+        // 如果密钥已激活但绑定了其他设备，视为非法使用
+        if (data.active && data.deviceId && data.deviceId !== deviceId) {
+            showMessage("🔴此密钥已绑定其他设备", "red");
+            return;
         }
 
-         const updateData = {
+        // 处理 type（支持数字）
+        let expiresAt = data.expiresAt || null;
+        if (!data.active) {
+            const type = typeof data.type === "number" ? data.type : 0;
+            expiresAt = type > 0 ? now + type * 24 * 60 * 60 * 1000 : null;
+        }
+
+        const updateData = {
+            active: true,
             deviceId: deviceId
         };
-        
+
         if (!data.active) {
-            // 首次激活：设定时间
-            updateData.active = true;
             updateData.activatedAt = now;
             updateData.expiresAt = expiresAt;
-        } else {
-            // 已激活就不更新时间
-            updateData.active = true;
         }
-        
-        // 更新数据库
+
         keyRef.update(updateData).then(() => {
             showMessage("🟢验证成功 // 跳转中...", "green");
             setTimeout(() => {
                 window.location.href = "https://yzteampredict.store/home";
             }, 1000);
         });
-
     }).catch((error) => {
         console.error("验证错误：", error);
         showMessage("⚠️出现错误 // 请稍后重试", "red");
