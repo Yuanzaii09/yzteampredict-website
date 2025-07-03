@@ -60,7 +60,7 @@ function verifyKey() {
         let expiresAt;
 
         switch (data.type) {
-            case "1day":
+            case "1days":
                 expiresAt = now + 1 * 24 * 60 * 60 * 1000;
                 break;
             case "7days":
@@ -83,8 +83,7 @@ function verifyKey() {
             .then(ipData => {
                 const updateData = {
                     deviceId: deviceId,
-                    lastLoginAt: now,
-                    ipAddress: ipData.ip // 👈 储存 IP
+                    ipAddress: ipData.ip
                 };
 
                 if (!data.active) {
