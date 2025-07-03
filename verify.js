@@ -59,7 +59,7 @@ function verifyKey() {
         const data = snapshot.val();
 
 if (data.active && data.deviceId !== deviceId) {
-    showMessage("⚠️ 密钥已绑定其他设备，现在已为你自动重绑定。", "#e67e22"); // 橙色
+    showMessage("⚠️ 密钥已绑定其他设备 // 已为你自动重绑定", "#e67e22"); // 橙色
 }
 
         const now = Date.now();
