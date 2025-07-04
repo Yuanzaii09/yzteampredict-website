@@ -164,6 +164,5 @@ input:focus {
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 .copyBtn:active {
-    background-color: #bbb;
     transform: scale(0.95);
 }
