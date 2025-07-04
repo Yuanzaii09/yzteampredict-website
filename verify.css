@@ -126,7 +126,7 @@ input:focus {
 }
 
 /* 按钮激活 */
-verifyBtn:active {
+.verifyBtn:active {
     transform: scale(0.95);
     background-color: #6A1FBF;
     box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
