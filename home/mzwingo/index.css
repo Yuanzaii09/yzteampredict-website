@@ -114,6 +114,13 @@ body {
     filter: none;
 }
 
+#countdown {
+    font-weight: bold;
+    font-family: 'lt', sans-serif;
+    color: #ff0000;
+    text-align: center;
+}
+
 /* HIDDEN */
 .hidden {
     display: none !important;
