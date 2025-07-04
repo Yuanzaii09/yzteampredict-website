@@ -60,6 +60,9 @@ function verifyKey() {
         let expiresAt;
 
         switch (data.type) {
+            case "1min":
+                expiresAt = now + 1 * 60 * 1000; // 1分钟 = 60,000 毫秒
+                break;
             case "1days":
                 expiresAt = now + 1 * 24 * 60 * 60 * 1000;
                 break;
