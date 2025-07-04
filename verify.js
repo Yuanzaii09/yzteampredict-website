@@ -133,18 +133,22 @@ function getDeviceId() {
 const deviceId = getDeviceId();
 
 // ✅ 复制按钮事件
-document.getElementById("copyBtn").addEventListener("click", () => {
+const copyBtn = document.getElementById("copyBtn");
+
+copyBtn.addEventListener("click", () => {
   navigator.clipboard.writeText(deviceId).then(() => {
-    const statusEl = document.getElementById("copyStatus");
-    statusEl.textContent = "✅ 已复制";
-    statusEl.style.color = "green";
+    const originalText = copyBtn.textContent;
+    copyBtn.textContent = "✅ 已复制";
+    copyBtn.disabled = true;
 
     setTimeout(() => {
-      statusEl.textContent = "";
+      copyBtn.textContent = originalText;
+      copyBtn.disabled = false;
     }, 2000);
   }).catch(() => {
-    const statusEl = document.getElementById("copyStatus");
-    statusEl.textContent = "❌ 复制失败";
-    statusEl.style.color = "red";
+    copyBtn.textContent = "❌ 复制失败";
+    setTimeout(() => {
+      copyBtn.textContent = "📋 复制ID";
+    }, 2000);
   });
 });
