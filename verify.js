@@ -86,7 +86,6 @@ function verifyKey() {
             .then(ipData => {
                 const updateData = {
                     deviceId: deviceId,
-                    ipAddress: ipData.ip
                 };
 
                 if (!data.active) {
