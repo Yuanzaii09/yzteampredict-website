@@ -38,6 +38,7 @@ function showMessage(text, color) {
     }
 }
 
+// 🔐 验证密钥函数
 function verifyKey() {
     const key = document.getElementById("keyInput").value.trim();
     const deviceId = getDeviceId();
@@ -59,9 +60,10 @@ function verifyKey() {
         const now = Date.now();
         let expiresAt;
 
+        // ⏳ 根据 type 设置过期时间
         switch (data.type) {
             case "1min":
-                expiresAt = now + 1 * 60 * 1000; // 1分钟 = 60,000 毫秒
+                expiresAt = now + 1 * 60 * 1000;
                 break;
             case "1days":
                 expiresAt = now + 1 * 24 * 60 * 60 * 1000;
@@ -80,27 +82,22 @@ function verifyKey() {
                 expiresAt = null;
         }
 
-                const updateData = {
-                    deviceId: deviceId,
-                };
+        const updateData = {
+            deviceId: deviceId
+        };
 
-                if (!data.active) {
-                    updateData.active = true;
-                    updateData.activatedAt = now;
-                    updateData.expiresAt = expiresAt;
-                }
+        if (!data.active) {
+            updateData.active = true;
+            updateData.activatedAt = now;
+            updateData.expiresAt = expiresAt;
+        }
 
-                // ⬆️ 更新到数据库
-                keyRef.update(updateData).then(() => {
-                    showMessage("🟢验证成功 // 跳转中...", "green");
-                    setTimeout(() => {
-                        window.location.href = "https://yzteampredict.store/home";
-                    }, 1000);
-                });
-            })
-            .catch(() => {
-                showMessage("⚠️ 获取IP失败，但验证仍将继续", "orange");
-            });
+        keyRef.update(updateData).then(() => {
+            showMessage("🟢验证成功 // 跳转中...", "green");
+            setTimeout(() => {
+                window.location.href = "https://yzteampredict.store/home";
+            }, 1000);
+        });
 
     }).catch((error) => {
         console.error("验证错误：", error);
