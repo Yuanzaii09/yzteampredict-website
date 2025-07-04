@@ -80,10 +80,6 @@ function verifyKey() {
                 expiresAt = null;
         }
 
-        // 🧠 获取用户 IP 地址
-        fetch("https://api.ipify.org?format=json")
-            .then(res => res.json())
-            .then(ipData => {
                 const updateData = {
                     deviceId: deviceId,
                 };
