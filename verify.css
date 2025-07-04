@@ -149,10 +149,10 @@ verifyBtn:active {
 }
 
 .copyBtn {
-    background-color: #ddd;
+    background-color: #fff;
     color: #000;
     box-shadow: 0 4 12px #000;
 }
-.copyBtn:hover {
+.copyBtn:active {
     background-color: #bbb;
 }
