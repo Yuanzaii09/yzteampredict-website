@@ -148,9 +148,4 @@ button:active {
     animation: shake 0.3s ease;
 }
 
-.copy-bg {
-    position: absolute;
-    width: 80%;
-    max-width: 360px;
-    text-align: center;
-}
+#copyBtn
