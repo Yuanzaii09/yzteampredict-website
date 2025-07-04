@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="verify.css" />
+        <script src="verify.js" defer></script>
         <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -25,16 +26,17 @@
         </div>
         
         <!-- 2 // VERIFY -->
-            <div class="bg">
-                <div class="verify">VERIFY</div>
-                <input type="text" id="keyInput" placeholder="KEY" />
-                <button id="verifyBtn">ENTER</button>
-                <p id="result"></p>
-            </div>
+        <div class="bg">
+            <div class="verify">VERIFY</div>
+            <input type="text" id="keyInput" placeholder="KEY" />
+            <button id="verifyBtn">ENTER</button>
+            <p id="result"></p>
+        </div>
             
+        <div class=copy-bg>
             <button id="copyBtn">复制ID</button>
             <span id="copyStatus">✅已复制</span>
+        </div>
         
-        <script src="verify.js"></script>
     </body>
 </html>
