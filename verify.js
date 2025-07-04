@@ -119,3 +119,32 @@ function verifyKey() {
 
 // ✅ 按钮监听
 document.getElementById("verifyBtn").addEventListener("click", verifyKey);
+
+// ✅ 获取或生成设备 ID
+function getDeviceId() {
+  let id = localStorage.getItem("device_id");
+  if (!id) {
+    id = "dev-" + Math.random().toString(36).substr(2, 12);
+    localStorage.setItem("device_id", id);
+  }
+  return id;
+}
+
+const deviceId = getDeviceId();
+
+// ✅ 复制按钮事件
+document.getElementById("copyBtn").addEventListener("click", () => {
+  navigator.clipboard.writeText(deviceId).then(() => {
+    const statusEl = document.getElementById("copyStatus");
+    statusEl.textContent = "✅ 已复制";
+    statusEl.style.color = "green";
+
+    setTimeout(() => {
+      statusEl.textContent = "";
+    }, 2000);
+  }).catch(() => {
+    const statusEl = document.getElementById("copyStatus");
+    statusEl.textContent = "❌ 复制失败";
+    statusEl.style.color = "red";
+  });
+});
