@@ -19,54 +19,36 @@ const db = getDatabase(app);
 const deviceId = localStorage.getItem("device_id");
 
 // ❌ 显示未验证提示
-function showUnauthorizedMessage() {
-    document.body.innerHTML = `
-        <div style="text-align: center; padding: 40px; font-family: 'Arial', sans-serif;">
-            <h2 style="color: #000; font-size: 24px;">⚠️ 您尚未通过密钥验证 // 无法访问此页面 ⚠️</h2>
-            <p style="margin-top: 20px;">
-                <a href="https://yzteampredict.store/verify" style="color: #5dade2; font-size: 18px; text-decoration: underline; font-weight: bold;">
-                    点击前往验证页面
-                </a>
-            </p>
-        </div>
-    `;
+function redirectToVerify() {
+    localStorage.removeItem("device_id");
+    window.location.href = "https://yzteampredict.store/verify";
 }
 
 // ✅ 核心验证逻辑
 if (!deviceId) {
-    showUnauthorizedMessage();
+    redirectToVerify();
 } else {
     const keysRef = ref(db, "keys");
 
     get(keysRef).then((snapshot) => {
-        let foundValid = false;
+        const now = Date.now();
+        let valid = false;
 
         snapshot.forEach((childSnapshot) => {
             const data = childSnapshot.val();
 
             if (data.deviceId === deviceId && data.active) {
-                const now = Date.now();
-
-                if (data.expiresAt && now > data.expiresAt) {
-                    // 密钥已过期，清除 device_id 并跳转
-                    localStorage.removeItem("device_id");
-                    window.location.href = "https://yzteampredict.store/verify";
-                    return;
+                if (!data.expiresAt || now <= data.expiresAt) {
+                    valid = true;
                 }
-
-                // 有效密钥
-                foundValid = true;
             }
         });
 
-        if (!foundValid) {
-            // 找不到匹配或密钥未激活 → 清除并跳转
-            localStorage.removeItem("device_id");
-            showUnauthorizedMessage();
+        if (!valid) {
+            redirectToVerify();
         }
     }).catch((error) => {
         console.error("验证错误：", error);
-        localStorage.removeItem("device_id");
-        showUnauthorizedMessage();
+        redirectToVerify();
     });
 }
