@@ -151,7 +151,17 @@ input:focus {
 .copyBtn {
     background-color: #fff;
     color: #000;
-    box-shadow: 0 4 12px #000;
+    box-shadow: 0 4 12px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    width: 50%;
+    max-width: 350px;
+    padding: 12.5px 0;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 30px;
+    transform: scale(1);
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 .copyBtn:active {
     background-color: #bbb;
