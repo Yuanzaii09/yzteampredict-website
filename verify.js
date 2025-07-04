@@ -12,7 +12,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// 🧠 获取或生成设备ID（保存在 localStorage）
+// ✅ 获取或生成唯一 deviceId
 function getDeviceId() {
     let id = localStorage.getItem("device_id");
     if (!id) {
@@ -22,14 +22,13 @@ function getDeviceId() {
     return id;
 }
 
-// 📢 显示提示信息
+// ✅ 显示消息
 function showMessage(text, color) {
     const result = document.getElementById("result");
     if (result) {
         result.textContent = text;
         result.style.color = color;
         result.style.fontWeight = "bold";
-
         if (color === "red") {
             result.classList.remove("shake");
             void result.offsetWidth;
@@ -38,7 +37,7 @@ function showMessage(text, color) {
     }
 }
 
-// 🔐 验证密钥函数
+// ✅ 主函数
 function verifyKey() {
     const key = document.getElementById("keyInput").value.trim();
     const deviceId = getDeviceId();
@@ -60,7 +59,7 @@ function verifyKey() {
         const now = Date.now();
         let expiresAt;
 
-        // ⏳ 根据 type 设置过期时间
+        // ⏱️ 根据 type 设定过期时间
         switch (data.type) {
             case "1min":
                 expiresAt = now + 1 * 60 * 1000;
@@ -82,6 +81,13 @@ function verifyKey() {
                 expiresAt = null;
         }
 
+        // 🧠 核心限制：只允许首次绑定，之后拒绝其他设备
+        if (data.active && data.deviceId && data.deviceId !== deviceId) {
+            showMessage("⚠️ 此密钥已绑定另一设备，无法再次使用", "red");
+            return;
+        }
+
+        // ✅ 更新数据库（首次激活或原设备重复使用）
         const updateData = {
             deviceId: deviceId
         };
@@ -105,5 +111,5 @@ function verifyKey() {
     });
 }
 
-// ✅ 添加按钮事件监听
+// ✅ 按钮监听
 document.getElementById("verifyBtn").addEventListener("click", verifyKey);
