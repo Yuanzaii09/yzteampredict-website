@@ -159,6 +159,7 @@ input:focus {
     font-size: 16px;
     font-weight: bold;
     text-decoration: none;
+    border: none;
     border-radius: 30px;
     transform: scale(1);
     transition: transform 0.2s ease, background-color 0.2s ease;
