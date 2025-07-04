@@ -34,15 +34,15 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     return;
   }
 
-  const validDays = ["1", "7", "14", "30", "forever"];
+  const validDays = ["1", "7", "14", "30", "forever", "1min"];
   if (!validDays.includes(days)) {
     status.textContent = "⚠️ 请输入合法天数（1/7/14/30/forever）";
     status.style.color = "red";
     return;
   }
 
-  const type = (days === "forever") ? "forever" : `${days}days`;
-
+  const type = (days === "forever") ? "forever" : (days === "1min" ? "1min" : `${days}days`);
+  
   const keyRef = ref(db, "keys/" + key);
 
   set(keyRef, {
