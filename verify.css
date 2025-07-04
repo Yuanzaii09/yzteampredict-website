@@ -133,8 +133,8 @@ button:active {
 }
 
 #result {
-  font-size: 15px;
-  margin-top: 20px;
+    font-size: 15px;
+    margin-top: 20px;
 }
 
 @keyframes shake {
@@ -148,4 +148,7 @@ button:active {
     animation: shake 0.3s ease;
 }
 
-#copyBtn
+#copyBtn {
+    background-color: #fff;
+    color: #000;
+}
