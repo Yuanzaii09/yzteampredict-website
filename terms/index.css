@@ -31,21 +31,3 @@ footer {
     font-size: 14px;
     color: #aaa;
 }
-
-.back-button {
-    display: inline-block;
-    margin-bottom: 20px;
-    padding: 8px 16px;
-    background-color: transparent;
-    color: #007bff;
-    border: 2px solid #007bff;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.back-button:hover {
-    background-color: #007bff;
-    color: white;
-}
