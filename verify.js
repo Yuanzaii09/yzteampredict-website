@@ -4,7 +4,7 @@ const firebaseConfig = {
     authDomain: "verify-b3d6c.firebaseapp.com",
     databaseURL: "https://verify-b3d6c-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "verify-b3d6c",
-    storageBucket: "verify-b3d6c.firebasestorage.app",
+    storageBucket: "verify-b3d6c.appspot.com",
     messagingSenderId: "734040141195",
     appId: "1:734040141195:web:c1bd782daf1ff6ed40538e"
 };
@@ -12,7 +12,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// ✅ 获取或生成唯一 deviceId
+// ✅ 获取或生成 deviceId（存 localStorage）
 function getDeviceId() {
     let id = localStorage.getItem("device_id");
     if (!id) {
@@ -22,13 +22,14 @@ function getDeviceId() {
     return id;
 }
 
-// ✅ 显示消息
+// ✅ 显示提示信息
 function showMessage(text, color) {
     const result = document.getElementById("result");
     if (result) {
         result.textContent = text;
         result.style.color = color;
         result.style.fontWeight = "bold";
+
         if (color === "red") {
             result.classList.remove("shake");
             void result.offsetWidth;
@@ -37,7 +38,7 @@ function showMessage(text, color) {
     }
 }
 
-// ✅ 主函数
+// ✅ 验证密钥函数
 function verifyKey() {
     const key = document.getElementById("keyInput").value.trim();
     const deviceId = getDeviceId();
@@ -57,9 +58,21 @@ function verifyKey() {
 
         const data = snapshot.val();
         const now = Date.now();
-        let expiresAt;
 
-        // ⏱️ 根据 type 设定过期时间
+        // ✅ 1. 判断密钥是否过期
+        if (data.expiresAt && now > data.expiresAt) {
+            showMessage("🔴密钥已过期", "red");
+            return;
+        }
+
+        // ✅ 2. 如果密钥已被其他设备绑定
+        if (data.active && data.deviceId && data.deviceId !== deviceId) {
+            showMessage("🔴密钥已绑定其他设备", "red");
+            return;
+        }
+
+        // ✅ 3. 设置过期时间（仅限首次激活）
+        let expiresAt;
         switch (data.type) {
             case "1min":
                 expiresAt = now + 1 * 60 * 1000;
@@ -81,15 +94,8 @@ function verifyKey() {
                 expiresAt = null;
         }
 
-        // 🧠 核心限制：只允许首次绑定，之后拒绝其他设备
-        if (data.active && data.deviceId && data.deviceId !== deviceId) {
-            showMessage("⚠️ 此密钥已绑定另一设备，无法再次使用", "red");
-            return;
-        }
-
-        // ✅ 更新数据库（首次激活或原设备重复使用）
         const updateData = {
-            deviceId: deviceId
+            deviceId: deviceId,
         };
 
         if (!data.active) {
@@ -98,13 +104,13 @@ function verifyKey() {
             updateData.expiresAt = expiresAt;
         }
 
+        // ✅ 4. 更新数据库并跳转
         keyRef.update(updateData).then(() => {
             showMessage("🟢验证成功 // 跳转中...", "green");
             setTimeout(() => {
                 window.location.href = "https://yzteampredict.store/home";
             }, 1000);
         });
-
     }).catch((error) => {
         console.error("验证错误：", error);
         showMessage("⚠️出现错误 // 请稍后重试", "red");
