@@ -60,8 +60,9 @@ function showCountdown(expiresAt) {
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    countdownEl.textContent = `EXPIRES: ${days} Day ${hours} Hour ${minutes} Min`;
+    countdownEl.textContent = `EXPIRES: ${days} Day ${hours} Hour ${minutes} Min ${seconds} Sec`;
 
     setTimeout(update, 1000); // 每秒更新一次
   }
