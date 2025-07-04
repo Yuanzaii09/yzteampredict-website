@@ -107,7 +107,7 @@ input:focus {
 }
 
 /* 按钮 */
-button {
+.verifyBtn {
     text-align: center;
     width: 50%;
     max-width: 350px;
@@ -126,7 +126,7 @@ button {
 }
 
 /* 按钮激活 */
-button:active {
+verifyBtn:active {
     transform: scale(0.95);
     background-color: #6A1FBF;
     box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
