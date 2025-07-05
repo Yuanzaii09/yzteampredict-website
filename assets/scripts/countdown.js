@@ -83,7 +83,7 @@ getBoundKey((data) => {
     el.textContent = "❌未验证或密钥未激活";
     setTimeout(() => {
       window.location.replace("https://yzteampredict.store/verify");
-    }, 0;
+    }, 0);
     return;
   }
 
