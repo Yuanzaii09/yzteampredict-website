@@ -75,13 +75,15 @@ function showCountdown(expiresAt) {
 getBoundKey((data) => {
   const el = document.getElementById("countdown");
 
-  if (!data) {
-    el.textContent = "❌未绑定密钥，请返回验证页面";
-    return;
-  }
+  if (!data || !data.active) {
+    // 清除 deviceId 确保下次重新验证
+    localStorage.removeItem("device_id");
 
-  if (!data.active) {
-    el.textContent = "❌密钥未激活";
+    // 显示信息，然后立即跳转
+    el.textContent = "❌未验证或密钥未激活";
+    setTimeout(() => {
+      window.location.replace("https://yzteampredict.store/verify");
+    }, 0;
     return;
   }
 
