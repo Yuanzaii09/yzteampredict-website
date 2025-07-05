@@ -53,7 +53,8 @@ function showCountdown(expiresAt) {
     const diff = expiresAt - now;
 
     if (diff <= 0) {
-      window.location.href = "https://yzteampredict.store/verify";
+      localStorage.removeItem("device_id");
+      window.location.replace("https://yzteampredict.store/verify");
       return;
     }
 
