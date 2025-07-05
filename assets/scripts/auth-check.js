@@ -18,47 +18,44 @@ const db = getDatabase(app);
 // ✅ 获取设备ID
 const deviceId = localStorage.getItem("device_id");
 
-// ❌ 重定向到验证页
+// ✅ 强制跳转到验证页（不显示提示，立即跳转）
 function redirectToVerify() {
     localStorage.removeItem("device_id");
-    window.location.href = "https://yzteampredict.store/verify";
+    location.replace("https://yzteampredict.store/verify"); // 更快 & 无法回退
 }
 
-// ✅ 每秒验证一次设备状态
-function startAutoAuthCheck() {
+// ✅ 验证逻辑
+function checkDevice() {
     if (!deviceId) {
         redirectToVerify();
         return;
     }
 
-    setInterval(() => {
-        const keysRef = ref(db, "keys");
+    const keysRef = ref(db, "keys");
 
-        get(keysRef)
-            .then((snapshot) => {
-                const now = Date.now();
-                let valid = false;
+    get(keysRef)
+        .then((snapshot) => {
+            const now = Date.now();
+            let valid = false;
 
-                snapshot.forEach((childSnapshot) => {
-                    const data = childSnapshot.val();
+            snapshot.forEach((childSnapshot) => {
+                const data = childSnapshot.val();
 
-                    if (data.deviceId === deviceId && data.active) {
-                        if (!data.expiresAt || now <= data.expiresAt) {
-                            valid = true;
-                        }
+                if (data.deviceId === deviceId && data.active) {
+                    if (!data.expiresAt || now <= data.expiresAt) {
+                        valid = true;
                     }
-                });
-
-                if (!valid) {
-                    redirectToVerify();
                 }
-            })
-            .catch((error) => {
-                console.error("验证错误：", error);
-                redirectToVerify();
             });
-    }, 1000); // 每秒检查一次
+
+            if (!valid) {
+                redirectToVerify();
+            }
+        })
+        .catch((error) => {
+            console.error("验证失败：", error);
+            redirectToVerify();
+        });
 }
 
-// ✅ 启动检查
-startAutoAuthCheck();
+checkDevice();
