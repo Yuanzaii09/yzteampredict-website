@@ -24,31 +24,41 @@ function redirectToVerify() {
     window.location.href = "https://yzteampredict.store/verify";
 }
 
-// ✅ 核心验证逻辑
-if (!deviceId) {
-    redirectToVerify();
-} else {
-    const keysRef = ref(db, "keys");
-
-    get(keysRef).then((snapshot) => {
-        const now = Date.now();
-        let valid = false;
-
-        snapshot.forEach((childSnapshot) => {
-            const data = childSnapshot.val();
-
-            if (data.deviceId === deviceId && data.active) {
-                if (!data.expiresAt || now <= data.expiresAt) {
-                    valid = true;
-                }
-            }
-        });
-
-        if (!valid) {
-            redirectToVerify();
-        }
-    }).catch((error) => {
-        console.error("验证错误：", error);
+// ✅ 每秒验证一次设备状态
+function startAutoAuthCheck() {
+    if (!deviceId) {
         redirectToVerify();
-    });
+        return;
+    }
+
+    setInterval(() => {
+        const keysRef = ref(db, "keys");
+
+        get(keysRef)
+            .then((snapshot) => {
+                const now = Date.now();
+                let valid = false;
+
+                snapshot.forEach((childSnapshot) => {
+                    const data = childSnapshot.val();
+
+                    if (data.deviceId === deviceId && data.active) {
+                        if (!data.expiresAt || now <= data.expiresAt) {
+                            valid = true;
+                        }
+                    }
+                });
+
+                if (!valid) {
+                    redirectToVerify();
+                }
+            })
+            .catch((error) => {
+                console.error("验证错误：", error);
+                redirectToVerify();
+            });
+    }, 1000); // 每秒检查一次
 }
+
+// ✅ 启动检查
+startAutoAuthCheck();
