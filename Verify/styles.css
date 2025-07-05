@@ -1,18 +1,18 @@
 @font-face {
     font-family: 'godofwar';
-    src: url('../fonts/godofwar.ttf') format('truetype');
+    src: url('../assets/fonts/godofwar.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'lm-medium';
-    src: url('../fonts/lm-medium.otf') format('truetype');
+    src: url('../assets/fonts/lm-medium.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'lt';
-    src: url('../fonts/lt.woff2') format('truetype');
+    src: url('../assets/fonts/lt.woff2') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
