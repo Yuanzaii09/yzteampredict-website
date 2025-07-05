@@ -7,7 +7,7 @@ const firebaseConfig = {
     authDomain: "verify-b3d6c.firebaseapp.com",
     databaseURL: "https://verify-b3d6c-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "verify-b3d6c",
-    storageBucket: "verify-b3d6c.firebasestorage.app",
+    storageBucket: "verify-b3d6c.appspot.com",
     messagingSenderId: "734040141195",
     appId: "1:734040141195:web:c1bd782daf1ff6ed40538e"
 };
@@ -18,7 +18,7 @@ const db = getDatabase(app);
 // ✅ 获取设备ID
 const deviceId = localStorage.getItem("device_id");
 
-// ❌ 显示未验证提示
+// ❌ 重定向到验证页
 function redirectToVerify() {
     localStorage.removeItem("device_id");
     window.location.href = "https://yzteampredict.store/verify";
