@@ -23,7 +23,7 @@ function getBoundKey(callback) {
   keysRef.once("value").then((snapshot) => {
     const allKeys = snapshot.val();
     const deviceId = getDeviceId();
-    if (!deviceId) {
+    if (!deviceId || !allKeys) {
       callback(null);
       return;
     }
@@ -35,11 +35,14 @@ function getBoundKey(callback) {
       }
     }
 
-    callback(null);
+    callback(null); // 没找到匹配的密钥
+  }).catch((error) => {
+    console.error("读取失败：", error);
+    callback(null); // 读取失败也当作验证失败
   });
 }
 
-// ✅ 显示剩余时间
+// ✅ 显示剩余时间（含自动跳转）
 function showCountdown(expiresAt) {
   const countdownEl = document.getElementById("countdown");
 
@@ -65,25 +68,22 @@ function showCountdown(expiresAt) {
 
     countdownEl.textContent = `EXPIRES: ${days} Day ${hours} Hour ${minutes} Min ${seconds} Sec`;
 
-    setTimeout(update, 1000); // 每秒更新一次
+    setTimeout(update, 1000);
   }
 
   update();
 }
 
-// ✅ 启动流程
+// ✅ 启动验证流程
 getBoundKey((data) => {
   const el = document.getElementById("countdown");
 
   if (!data || !data.active) {
-    // 清除 deviceId 确保下次重新验证
     localStorage.removeItem("device_id");
-
-    // 显示信息，然后立即跳转
     el.textContent = "❌未验证或密钥未激活";
     setTimeout(() => {
       window.location.replace("https://yzteampredict.store/verify");
-    }, 0);
+    }, 1000);
     return;
   }
 
