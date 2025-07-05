@@ -30,7 +30,7 @@ footer {
 
 @font-face {
     font-family: 'godofwar';
-    src: url('fonts/godofwar.ttf') format('truetype');
+    src: url('../assets/fonts/godofwar.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
