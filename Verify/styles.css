@@ -30,12 +30,6 @@ svg {
     font-style: normal;
 }
 @font-face {
-    font-family: 'lm-medium';
-    src: url('../assets/fonts/lm-medium.otf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
     font-family: 'lt';
     src: url('../assets/fonts/lt.woff2') format('truetype');
     font-weight: normal;
@@ -43,7 +37,8 @@ svg {
 }
 
 body {
-  background-color: #fff;
+    background-color: #fff;
+    font-family: 'lt', san-serif;
 }
 
 /* LOGO-TEXT */
@@ -111,7 +106,6 @@ body {
 h1 {
   margin-bottom: 20px;
   font-size: 24px;
-  font-family: 'lm-medium', sans-serif;
 }
 
 /* INPUT */
@@ -123,8 +117,6 @@ input {
   font-size: 16px;
   margin-bottom: 20px;
   text-align: center;
-  font-family: 'Noto-Sans', sans-serif;
-  font-weight: 600;
 }
 input:focus {
     border-color: #8A2BE2;
@@ -138,7 +130,6 @@ input:focus {
     max-width: 350px;
     padding: 12.5px 0;
     font-size: 16px;
-    font-weight: bold;
     background-color: #8A2BE2;
     color: white;
     text-decoration: none;
@@ -181,8 +172,7 @@ input:focus {
     max-width: 350px;
     padding: 12.5px 0;
     font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
+    text-decoration: underline;
     border: none;
     border-radius: 30px;
     transform: scale(1);
