@@ -117,6 +117,7 @@ body {
 
 .cd-bg {
     background-color: #ddd;
+    margin-top: -20px;
 }
 #countdown {
     font-weight: bold;
