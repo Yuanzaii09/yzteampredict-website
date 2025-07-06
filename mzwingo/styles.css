@@ -91,11 +91,14 @@ body {
         transform: translateY(0);
     }
 }
+
+.lunar-bg {
+    margin: 20px 0px 0px 0px;
+}
 .lunar {
     font-family: 'lt', sans-serif;
     font-size: 36px;
     text-align: center;
-    margin: 20px 0px 0px 0px;
     color: #333;
     text-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.4);
     display: flex;
