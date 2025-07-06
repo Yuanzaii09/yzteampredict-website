@@ -96,7 +96,7 @@ body {
     font-family: 'lt', sans-serif;
     font-size: 36px;
     text-align: center;
-    margin: 20px;
+    margin: 10px;
     color: #333;
     text-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.4);
     display: flex;
@@ -117,7 +117,7 @@ body {
 
 .cd-bg {
     background-color: #ddd;
-    margin: -40px 0 40px 0;
+    margin: -30px 0 30px 0;
 }
 #countdown {
     font-weight: bold;
