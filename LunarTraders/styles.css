@@ -1,3 +1,28 @@
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    outline: none !important;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+/* 精准取消按钮和输入框的点击阴影 */
+a,
+button,
+input,
+textarea,
+select {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+/* 禁止 svg 被选中 */
+svg {
+    pointer-events: none;
+}
+
 body {
     margin: 0;
     box-sizing: border-box;
