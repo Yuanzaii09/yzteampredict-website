@@ -115,15 +115,12 @@ body {
     filter: none;
 }
 
-.cd-bg {
-    background-color: #ddd;
-    margin: -30px 0 30px 0;
-}
 #countdown {
     font-weight: bold;
     font-family: 'lt', sans-serif;
     color: #ff0000;
     text-align: center;
+    margin: -30px 0 30px 0;
 }
 
 /* HIDDEN */
