@@ -110,13 +110,14 @@ h1 {
 
 /* INPUT */
 input {
-  width: 100%;
-  padding: 10px 0;
-  border: 2px solid #ccc;
-  border-radius: 30px;
-  font-size: 16px;
-  margin-bottom: 20px;
-  text-align: center;
+    width: 100%;
+    padding: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 30px;
+    font-size: 16px;
+    font-family: 'lt', sans-serif;
+    margin-bottom: 20px;
+    text-align: center;
 }
 input:focus {
     border-color: #8A2BE2;
@@ -125,6 +126,7 @@ input:focus {
 
 /* 按钮 */
 .verifyBtn {
+    font-family: 'lt', sans-serif;
     text-align: center;
     width: 50%;
     max-width: 350px;
@@ -148,6 +150,7 @@ input:focus {
 }
 
 #result {
+    font-family: 'lt', sans-serif;
     font-size: 15px;
     margin-top: 20px;
 }
@@ -164,6 +167,7 @@ input:focus {
 }
 
 .copyBtn {
+    font-family: 'lt', sans-serif;
     background-color: #fff;
     color: #000;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
