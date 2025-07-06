@@ -171,7 +171,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'godofwar';
+    font-family: 'lt', san-serif;
     font-size: 16px;
     font-weight: bold;
     color: #333;
@@ -223,7 +223,7 @@ body {
 .cd {
     font-size: 24px;
     font-weight: bold;
-    font-family: 'lm-medium', san-serif;
+    font-family: 'lt', san-serif;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
