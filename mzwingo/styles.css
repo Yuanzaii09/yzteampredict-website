@@ -30,12 +30,6 @@ svg {
     font-style: normal;
 }
 @font-face {
-    font-family: 'lm-medium';
-    src: url('../assets/fonts/lm-medium.otf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
     font-family: 'lt';
     src: url('../assets/fonts/lt.woff2') format('truetype');
     font-weight: normal;
@@ -169,7 +163,6 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 16px;
-    font-weight: bold;
     color: #333;
     cursor: pointer;
     overflow: hidden;
