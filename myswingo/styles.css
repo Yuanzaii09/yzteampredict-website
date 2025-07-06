@@ -30,12 +30,6 @@ svg {
     font-style: normal;
 }
 @font-face {
-    font-family: 'lm-medium';
-    src: url('../assets/fonts/lm-medium.otf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
     font-family: 'lt';
     src: url('../assets/fonts/lt.woff2') format('truetype');
     font-weight: normal;
@@ -46,7 +40,7 @@ svg {
 body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: 'lt', sans-serif;
     background-color: #fff;
 }
 
@@ -91,11 +85,11 @@ body {
         transform: translateY(0);
     }
 }
+
 .lunar {
-    font-family: 'lt', sans-serif;
     font-size: 36px;
     text-align: center;
-    margin: 10px 0;
+    margin: 10px;
     color: #333;
     text-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.4);
     display: flex;
@@ -115,8 +109,6 @@ body {
 }
 
 #countdown {
-    font-weight: bold;
-    font-family: 'lt', sans-serif;
     color: #ff0000;
     text-align: center;
     margin: -30px 0 30px 0;
@@ -170,9 +162,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'godofwar';
     font-size: 16px;
-    font-weight: bold;
     color: #333;
     cursor: pointer;
     overflow: hidden;
@@ -213,7 +203,6 @@ body {
 /* COUNTDOWN */
 .title {
     font-size: 20px;
-    font-family: 'lm-medium', san-serif;
     color: #000;
     opacity: 0.5;
     text-align: center;
@@ -221,24 +210,18 @@ body {
 }
 .cd {
     font-size: 24px;
-    font-weight: bold;
-    font-family: 'lm-medium', san-serif;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
 }
 .period {
     font-size: 24px;
-    font-weight: bold;
-    font-family: 'lm-medium', san-serif;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
 }
 .result {
     font-size: 24px;
-    font-weight: bold;
-    font-family: 'lm-medium', san-serif;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
