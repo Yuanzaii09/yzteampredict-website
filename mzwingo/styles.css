@@ -114,6 +114,9 @@ body {
     filter: none;
 }
 
+.cd-bg {
+    background-color: #ddd;
+}
 #countdown {
     font-weight: bold;
     font-family: 'lt', sans-serif;
