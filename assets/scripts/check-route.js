@@ -1,11 +1,11 @@
 // ✅ 允许访问的路径（文件夹）
 const allowedPaths = [
-  "../home",
-  "../mzwingo",
-  "../myswingo",
-  "../lunartraders",
-  "../verify",
-  "../terms-of-service"
+  "../../home",
+  "../../mzwingo",
+  "../../myswingo",
+  "../../lunartraders",
+  "../../verify",
+  "../../terms-of-service"
 ];
 
 // ✅ 当前路径
