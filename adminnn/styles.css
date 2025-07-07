@@ -51,10 +51,13 @@ button:hover {
   font-weight: bold;
 }
 
+.keylist-bg {
+  border-radius: 20px;
+}
+
 #keyList {
   list-style: none;
   padding: 0;
-  border-radius: 20px;
 }
 
 #keyList li {
