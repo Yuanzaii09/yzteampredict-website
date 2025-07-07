@@ -51,10 +51,6 @@ button:hover {
   font-weight: bold;
 }
 
-.keylist-bg {
-  border-radius: 20px;
-}
-
 #keyList {
   list-style: none;
   padding: 0;
@@ -68,6 +64,7 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 20px;
 }
 
 .key-info {
