@@ -5,6 +5,82 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>ERROR404</title>
         <style>
+            * {
+                -webkit-tap-highlight-color: transparent;
+                -webkit-touch-callout: none;
+                outline: none !important;
+                user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+            }
+            /* 精准取消按钮和输入框的点击阴影 */
+            a,
+            button,
+            input,
+            textarea,
+            select {
+                outline: none !important;
+                box-shadow: none !important;
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
+            }
+            /* 禁止 svg 被选中 */
+            svg {
+                pointer-events: none;
+            }
+            
+            @font-face {
+                font-family: 'godofwar';
+                src: url('../assets/fonts/godofwar.ttf') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'lm-medium';
+                src: url('../assets/fonts/lm-medium.otf') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'lt';
+                src: url('../assets/fonts/lt.woff2') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+            
+            /* LOGO-TEXT */
+            .logo {
+                font-family: 'godofwar', sans-serif;
+                font-size: 36px;
+                text-align: center;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                padding: 20px 0;
+                color: #333;
+                display: flex;
+                justify-content: center;
+                gap: 4px;
+                position: relative;
+                z-index: 1001;
+            }
+            .logo span {
+                opacity: 0;
+                transform: translateY(-20px);
+                display: inline-block;
+                animation: dropIn 0.5s ease forwards;
+            }
+            .logo span:nth-child(1) { animation-delay: 0s; }
+            .logo span:nth-child(2) { animation-delay: 0.1s; }
+            .logo span:nth-child(3) { animation-delay: 0.2s; }
+            .logo span:nth-child(4) { animation-delay: 0.3s; }
+            .logo span:nth-child(5) { animation-delay: 0.4s; }
+            .logo span:nth-child(6) { animation-delay: 0.5s; }
+            @keyframes dropIn {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
             body {
                 font-family: 'Segoe UI', sans-serif;
                 background-color: #f9f9f9;
