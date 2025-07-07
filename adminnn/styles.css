@@ -59,7 +59,7 @@ button:hover {
 #keyList li {
   background: #f8f8f8;
   border: 1px solid #ddd;
-  padding: 7px 10px;
+  padding: 5px 10px;
   margin-bottom: 5px;
   display: flex;
   justify-content: space-between;
