@@ -54,6 +54,7 @@ button:hover {
 #keyList {
   list-style: none;
   padding: 0;
+  border-radius: 20px;
 }
 
 #keyList li {
