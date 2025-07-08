@@ -151,55 +151,6 @@ body {
     gap: 10px;
 }
 
-/* CARD STYLES */
-.card {
-    position: relative;
-    border-radius: 20px;
-    height: 70px;
-    background-color: #eee;
-    flex: 1;
-    transition: 0.2s all ease-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    color: #333;
-    cursor: pointer;
-    overflow: hidden;
-}
-.card.active {
-    flex: 2;
-    border-radius: 30px;
-    background-color: #de1e1d;
-    color: #fff;
-}
-.card:hover {
-    border-radius: 30px;
-    background-color: #de1e1d;
-    color: #fff;
-}
-/* SHORT & FULL TEXT */
-.card span {
-    position: absolute;
-    transition: opacity 0.1s ease-out, color 0.1s ease-out;
-    pointer-events: none;
-    color: inherit;
-}
-.card .text-default {
-    opacity: 1;
-}
-.card:hover .text-default,
-.card.active .text-default {
-    opacity: 0;
-}
-.card .text-hover {
-    opacity: 0;
-}
-.card:hover .text-hover,
-.card.active .text-hover {
-    opacity: 1;
-}
-
 /* COUNTDOWN */
 .title {
     font-size: 20px;
