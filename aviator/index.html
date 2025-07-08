@@ -9,6 +9,8 @@
         <script src="../assets/scripts/anti-debug.js" defer></script>
         <script type="module" src="../assets/scripts/auth-check.js"></script>
         <script src="../assets/scripts/countdown.js" defer></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
         <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
         <meta http-equiv="Pragma" content="no-cache" />
         <meta http-equiv="Expires" content="0" />
@@ -31,15 +33,79 @@
         </div>
         
         <p id="countdown">LOADING•••</p>
-
-        <main>
-            <section class="random-section">
-                <h2>🎲 随机倍数</h2>
-                <div class="random-box" id="randomNumber">Loading...</div>
-                <button onclick="generateRandom()">🔁 重新生成</button>
-            </section>
-        </main>
-
+        
+        <!-- 2 // TIME CONTAINER -->
+        <div class="all-container">
+            <div class="content-bg">
+                <div class="t-container">
+                    <div class="card active">
+                        <span class="text-default">30s</span>
+                        <span class="text-hover">30 sec</span>
+                    </div>
+                    <div class="card">
+                        <span class="text-default">1m</span>
+                        <span class="text-hover">1 min</span>
+                    </div>
+                    <div class="card">
+                        <span class="text-default">3m</span>
+                        <span class="text-hover">3 min</span>
+                    </div>
+                    <div class="card">
+                        <span class="text-default">5m</span>
+                        <span class="text-hover">5 min</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3// CONTENT 2 -->
+        <!-- 30s -->
+        <div class="all-container countdown-box" data-time="30">
+            <div class="content-bg">
+                <div class="title">—MZPLAY WINGO—</div>
+                <div class="cd">-</div>
+                <div class="title">—PERIOD—</div>
+                <div class="period">-</div>
+                <div class="title">—RESULT—</div>
+                <div class="result">-</div>
+            </div>
+        </div>
+        
+        <!-- 1min -->
+        <div class="all-container countdown-box hidden" data-time="60">
+            <div class="content-bg">
+                <div class="title">—MZPLAY WINGO—</div>
+                <div class="cd">-</div>
+                <div class="title">—PERIOD—</div>
+                <div class="period">-</div>
+                <div class="title">—RESULT—</div>
+                <div class="result">-</div>
+            </div>
+        </div>
+        
+        <!-- 3min -->
+        <div class="all-container countdown-box hidden" data-time="180">
+            <div class="content-bg">
+                <div class="title">—MZPLAY WINGO—</div>
+                <div class="cd">-</div>
+                <div class="title">—PERIOD—</div>
+                <div class="period">-</div>
+                <div class="title">—RESULT—</div>
+                <div class="result">-</div>
+            </div>
+        </div>
+        
+        <!-- 5min -->
+        <div class="all-container countdown-box hidden" data-time="300">
+            <div class="content-bg">
+                <div class="title">—MZPLAY WINGO—</div>
+                <div class="cd">-</div>
+                <div class="title">—PERIOD—</div>
+                <div class="period">-</div>
+                <div class="title">—RESULT—</div>
+                <div class="result">-</div>
+            </div>
+        </div>
         <footer class="site-footer">
             <!-- 🔗 社交图标部分 -->
             <div class="social-icons">
