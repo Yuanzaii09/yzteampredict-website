@@ -1,31 +1,157 @@
-.random-section {
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    outline: none !important;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+/* 精准取消按钮和输入框的点击阴影 */
+a,
+button,
+input,
+textarea,
+select {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+/* 禁止 svg 被选中 */
+svg {
+    pointer-events: none;
+}
+
+body {
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+@font-face {
+    font-family: 'godofwar';
+    src: url('../assets/fonts/godofwar.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'lm-medium';
+    src: url('../assets/fonts/lm-medium.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'lt';
+    src: url('../assets/fonts/lt.woff2') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* LOGO-TEXT */
+.logo {
+    font-family: 'godofwar', sans-serif;
+    font-size: 36px;
     text-align: center;
-    background: #fff;
-    padding: 40px;
-    margin: 30px auto;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.08);
-    max-width: 400px;
+    padding: 20px 0;
+    color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    position: relative;
+    z-index: 1001;
+}
+.logo span {
+    opacity: 0;
+    transform: translateY(-20px);
+    display: inline-block;
+    animation: dropIn 0.5s ease forwards;
+}
+.logo span:nth-child(1) { animation-delay: 0s; }
+.logo span:nth-child(2) { animation-delay: 0.1s; }
+.logo span:nth-child(3) { animation-delay: 0.2s; }
+.logo span:nth-child(4) { animation-delay: 0.3s; }
+.logo span:nth-child(5) { animation-delay: 0.4s; }
+.logo span:nth-child(6) { animation-delay: 0.5s; }
+@keyframes dropIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.random-box {
-    font-size: 48px;
+.lunar {
+    font-family: 'lt', sans-serif;
+    font-size: 36px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: -20px;
+    color: #333;
+    text-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* 控制 logo 和文字之间的间距 */
+
+    position: relative;
+    z-index: 1001;
+}
+.logo-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    box-shadow: none;
+    filter: none;
+}
+
+.site-footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    font-family: 'Noto-Sans', sans-serif;
+    color: #555;
+    background: yellow;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ccc;
+    margin-top: 40px;
+}
+
+.site-footer .footer-text {
+    margin-bottom: 5px;
     font-weight: bold;
-    margin: 20px 0;
-    color: #e74c3c;
 }
 
-button {
-    padding: 10px 20px;
+.site-footer .footer-links a {
+    margin: 0 10px;
+    color: #555;
+    text-decoration: none;
+}
+
+.site-footer .footer-links a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+.site-footer .social-icons {
+    margin-bottom: 10px;
+}
+
+.site-footer .social-icons a {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    margin: 0 6px;
+    border: 1.8px solid #777;
+    border-radius: 50%;
+    text-align: center;
+    color: #555;
     font-size: 16px;
-    background-color: #2ecc71;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
+    transition: all 0.3s ease;
 }
 
-button:hover {
-    background-color: #27ae60;
+.site-footer .social-icons a:hover {
+    border-color: #007bff;
+    color: #007bff;
 }
