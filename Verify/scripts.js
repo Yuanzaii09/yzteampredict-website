@@ -108,8 +108,8 @@ function verifyKey() {
         keyRef.update(updateData).then(() => {
             showMessage("🟢验证成功 // 跳转中...", "green");
             setTimeout(() => {
-                window.location.href = "https://yzteampredict.store/Home";
-            }, 1000);
+                location.replace("https://yzteampredict.store/Home");
+            }, 500);
         });
     }).catch((error) => {
         console.error("验证错误：", error);
