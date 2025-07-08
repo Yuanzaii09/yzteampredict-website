@@ -23,21 +23,9 @@ svg {
     pointer-events: none;
 }
 
-body {
-    margin: 0;
-    box-sizing: border-box;
-    background-color: #fff;
-}
-
 @font-face {
     font-family: 'godofwar';
     src: url('../assets/fonts/godofwar.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'lm-medium';
-    src: url('../assets/fonts/lm-medium.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -48,14 +36,31 @@ body {
     font-style: normal;
 }
 
+/* BODY元素设置 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'lt', sans-serif;
+    background-color: #fff;
+}
+
+.top-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px;
+    background: #fff;
+    color: black;
+}
+
 /* LOGO-TEXT */
 .logo {
     font-family: 'godofwar', sans-serif;
     font-size: 36px;
     text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding: 20px 0;
     color: #333;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
     gap: 4px;
@@ -82,11 +87,9 @@ body {
 }
 
 .lunar {
-    font-family: 'lt', sans-serif;
     font-size: 36px;
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: -20px;
+    margin: 10px;
     color: #333;
     text-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.4);
     display: flex;
@@ -97,7 +100,7 @@ body {
     position: relative;
     z-index: 1001;
 }
-.logo-img {
+.lunar .logo {
     width: 40px;
     height: 40px;
     object-fit: contain;
@@ -105,53 +108,121 @@ body {
     filter: none;
 }
 
-.site-footer {
+#countdown {
+    color: #ff0000;
     text-align: center;
-    padding: 20px;
-    font-size: 14px;
-    font-family: 'Noto-Sans', sans-serif;
-    color: #555;
-    background: yellow;
-    background-color: #f9f9f9;
-    border-top: 1px solid #ccc;
-    margin-top: 40px;
+    margin: -30px 0 30px 0;
 }
 
-.site-footer .footer-text {
-    margin-bottom: 5px;
-    font-weight: bold;
+/* HIDDEN */
+.hidden {
+    display: none !important;
 }
 
-.site-footer .footer-links a {
-    margin: 0 10px;
-    color: #555;
-    text-decoration: none;
+/* ALL-CONTAINER */
+.all-container {
+    display: flex;
+    justify-content: center;
 }
 
-.site-footer .footer-links a:hover {
-    color: #000;
-    text-decoration: underline;
-}
-
-.site-footer .social-icons {
-    margin-bottom: 10px;
-}
-
-.site-footer .social-icons a {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-    margin: 0 6px;
-    border: 1.8px solid #777;
-    border-radius: 50%;
+/* CONTENT BG */
+.content-bg {
+    width: 85%;
+    max-width: 360px;
+    height: auto;
+    background-color: #fff;
+    border-radius: 50px;
     text-align: center;
-    color: #555;
+    padding: 20px 10px;
+    margin: 0 20px 20px 20px;
+    color: #333;
+    border: 3px solid #eee;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* TIME CONTAINER */
+.t-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+    gap: 10px;
+}
+
+/* CARD STYLES */
+.card {
+    position: relative;
+    border-radius: 20px;
+    height: 70px;
+    background-color: #eee;
+    flex: 1;
+    transition: 0.2s all ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 16px;
-    transition: all 0.3s ease;
+    color: #333;
+    cursor: pointer;
+    overflow: hidden;
+}
+.card.active {
+    flex: 2;
+    border-radius: 30px;
+    background-color: #de1e1d;
+    color: #fff;
+}
+.card:hover {
+    border-radius: 30px;
+    background-color: #de1e1d;
+    color: #fff;
+}
+/* SHORT & FULL TEXT */
+.card span {
+    position: absolute;
+    transition: opacity 0.1s ease-out, color 0.1s ease-out;
+    pointer-events: none;
+    color: inherit;
+}
+.card .text-default {
+    opacity: 1;
+}
+.card:hover .text-default,
+.card.active .text-default {
+    opacity: 0;
+}
+.card .text-hover {
+    opacity: 0;
+}
+.card:hover .text-hover,
+.card.active .text-hover {
+    opacity: 1;
 }
 
-.site-footer .social-icons a:hover {
-    border-color: #007bff;
-    color: #007bff;
+/* COUNTDOWN */
+.title {
+    font-size: 20px;
+    color: #000;
+    opacity: 0.5;
+    text-align: center;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+.cd {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.period {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.result {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
 }
