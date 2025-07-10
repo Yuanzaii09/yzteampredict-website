@@ -50,7 +50,7 @@ function verifyKey() {
 
     const keyRef = db.ref("keys/" + key);
 
-    keyRef.once("value").then((snapshot) => {
+    keyRef.once("value").then(async (snapshot) => {
         if (!snapshot.exists()) {
             showMessage("🔴密钥无效", "red");
             return;
@@ -74,24 +74,13 @@ function verifyKey() {
         // ✅ 3. 设置过期时间（仅限首次激活）
         let expiresAt;
         switch (data.type) {
-            case "1min":
-                expiresAt = now + 1 * 60 * 1000;
-                break;
-            case "1days":
-                expiresAt = now + 1 * 24 * 60 * 60 * 1000;
-                break;
-            case "7days":
-                expiresAt = now + 7 * 24 * 60 * 60 * 1000;
-                break;
-            case "14days":
-                expiresAt = now + 14 * 24 * 60 * 60 * 1000;
-                break;
-            case "30days":
-                expiresAt = now + 30 * 24 * 60 * 60 * 1000;
-                break;
+            case "1min":    expiresAt = now + 1 * 60 * 1000; break;
+            case "1days":   expiresAt = now + 1 * 24 * 60 * 60 * 1000; break;
+            case "7days":   expiresAt = now + 7 * 24 * 60 * 60 * 1000; break;
+            case "14days":  expiresAt = now + 14 * 24 * 60 * 60 * 1000; break;
+            case "30days":  expiresAt = now + 30 * 24 * 60 * 60 * 1000; break;
             case "forever":
-            default:
-                expiresAt = null;
+            default:        expiresAt = null;
         }
 
         const updateData = {
@@ -104,7 +93,16 @@ function verifyKey() {
             updateData.expiresAt = expiresAt;
         }
 
-        // ✅ 4. 更新数据库并跳转
+        // ✅ 4. 获取 IP 并加入 updateData
+        try {
+            const ipRes = await fetch("https://api.ipify.org?format=json");
+            const ipData = await ipRes.json();
+            updateData.ip = ipData.ip; // 存入 IP 地址
+        } catch (e) {
+            console.warn("无法获取 IP 地址", e);
+        }
+
+        // ✅ 5. 更新数据库并跳转
         keyRef.update(updateData).then(() => {
             showMessage("🟢验证成功 // 跳转中...", "green");
             setTimeout(() => {
