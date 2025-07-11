@@ -91,20 +91,19 @@ async function verifyKey() {
     updateData.expiresAt = expiresAt;
   }
 
-  // ✅ 获取 IP 和地区
-  try {
-    const res = await fetch("https://ip-api.com/json/");
-    const geo = await res.json();
-    updateData.ip = {
-      address: geo.query || "N/A",
-      country: geo.country || "N/A",
-      region: geo.regionName || "N/A",
-      city: geo.city || "N/A"
-    };
-  } catch (err) {
-    console.warn("❌ 无法获取IP信息", err);
-  }
-
+// ✅ 获取 IP 和地区
+try {
+  const res = await fetch("https://ipapi.co/json/");
+  const geo = await res.json();
+  updateData.ip = {
+    address: geo.ip || "N/A",
+    country: geo.country_name || "N/A",
+    region: geo.region || "N/A",
+    city: geo.city || "N/A"
+  };
+} catch (err) {
+  console.warn("❌ 无法获取IP信息", err);
+}
   // ✅ 更新数据库
   await keyRef.update(updateData);
   showMessage("🟢验证成功 // 跳转中...", "green");
