@@ -1,3 +1,6 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
 // ✅ 初始化 Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyAN88MgeiYxOmb1OFfgL-wVmfJC60XFcoM",
@@ -9,8 +12,8 @@ const firebaseConfig = {
     appId: "1:734040141195:web:c1bd782daf1ff6ed40538e"
 };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
 // ✅ 获取或生成 deviceId（存 localStorage）
 function getDeviceId() {
@@ -29,7 +32,6 @@ function showMessage(text, color) {
         result.textContent = text;
         result.style.color = color;
         result.style.fontWeight = "bold";
-
         if (color === "red") {
             result.classList.remove("shake");
             void result.offsetWidth;
@@ -39,7 +41,7 @@ function showMessage(text, color) {
 }
 
 // ✅ 验证密钥函数
-function verifyKey() {
+async function verifyKey() {
     const key = document.getElementById("keyInput").value.trim();
     const deviceId = getDeviceId();
 
@@ -48,105 +50,95 @@ function verifyKey() {
         return;
     }
 
-    const keyRef = db.ref("keys/" + key);
+    const keyRef = ref(db, "keys/" + key);
+    const snapshot = await get(keyRef);
 
-    keyRef.once("value").then(async (snapshot) => {
-        if (!snapshot.exists()) {
-            showMessage("🔴密钥无效", "red");
-            return;
-        }
+    if (!snapshot.exists()) {
+        showMessage("🔴密钥无效", "red");
+        return;
+    }
 
-        const data = snapshot.val();
-        const now = Date.now();
+    const data = snapshot.val();
+    const now = Date.now();
 
-        // ✅ 1. 判断密钥是否过期
-        if (data.expiresAt && now > data.expiresAt) {
-            showMessage("🔴密钥已过期", "red");
-            return;
-        }
+    // ✅ 密钥过期
+    if (data.expiresAt && now > data.expiresAt) {
+        showMessage("🔴密钥已过期", "red");
+        return;
+    }
 
-        // ✅ 2. 如果密钥已被其他设备绑定
-        if (data.active && data.deviceId && data.deviceId !== deviceId) {
-            showMessage("🔴密钥已绑定其他设备", "red");
-            return;
-        }
+    // ✅ 密钥绑定其他设备
+    if (data.active && data.deviceId && data.deviceId !== deviceId) {
+        showMessage("🔴密钥已绑定其他设备", "red");
+        return;
+    }
 
-        // ✅ 3. 设置过期时间（仅限首次激活）
-        let expiresAt;
-        switch (data.type) {
-            case "1min":    expiresAt = now + 1 * 60 * 1000; break;
-            case "1days":   expiresAt = now + 1 * 24 * 60 * 60 * 1000; break;
-            case "7days":   expiresAt = now + 7 * 24 * 60 * 60 * 1000; break;
-            case "14days":  expiresAt = now + 14 * 24 * 60 * 60 * 1000; break;
-            case "30days":  expiresAt = now + 30 * 24 * 60 * 60 * 1000; break;
-            case "forever":
-            default:        expiresAt = null;
-        }
+    // ✅ 设置过期时间（首次激活）
+    let expiresAt;
+    switch (data.type) {
+        case "1min":    expiresAt = now + 1 * 60 * 1000; break;
+        case "1days":   expiresAt = now + 1 * 24 * 60 * 60 * 1000; break;
+        case "7days":   expiresAt = now + 7 * 24 * 60 * 60 * 1000; break;
+        case "14days":  expiresAt = now + 14 * 24 * 60 * 60 * 1000; break;
+        case "30days":  expiresAt = now + 30 * 24 * 60 * 60 * 1000; break;
+        case "forever":
+        default:        expiresAt = null;
+    }
 
-        const updateData = {
-            deviceId: deviceId,
+    const updateData = {
+        deviceId,
+    };
+
+    if (!data.active) {
+        updateData.active = true;
+        updateData.activatedAt = now;
+        updateData.expiresAt = expiresAt;
+    }
+
+    // ✅ 获取 IP 和地理信息
+    try {
+        const res = await fetch("http://ip-api.com/json/");
+        const geo = await res.json();
+        updateData.ip = {
+            address: geo.query || "N/A",
+            country: geo.country || "N/A",
+            region: geo.regionName || "N/A",
+            city: geo.city || "N/A"
         };
+    } catch (err) {
+        console.warn("无法获取IP信息", err);
+    }
 
-        if (!data.active) {
-            updateData.active = true;
-            updateData.activatedAt = now;
-            updateData.expiresAt = expiresAt;
-        }
+    // ✅ 更新数据库
+    await update(keyRef, updateData);
+    showMessage("🟢验证成功 // 跳转中...", "green");
 
-        // ✅ 4. 获取 IP 并加入 updateData
-        try {
-            const ipRes = await fetch("https://api.ipify.org?format=json");
-            const ipData = await ipRes.json();
-            updateData.ip = ipData.ip; // 存入 IP 地址
-        } catch (e) {
-            console.warn("无法获取 IP 地址", e);
-        }
-
-        // ✅ 5. 更新数据库并跳转
-        keyRef.update(updateData).then(() => {
-            showMessage("🟢验证成功 // 跳转中...", "green");
-            setTimeout(() => {
-                location.replace("https://yzteampredict.store/Home");
-            }, 500);
-        });
-    }).catch((error) => {
-        console.error("验证错误：", error);
-        showMessage("⚠️出现错误 // 请稍后重试", "red");
-    });
+    setTimeout(() => {
+        location.replace("https://yzteampredict.store/Home");
+    }, 500);
 }
 
 // ✅ 按钮监听
 document.getElementById("verifyBtn").addEventListener("click", verifyKey);
 
-// ✅ 获取或生成设备 ID
-function getDeviceId() {
-  let id = localStorage.getItem("device_id");
-  if (!id) {
-    id = "dev-" + Math.random().toString(36).substr(2, 12);
-    localStorage.setItem("device_id", id);
-  }
-  return id;
-}
-
+// ✅ 自动生成设备 ID（用于复制按钮）
 const deviceId = getDeviceId();
 
-// ✅ 复制按钮事件
+// ✅ 复制按钮功能
 const copyBtn = document.getElementById("copyBtn");
-
 copyBtn.addEventListener("click", () => {
-  navigator.clipboard.writeText(deviceId).then(() => {
-    const originalText = copyBtn.textContent;
-    copyBtn.textContent = "✅ 已复制";
-    copyBtn.disabled = true;
-
-    setTimeout(() => {
-      copyBtn.textContent = originalText;
-      copyBtn.disabled = false;
-    }, 2000);
-  }).catch(() => {
-    copyBtn.textContent = "❌ 复制失败";
-    setTimeout(() => {
-      copyBtn.textContent = "📋 复制ID";
-    }, 2000);
-  });
+    navigator.clipboard.writeText(deviceId).then(() => {
+        const original = copyBtn.textContent;
+        copyBtn.textContent = "✅ 已复制";
+        copyBtn.disabled = true;
+        setTimeout(() => {
+            copyBtn.textContent = original;
+            copyBtn.disabled = false;
+        }, 2000);
+    }).catch(() => {
+        copyBtn.textContent = "❌ 复制失败";
+        setTimeout(() => {
+            copyBtn.textContent = "📋 复制ID";
+        }, 2000);
+    });
 });
