@@ -1,5 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+// ✅ 这段用于非 module 模式，不要使用 import
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
 // ✅ 初始化 Firebase
 const firebaseConfig = {
