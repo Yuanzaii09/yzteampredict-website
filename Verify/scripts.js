@@ -145,7 +145,7 @@ async function verifyKey() {
 
   const msg = `
 🚀NEW USER VERIFIED🚀
-**Key: ${key}**
+*Key: ${key}
 Device ID: ${deviceId}
 IP: ${updateData.ip?.address || "N/A"}
 Country: ${updateData.ip?.country || "N/A"}
@@ -154,7 +154,7 @@ City: ${updateData.ip?.city || "N/A"}
 OS: ${deviceInfo.os}
 Browser: ${deviceInfo.browser}
 UA: ${deviceInfo.fullUA}
-Time: ${new Date().toLocaleString()}
+Time: ${new Date().toLocaleString()}*
 `;
 
   try {
