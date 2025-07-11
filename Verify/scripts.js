@@ -146,7 +146,7 @@ if (!data.active) {
   
   const msg = `
 *🚀NEW USER VERIFIED🚀*
-*KEY：* ${key}
+*Key：* ${key}
 *Time：*${new Date().toLocaleString()}
 *DeviceID：*${deviceId}
 
