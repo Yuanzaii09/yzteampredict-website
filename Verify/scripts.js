@@ -139,25 +139,41 @@ async function verifyKey() {
   // ✅ 显示成功提示
   showMessage("🟢验证成功 // 跳转中...", "green");
 
-  // ✅ 发送 Telegram 消息
+if (!data.active) {
+  updateData.active = true;
+  updateData.activatedAt = now;
+  updateData.expiresAt = expiresAt
+  
+  const msg = `
+*🚀NEW USER VERIFIED🚀*
+*KEY：* ${key}
+*DeviceID：*${deviceId}
+*Time：*${new Date().toLocaleString()}
+
+*IP：*${updateData.ip?.address || "N/A"}
+*Country：*${updateData.ip?.country || "N/A"}
+*Region：*${updateData.ip?.region || "N/A"}
+*City：*${updateData.ip?.city || "N/A"}
+
+*OS：*${deviceInfo.os}
+*Browser：*${deviceInfo.browser}
+*UA：*${deviceInfo.fullUA}
+`;
+
+// ✅ 发送 Telegram 消息
   const botToken = "8128311961:AAGsN9ELSpOMNnScCmUZT-YScvoBwo4LKkA";
   const chatId = "-1002626143079";
-
-  const msg = `
-*🚀NEW USER VERIFIED🚀
-🔑KEY: ${key}
-DEVICEID: ${deviceId}
-Time: ${new Date().toLocaleString()}*
-
-IP: ${updateData.ip?.address || "N/A"}
-Country: ${updateData.ip?.country || "N/A"}
-Region: ${updateData.ip?.region || "N/A"}
-City: ${updateData.ip?.city || "N/A"}
-
-OS: ${deviceInfo.os}
-Browser: ${deviceInfo.browser}
-UA: ${deviceInfo.fullUA}
-`;
+  
+  await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: msg,
+        parse_mode: "Markdown"
+      })
+    });
+  }
 
   try {
     await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
