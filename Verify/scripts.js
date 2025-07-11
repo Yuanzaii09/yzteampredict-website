@@ -13,7 +13,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// ✅ 获取或生成 deviceId（本地存储）
+// ✅ 获取或生成 deviceId
 function getDeviceId() {
   let id = localStorage.getItem("device_id");
   if (!id) {
@@ -23,17 +23,15 @@ function getDeviceId() {
   return id;
 }
 
-// ✅ 获取设备信息（User Agent）
+// ✅ 获取设备信息
 function getDeviceInfo() {
-  const ua = navigator.userAgent;
-  const platform = navigator.platform;
   return {
-    userAgent: ua,
-    platform: platform
+    userAgent: navigator.userAgent,
+    platform: navigator.platform
   };
 }
 
-// ✅ 显示提示信息
+// ✅ 显示提示
 function showMessage(text, color) {
   const result = document.getElementById("result");
   if (result) {
@@ -48,7 +46,7 @@ function showMessage(text, color) {
   }
 }
 
-// ✅ 验证密钥逻辑
+// ✅ 验证密钥函数
 async function verifyKey() {
   const key = document.getElementById("keyInput").value.trim();
   const deviceId = getDeviceId();
@@ -69,19 +67,19 @@ async function verifyKey() {
   const data = snapshot.val();
   const now = Date.now();
 
-  // ✅ 密钥过期判断
+  // ✅ 判断是否过期
   if (data.expiresAt && now > data.expiresAt) {
     showMessage("🔴密钥已过期", "red");
     return;
   }
 
-  // ✅ 密钥绑定其他设备
+  // ✅ 判断是否绑定其他设备
   if (data.active && data.deviceId && data.deviceId !== deviceId) {
     showMessage("🔴密钥已绑定其他设备", "red");
     return;
   }
 
-  // ✅ 计算过期时间（仅首次激活）
+  // ✅ 设置过期时间（仅首次激活）
   let expiresAt = null;
   switch (data.type) {
     case "1min":    expiresAt = now + 1 * 60 * 1000; break;
@@ -95,14 +93,13 @@ async function verifyKey() {
 
   const updateData = { deviceId };
 
-  // ✅ 首次激活
   if (!data.active) {
     updateData.active = true;
     updateData.activatedAt = now;
     updateData.expiresAt = expiresAt;
   }
 
-  // ✅ 获取 IP 和地理信息
+  // ✅ 获取 IP 和地区
   try {
     const res = await fetch("https://ipapi.co/json/");
     const geo = await res.json();
@@ -119,19 +116,50 @@ async function verifyKey() {
   // ✅ 获取设备信息
   updateData.deviceInfo = getDeviceInfo();
 
-  // ✅ 更新数据库
+  // ✅ 更新 Firebase
   await keyRef.update(updateData);
-  showMessage("🟢验证成功 // 跳转中...", "green");
 
+  // ✅ 构建发送到 Telegram 的内容
+  const message = `
+🔔 New User Verified!
+🔑 Key: ${key}
+🆔 Device ID: ${deviceId}
+🌐 IP: ${updateData.ip?.address || "N/A"}
+📍 Country: ${updateData.ip?.country || "N/A"}
+📍 Region: ${updateData.ip?.region || "N/A"}
+🏙️ City: ${updateData.ip?.city || "N/A"}
+📱 Device: ${updateData.deviceInfo?.platform || "N/A"}
+🧭 Browser: ${updateData.deviceInfo?.userAgent?.slice(0, 50)}...
+🕒 Time: ${new Date().toLocaleString()}
+`;
+
+  // ✅ 发送到 Telegram 群组
+  const botToken = "8128311961:AAGsN9ELSpOMNnScCmUZT-YScvoBwo4LKkA";
+  const chatId = "-1002626143079";
+  try {
+    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message
+      })
+    });
+  } catch (err) {
+    console.warn("❌ 发送 Telegram 消息失败", err);
+  }
+
+  // ✅ 显示并跳转
+  showMessage("🟢验证成功 // 跳转中...", "green");
   setTimeout(() => {
     location.replace("https://yzteampredict.store/Home");
   }, 500);
 }
 
-// ✅ 绑定验证按钮
+// ✅ 绑定按钮
 document.getElementById("verifyBtn").addEventListener("click", verifyKey);
 
-// ✅ 复制 device_id 按钮功能
+// ✅ 初始化 Device ID 和复制按钮
 const deviceId = getDeviceId();
 const copyBtn = document.getElementById("copyBtn");
 copyBtn.addEventListener("click", () => {
