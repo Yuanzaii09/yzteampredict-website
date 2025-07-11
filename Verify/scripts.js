@@ -13,7 +13,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// ✅ 获取或生成 deviceId（存 localStorage）
+// ✅ 获取或生成 deviceId（本地存储）
 function getDeviceId() {
   let id = localStorage.getItem("device_id");
   if (!id) {
@@ -21,6 +21,16 @@ function getDeviceId() {
     localStorage.setItem("device_id", id);
   }
   return id;
+}
+
+// ✅ 获取设备信息（User Agent）
+function getDeviceInfo() {
+  const ua = navigator.userAgent;
+  const platform = navigator.platform;
+  return {
+    userAgent: ua,
+    platform: platform
+  };
 }
 
 // ✅ 显示提示信息
@@ -38,7 +48,7 @@ function showMessage(text, color) {
   }
 }
 
-// ✅ 验证密钥函数
+// ✅ 验证密钥逻辑
 async function verifyKey() {
   const key = document.getElementById("keyInput").value.trim();
   const deviceId = getDeviceId();
@@ -59,20 +69,20 @@ async function verifyKey() {
   const data = snapshot.val();
   const now = Date.now();
 
-  // ✅ 判断是否过期
+  // ✅ 密钥过期判断
   if (data.expiresAt && now > data.expiresAt) {
     showMessage("🔴密钥已过期", "red");
     return;
   }
 
-  // ✅ 判断是否被其他设备绑定
+  // ✅ 密钥绑定其他设备
   if (data.active && data.deviceId && data.deviceId !== deviceId) {
     showMessage("🔴密钥已绑定其他设备", "red");
     return;
   }
 
-  // ✅ 设置过期时间（首次激活）
-  let expiresAt;
+  // ✅ 计算过期时间（仅首次激活）
+  let expiresAt = null;
   switch (data.type) {
     case "1min":    expiresAt = now + 1 * 60 * 1000; break;
     case "1days":   expiresAt = now + 1 * 24 * 60 * 60 * 1000; break;
@@ -85,25 +95,30 @@ async function verifyKey() {
 
   const updateData = { deviceId };
 
+  // ✅ 首次激活
   if (!data.active) {
     updateData.active = true;
     updateData.activatedAt = now;
     updateData.expiresAt = expiresAt;
   }
 
-// ✅ 获取 IP 和地区
-try {
-  const res = await fetch("https://ipapi.co/json/");
-  const geo = await res.json();
-  updateData.ip = {
-    address: geo.ip || "N/A",
-    country: geo.country_name || "N/A",
-    region: geo.region || "N/A",
-    city: geo.city || "N/A"
-  };
-} catch (err) {
-  console.warn("❌ 无法获取IP信息", err);
-}
+  // ✅ 获取 IP 和地理信息
+  try {
+    const res = await fetch("https://ipapi.co/json/");
+    const geo = await res.json();
+    updateData.ip = {
+      address: geo.ip || "N/A",
+      country: geo.country_name || "N/A",
+      region: geo.region || "N/A",
+      city: geo.city || "N/A"
+    };
+  } catch (err) {
+    console.warn("⚠️ 获取 IP 失败", err);
+  }
+
+  // ✅ 获取设备信息
+  updateData.deviceInfo = getDeviceInfo();
+
   // ✅ 更新数据库
   await keyRef.update(updateData);
   showMessage("🟢验证成功 // 跳转中...", "green");
@@ -116,7 +131,7 @@ try {
 // ✅ 绑定验证按钮
 document.getElementById("verifyBtn").addEventListener("click", verifyKey);
 
-// ✅ 设备ID用于复制
+// ✅ 复制 device_id 按钮功能
 const deviceId = getDeviceId();
 const copyBtn = document.getElementById("copyBtn");
 copyBtn.addEventListener("click", () => {
