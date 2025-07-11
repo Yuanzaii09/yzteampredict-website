@@ -147,17 +147,17 @@ if (!data.active) {
   const msg = `
 *🚀NEW USER VERIFIED🚀*
 *KEY：* ${key}
-*DeviceID：*${deviceId}
 *Time：*${new Date().toLocaleString()}
+*DeviceID：*${deviceId}
 
 *IP：*${updateData.ip?.address || "N/A"}
-*Country：*${updateData.ip?.country || "N/A"}
-*Region：*${updateData.ip?.region || "N/A"}
 *City：*${updateData.ip?.city || "N/A"}
+*Region：*${updateData.ip?.region || "N/A"}
+*Country：*${updateData.ip?.country || "N/A"}
 
 *OS：*${deviceInfo.os}
 *Browser：*${deviceInfo.browser}
-*UA：*${deviceInfo.fullUA}
+*UserAgent：*${deviceInfo.fullUA}
 `;
 
 // ✅ 发送 Telegram 消息
