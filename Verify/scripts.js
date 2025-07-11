@@ -159,10 +159,14 @@ Time: ${new Date().toLocaleString()}*
 
   try {
     await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text: msg })
-    });
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: msg,
+          parse_mode: "Markdown"
+          })
+      });
   } catch (e) {
     console.warn("⚠️ Telegram 发送失败", e);
   }
