@@ -239,8 +239,7 @@ body {
     gap: 5px;
     font-size: 16px;
     color: #666;
-    font-weight: 400;
-    font-weight: 800;
+    font-weight: bold;
     font-family: 'lt', sans-serif;
     margin: 5px 0;
 }
