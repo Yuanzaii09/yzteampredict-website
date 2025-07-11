@@ -144,17 +144,19 @@ async function verifyKey() {
   const chatId = "-1002626143079";
 
   const msg = `
-🚀NEW USER VERIFIED🚀
-*Key: ${key}
-Device ID: ${deviceId}
+*🚀NEW USER VERIFIED🚀
+🔑KEY: ${key}
+DEVICEID: ${deviceId}
+Time: ${new Date().toLocaleString()}*
+
 IP: ${updateData.ip?.address || "N/A"}
 Country: ${updateData.ip?.country || "N/A"}
 Region: ${updateData.ip?.region || "N/A"}
 City: ${updateData.ip?.city || "N/A"}
+
 OS: ${deviceInfo.os}
 Browser: ${deviceInfo.browser}
 UA: ${deviceInfo.fullUA}
-Time: ${new Date().toLocaleString()}*
 `;
 
   try {
