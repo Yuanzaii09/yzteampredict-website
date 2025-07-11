@@ -55,7 +55,8 @@ h2 {
 .container {
     background: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-    padding: 30px;
+    padding: 20px;
+    margin: 0px 20px;
 }
 
 footer {
