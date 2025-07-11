@@ -40,7 +40,6 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
-    margin: 0px 20px;
 }
 
 h1 {
@@ -55,8 +54,9 @@ h2 {
 
 .container {
     background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
+    margin: 0px 10px;
 }
 
 footer {
