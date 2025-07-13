@@ -21,18 +21,15 @@ module.exports = async (req, res) => {
 
     if (latestPeriod !== period) {
         latestPeriod = period;
-
-        let hash = 0;
-        for (let i = 0; i < period.length; i++) {
-            hash = period.charCodeAt(i) + ((hash << 5) - hash);
-        }
-
-        latestResult = (hash % 2 === 0) ? "🚀BIG" : "🚀SMALL";
-
-        const probSeed = Math.abs(hash) % 100;
-        latestProbability = probSeed < 90
-            ? Math.floor(Math.random() * 21) + 45
-            : Math.floor(Math.random() * 21) + 66;
+    
+        const shouldSwap = Math.random() < 0.3;
+    
+        const bigChance = shouldSwap ? 0.35 : 0.65;
+    
+        const rand = Math.random();
+        latestResult = rand < bigChance ? "🚀BIG" : "🚀SMALL";
+    
+        latestProbability = Math.floor(Math.random() * 21) + 45;
     }
 
     res.setHeader("Access-Control-Allow-Origin", "*");
