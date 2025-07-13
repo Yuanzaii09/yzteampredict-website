@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
     
         const shouldSwap = Math.random() < 0.3;
     
-        const bigChance = shouldSwap ? 0.35 : 0.65;
+        const bigChance = shouldSwap ? 0.40 : 0.60;
     
         const rand = Math.random();
         latestResult = rand < bigChance ? "🚀BIG" : "🚀SMALL";
