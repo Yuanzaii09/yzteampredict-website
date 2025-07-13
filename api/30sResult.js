@@ -21,14 +21,12 @@ module.exports = async (req, res) => {
 
     if (latestPeriod !== period) {
         latestPeriod = period;
-
-        const rand = Math.random();
+    
+        const rand = Math.random(); // ✅ 65% 概率 BIG
         latestResult = rand < 0.65 ? "🚀BIG" : "🚀SMALL";
-
-        const probSeed = Math.abs(hash) % 100;
-        latestProbability = probSeed < 90
-            ? Math.floor(Math.random() * 21) + 45
-            : Math.floor(Math.random() * 21) + 66;
+    
+        // 概率部分你暂时不动的话就保留原来：
+        latestProbability = Math.floor(Math.random() * 21) + 45;
     }
 
     res.setHeader("Access-Control-Allow-Origin", "*");
