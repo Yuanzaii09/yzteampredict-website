@@ -22,10 +22,13 @@ module.exports = async (req, res) => {
     if (latestPeriod !== period) {
         latestPeriod = period;
     
-        const rand = Math.random(); // ✅ 65% 概率 BIG
-        latestResult = rand < 0.65 ? "🚀BIG" : "🚀SMALL";
+        const shouldSwap = Math.random() < 0.3;
     
-        // 概率部分你暂时不动的话就保留原来：
+        const bigChance = shouldSwap ? 0.35 : 0.65;
+    
+        const rand = Math.random();
+        latestResult = rand < bigChance ? "🚀BIG" : "🚀SMALL";
+    
         latestProbability = Math.floor(Math.random() * 21) + 45;
     }
 
