@@ -22,12 +22,8 @@ module.exports = async (req, res) => {
     if (latestPeriod !== period) {
         latestPeriod = period;
 
-        let hash = 0;
-        for (let i = 0; i < period.length; i++) {
-            hash = period.charCodeAt(i) + ((hash << 5) - hash);
-        }
-
-        latestResult = (hash % 2 === 0) ? "🚀BIG" : "🚀SMALL";
+        const rand = Math.random();
+        latestResult = rand < 0.65 ? "🚀BIG" : "🚀SMALL";
 
         const probSeed = Math.abs(hash) % 100;
         latestProbability = probSeed < 90
