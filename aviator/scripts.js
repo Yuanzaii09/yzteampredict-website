@@ -9,28 +9,30 @@ function startWebSocket() {
     setTimeout(startWebSocket, 2000);
   };
 
-  ws.onmessage = (event) => {
-    try {
-      const text = typeof event.data === "string"
-        ? event.data
-        : new TextDecoder().decode(event.data);
+ws.onmessage = (event) => {
+  try {
+    const text = typeof event.data === "string"
+      ? event.data
+      : new TextDecoder().decode(event.data);
+    console.log("收到 raw 消息：", text);
 
-      const msg = JSON.parse(text);
-      console.log("[WS message]", msg); // —— ✅ 日志打印所有消息
+    const msg = JSON.parse(text);
+    console.log("解析后的 msg：", msg);
 
-      if (msg.cmd === 85) {
-        showPrediction("🔮 正在预测中...");
-      }
-
-      if (msg.cmd === 84) {
-        const fake = generateFakeMultiplier();
-        showPrediction("🎯 预测结果：" + fake);
-      }
-    } catch (err) {
-      console.warn("❌ 无法解析 WebSocket 消息", err);
+    if (msg.cmd === 85) {
+      console.log("命中了 cmd 85 — 飞机运行中");
+      showPrediction("🔮 正在预测中...");
     }
-  };
-}
+
+    if (msg.cmd === 84) {
+      console.log("命中了 cmd 84 — 飞机爆炸");
+      const fake = generateFakeMultiplier();
+      showPrediction("🎯 预测结果：" + fake);
+    }
+  } catch (err) {
+    console.warn("无法解析消息：", err);
+  }
+};
 
 function showPrediction(text) {
   const container = document.querySelector(".container");
