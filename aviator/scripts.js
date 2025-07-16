@@ -5,6 +5,8 @@ let hasPredicted = false;
 function startWebSocket() {
   ws = new WebSocket("wss://qpapi.tbgameloader.com");
 
+  ws.binaryType = "arraybuffer"; // 👈 关键：强制接收为 ArrayBuffer
+
   ws.onopen = () => console.log("✅ WebSocket 已连接");
 
   ws.onclose = () => {
@@ -13,70 +15,42 @@ function startWebSocket() {
   };
 
   ws.onmessage = (event) => {
-    console.log("📩 收到消息：", event.data);
-
     try {
-      // 👉 处理 Blob（二进制消息）
-      if (event.data instanceof Blob) {
-        const reader = new FileReader();
-        reader.onload = function () {
-          const text = reader.result;
-          console.log("🔍 Blob 解码后：", text);
-          const msg = JSON.parse(text);
-          handleAviatorMessage(msg);
-        };
-        reader.readAsText(event.data);
-        return;
-      }
+      const text = new TextDecoder("utf-8").decode(event.data);
+      const jsonStart = text.indexOf("{");
+      const jsonEnd = text.lastIndexOf("}") + 1;
+      const jsonStr = text.substring(jsonStart, jsonEnd);
 
-      // 👉 处理 ArrayBuffer（也可能是二进制）
-      if (event.data instanceof ArrayBuffer) {
-        const text = new TextDecoder("utf-8").decode(event.data);
-        console.log("🔍 ArrayBuffer 解码后：", text);
-        const msg = JSON.parse(text);
-        handleAviatorMessage(msg);
-        return;
-      }
+      const msg = JSON.parse(jsonStr);
+      console.log("📨 接收到消息：", msg);
 
-      // 👉 处理字符串消息
-      if (typeof event.data === "string") {
-        console.log("🔍 文本消息：", event.data);
-        const msg = JSON.parse(event.data);
-        handleAviatorMessage(msg);
-        return;
-      }
+      handleAviatorMessage(msg);
 
-      console.warn("⚠️ 未知格式的数据", event.data);
     } catch (err) {
-      console.error("❌ 解码失败：", err);
+      console.warn("❌ 无法解析 WebSocket 消息", err);
     }
   };
 }
 
-// ✅ 处理 Aviator 消息的逻辑
+// ✅ 处理 Aviator 消息逻辑
 function handleAviatorMessage(msg) {
-  console.log("🧠 Aviator 消息解析：", msg);
-
   if (msg.cmd === 97) {
-    // 🕓 新一局即将开始
-    showPrediction("⌛ 正在等待开始...");
+    showPrediction("⌛ 等待新一局开始...");
   }
 
   if (msg.cmd === 85 && !hasPredicted) {
-    // 🛫 飞行中，倍率开始更新
     showPrediction("🔮 正在预测中...");
     hasPredicted = true;
   }
 
   if (msg.cmd === 84) {
-    // 💥 飞机爆炸，一局结束
     const fake = generateFakeMultiplier();
     showPrediction("🎯 预测结果：" + fake);
     hasPredicted = false;
   }
 }
 
-// ✅ 显示预测内容
+// ✅ 显示预测文字到页面
 function showPrediction(text) {
   const container = document.querySelector(".container");
   if (container) {
@@ -84,7 +58,7 @@ function showPrediction(text) {
   }
 }
 
-// ✅ 生成随机倍率预测（假的）
+// ✅ 生成假倍率
 function generateFakeMultiplier() {
   const val = (Math.random() * (4.99 - 1.01) + 1.01).toFixed(2);
   return `${val}x`;
