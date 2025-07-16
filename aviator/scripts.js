@@ -12,36 +12,47 @@ function startWebSocket() {
     setTimeout(startWebSocket, 2000);
   };
 
-  ws.onmessage = (event) => {
-    try {
-      const text = typeof event.data === "string"
-        ? event.data
-        : new TextDecoder().decode(event.data);
-      const msg = JSON.parse(text);
+ws.onmessage = (event) => {
+  console.log("📩 收到消息：", event.data);  // 👉 先看看收到的内容是什么
 
-      if (msg.cmd === 97) {
-        // 🕒 新一局即将开始，重置标志
-        hasPredicted = false;
-        console.log("🕒 新一局即将开始");
-      }
+  try {
+    // 👉 如果是 Blob（二进制数据），我们用 FileReader 读取
+    if (event.data instanceof Blob) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const text = reader.result;
+        console.log("🔍 Blob 解码后：", text);
 
-      if (msg.cmd === 85 && !hasPredicted) {
-        showPrediction("🔮 正在预测中...");
-        hasPredicted = true;
-        console.log("🧠 正在预测中...");
-      }
-
-      if (msg.cmd === 84) {
-        const fake = generateFakeMultiplier();
-        showPrediction("🎯 预测结果：" + fake);
-        console.log("🎯 显示预测结果：" + fake);
-      }
-
-    } catch (err) {
-      console.warn("❌ 无法解析 WebSocket 消息", err);
+        const msg = JSON.parse(text);
+        handleAviatorMessage(msg);
+      };
+      reader.readAsText(event.data);
+      return;
     }
-  };
-}
+
+    // 👉 如果是 ArrayBuffer（也是二进制）
+    if (event.data instanceof ArrayBuffer) {
+      const text = new TextDecoder("utf-8").decode(event.data);
+      console.log("🔍 ArrayBuffer 解码后：", text);
+
+      const msg = JSON.parse(text);
+      handleAviatorMessage(msg);
+      return;
+    }
+
+    // 👉 普通字符串
+    if (typeof event.data === "string") {
+      console.log("🔍 文本消息：", event.data);
+      const msg = JSON.parse(event.data);
+      handleAviatorMessage(msg);
+      return;
+    }
+
+    console.warn("⚠️ 未知格式的数据", event.data);
+  } catch (err) {
+    console.error("❌ 解码失败：", err);
+  }
+};
 
 // 显示预测
 function showPrediction(text) {
