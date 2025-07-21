@@ -271,7 +271,7 @@ body {
 .ribbon {
     position: absolute;
     top: 15px;
-    left: 40%;
+    left: 38%;
     transform: translate(-50%, -50%);
     display: block;
     padding: 6px 16px;
