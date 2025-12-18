@@ -1,0 +1,39 @@
+/* 设置所有文本元素的字体颜色为白色 */
+body, p, h1, h2, h3, h4, h5, h6, span, a, div, li, ul, ol, button {
+    color: #ffffff !important; /* 字体颜色设为白色，确保优先级 */
+}
+
+body {
+    min-width: 320px; /* Set minimum width for the body */
+    background-color: #141414; /* Set background color */
+    font-family: Arial, sans-serif; /* Use a common font family */
+}
+
+.container {
+    margin-top: 20px;
+    max-width: 600px; /* Set maximum width for the container */ 
+}
+
+.button-container {
+    margin-bottom: 20px;
+}
+
+#loadingScreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: rgba(175, 175, 175, 0.75);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5); 
+}
+
+.spinner-border {
+    color: #0080ff;
+}
+
+.loadingMessage {
+    color: black;
+}
