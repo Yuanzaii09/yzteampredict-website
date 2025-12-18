@@ -1,0 +1,219 @@
+<!DOCTYPE html> 
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVIATOR预测 v1.0 -AI</title>
+    <link href='assets/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='assets/css/boxicons.min.css' rel='stylesheet'>
+    <link href='assets/css/style.css' rel='stylesheet'>
+</head>
+
+<body>
+    <header style="background-color: #141414; padding: 8px"></header>
+
+    <!-- LOADING EFFECT -->
+    <div id="loadingScreen" style="display:none;">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">加载中...</span>
+        </div>
+        <div id="loadingMessage"></div>
+    </div>
+
+    <!-- LOGO -->
+    <div class="container-fluid">
+        <div class="col-auto text-center">
+            <p class="fw-bold d-inline-block" style="font-size: 14px; margin-left: 3px;">
+                <img src="assets/images/logo.png" class="me-2" alt="logo" style="width: 300px; height: auto;">
+            </p>
+        </div>
+    </div>
+
+    <!-- ICON & TITLE -->
+    <div class="container image-container text-center">
+        <img src="assets/images/icon.png" alt="icon" style="max-width: 25%; height: auto; display: block; margin: 0 auto;">
+        <h5 class="text-center fw-bold mt-2">AVIATOR HACK v1.0 -AI</h5>
+    </div>
+
+    <!-- RESULT -->
+    <div class="row">
+        <div class="result-background" id="prediction-result" style="display: absolute;">
+            <div class="result-container">
+                <span class="fw-bold" style="color: #717185 !important;"><span id="prediction">-</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PREDICT BUTTON -->
+    <div class="container-button-container">
+        <button id="prediction-button" class="btn btn-dark text-light font-bold p-2" data-game-id="1">START</button>
+    </div>
+
+    <!-- 底部容器 -->
+    <div class="fixed-bottom-container">
+        <p>©Copyright by @YZTEAM</p>
+        <p>*AI版本处于测试中 可能会不稳定*</p>
+
+        <!-- 额外按钮 -->
+        <div class="extra-button-container">
+            <button id="extra-button" class="btn btn-dark text-light font-bold">Server Ai ✅</button>
+        </div>
+
+        <!-- 底部按钮 -->
+        <div class="fixed-bottom-buttons">
+            <a onclick="openLink('https://www.termsfeed.com/live/21449f07-4d0e-414e-8776-70db5d60efdc')" class="btn btn-info text-light font-bold">Privacy Policy</a>
+            <a onclick="openLink('https://www.termsfeed.com/live/7bc7af0a-5375-4f96-9280-aaab066bb8cb')" class="btn btn-info text-light font-bold">Terms & Conditions</a>
+        </div>
+    </div>
+
+<style>
+.container-button-container .btn {
+    width: 150px; /* 按钮宽度 */
+    margin: 0 auto; /* 居中按钮 */
+    border-radius: 15px;
+    display: block; /* 按钮作为块元素，居中显示 */
+    background: #FF0000;
+    color: white;
+    border: none; /* 移除边框 */
+    padding: 20px; /* 内边距 */
+    margin-top: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 2px 0 #BB0000;
+    transition: transform 0.1s ease-in-out, background-color 0.3s, border-color 0.3s; /* 添加缩放动画 */
+}
+
+.container-button-container .btn:active {
+    background: #505050;
+    box-shadow: 0 5px 2px 0 #303030;
+    transform: scale(0.9); /* 按下按钮时缩小到 90% */
+    transition: transform 0.1s ease-in-out, background-color 0.3s, border-color 0.3s, box-shadow-color 0.3s; /* 添加缩放动画 */
+}
+
+/* 额外按钮 */
+.extra-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px; /* 与底部按钮间距 */
+}
+
+#extra-button {
+    width: 95%;
+    height: 45px;
+    background: #303030;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 25px;
+    transition: transform 0.1s ease-in-out, background-color 0.3s;
+}
+
+#extra-button:active {
+    transform: scale(0.9);
+    background: #252525;
+}
+
+/* 底部按钮设定 */
+.fixed-bottom-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #141414;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    z-index: 1;
+    display: flex;              /* 使用flexbox布局 */
+    flex-direction: column;     /* 让内容纵向排列 */
+    align-items: center;        /* 垂直居中 */
+}
+
+/* 版权文本 */
+.fixed-bottom-container p {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    color: #707070 !important;
+    margin-bottom: 10px;
+}
+
+/* 让按钮水平排列 */
+.fixed-bottom-buttons {
+    display: flex;
+    justify-content: center;  /* 居中对齐 */
+    gap: 10px;                /* 按钮之间的间距 */
+    width: 100%;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+/* 按钮样式 */
+.fixed-bottom-buttons .btn {
+    flex: 1;                      /* 让按钮自动填充空间 */
+    max-width: 250px;
+    background: #252525 !important;
+    border-color: #252525 !important;
+    color: #707070 !important;
+    font-size: 12px;
+    border-radius: 25px;
+    text-align: center;
+    line-height: 35px;
+    transition: transform 0.1s ease-in-out, background-color 0.3s, border-color 0.3s; /* 添加缩放动画 */
+}
+
+/* 按钮被点击时的颜色 */
+.fixed-bottom-buttons .btn:active {
+    background: #CC0000 !important;
+    border-color: #FF0000 !important;
+    color: #FFFFFF !important;
+    transform: scale(0.9); /* 按下按钮时缩小到 90% */
+}
+
+/* 结果和准度设置 */
+.result-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: auto;
+    background-color: #200000;
+    border: 2px solid #FF0000;
+    border-radius: 20px;
+    z-index: 1; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 15px; 
+    }
+
+.result-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 48px;
+    }
+
+.font-bold {
+    font-weight: bold;
+    }
+</style>
+
+<!-- SCRIPT -->
+<script>
+    function openLink(link) {
+        window.open(link, '_blank');
+    }
+</script>
+
+<!-- JSON -->
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/script.js"></script>
+
+</body>
+</html>
