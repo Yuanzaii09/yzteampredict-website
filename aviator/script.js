@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         button.innerHTML = "START"; // 恢复按钮文本
                         button.disabled = false; // 解锁按钮
                     }, 10000); // 10秒后恢复
-                }, 2000); // 2秒后显示预测
+                }, 2500); // 2.5秒后显示预测
             }, 100); // 确保动画完全播放完毕
         }, 100);
     });
