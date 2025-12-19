@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         console.log("预测结果:", prediction); // 调试信息
-        document.getElementById("prediction").textContent = ">" + prediction; // 加入 > 前缀
+        document.getElementById("prediction").textContent = "≤" + prediction; // 加入 > 前缀
         document.getElementById("prediction-result").style.display = 'block';
         document.getElementById("loadingScreen").style.display = 'none';
     }
