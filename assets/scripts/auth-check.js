@@ -1,7 +1,14 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+import {
+    getDatabase,
+    ref,
+    get,
+    update
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-// ✅ 初始化 Firebase
+/* ===============================
+   1️⃣ Firebase 初始化
+================================ */
 const firebaseConfig = {
     apiKey: "AIzaSyAN88MgeiYxOmb1OFfgL-wVmfJC60XFcoM",
     authDomain: "verify-b3d6c.firebaseapp.com",
@@ -15,47 +22,78 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// ✅ 获取设备ID
-const deviceId = localStorage.getItem("device_id");
+/* ===============================
+   2️⃣ 稳定 deviceId（只生成一次）
+================================ */
+function getOrCreateDeviceId() {
+    let id = localStorage.getItem("device_id");
 
-// ✅ 强制跳转到验证页（不显示提示，立即跳转）
-function redirectToVerify() {
-    localStorage.removeItem("device_id");
-    location.replace("https://yzteampredict.store/verify"); // 更快 & 无法回退
-}
-
-// ✅ 验证逻辑
-function checkDevice() {
-    if (!deviceId) {
-        redirectToVerify();
-        return;
+    if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem("device_id", id);
     }
 
-    const keysRef = ref(db, "keys");
+    return id;
+}
 
-    get(keysRef)
-        .then((snapshot) => {
-            const now = Date.now();
-            let valid = false;
+const deviceId = getOrCreateDeviceId();
 
-            snapshot.forEach((childSnapshot) => {
-                const data = childSnapshot.val();
+/* ===============================
+   3️⃣ 强制跳转（不删 deviceId）
+================================ */
+function redirectToVerify() {
+    location.replace("https://yzteampredict.store/verify");
+}
 
-                if (data.deviceId === deviceId && data.active) {
-                    if (!data.expiresAt || now <= data.expiresAt) {
-                        valid = true;
-                    }
-                }
-            });
+/* ===============================
+   4️⃣ 设备校验主逻辑
+================================ */
+async function checkDevice() {
+    try {
+        const keysRef = ref(db, "keys");
+        const snapshot = await get(keysRef);
 
-            if (!valid) {
-                redirectToVerify();
-            }
-        })
-        .catch((error) => {
-            console.error("验证失败：", error);
+        if (!snapshot.exists()) {
             redirectToVerify();
-        });
+            return;
+        }
+
+        const now = Date.now();
+        let valid = false;
+
+        for (const child of Object.values(snapshot.val())) {
+            // key 未启用
+            if (!child.active) continue;
+
+            // 已过期
+            if (child.expiresAt && now > child.expiresAt) continue;
+
+            /**
+             * 情况 A：key 已绑定当前 device
+             */
+            if (child.deviceId === deviceId) {
+                valid = true;
+                break;
+            }
+
+            /**
+             * 情况 B：key 尚未绑定任何 device（首次使用）
+             */
+            if (!child.deviceId) {
+                // ❗️这里【不自动绑定】
+                // 绑定逻辑应该只发生在「用户输入密钥成功后」
+                continue;
+            }
+        }
+
+        if (!valid) {
+            redirectToVerify();
+        }
+
+    } catch (err) {
+        console.error("校验异常：", err);
+        redirectToVerify();
+    }
 }
 
 checkDevice();
