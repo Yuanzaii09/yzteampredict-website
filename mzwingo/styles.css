@@ -214,16 +214,19 @@ body {
     color: #333;
     text-align: center;
     margin-bottom: 20px;
+    transition: 0.2s all ease-out;
 }
 .period {
     font-size: 24px;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
+    transition: 0.2s all ease-out;
 }
 .result {
     font-size: 24px;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
+    transition: 0.2s all ease-out;
 }
