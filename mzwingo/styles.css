@@ -123,7 +123,6 @@ body {
 .all-container {
     display: flex;
     justify-content: center;
-    transition: 0.2s all ease-out;
 }
 
 /* CONTENT BG */
@@ -140,6 +139,7 @@ body {
     border: 3px solid #eee;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     position: relative;
+    transition: 0.2s all ease-out;
 }
 
 /* TIME CONTAINER */
