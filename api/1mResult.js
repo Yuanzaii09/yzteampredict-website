@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
         const rand = Math.random();
         latestResult = rand < bigChance ? "🚀BIG" : "🚀SMALL";
     
-        latestProbability = Math.floor(Math.random() * 21) + 45;
+        latestProbability = Math.floor(Math.random() * 18) + 52;
     }
 
     res.setHeader("Access-Control-Allow-Origin", "*");
