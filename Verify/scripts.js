@@ -1,10 +1,4 @@
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
-<script>
-/* ===============================
-   1️⃣ Firebase 初始化
-================================ */
+// Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAN88MgeiYxOmb1OFfgL-wVmfJC60XFcoM",
   authDomain: "verify-b3d6c.firebaseapp.com",
@@ -19,94 +13,136 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 /* ===============================
-   2️⃣ 稳定 deviceId（Cookie + LS）
+   deviceId（与 auth-check.js 一致）
 ================================ */
 function getDeviceId() {
-  const cookieMatch = document.cookie.match(/device_id=([^;]+)/);
-  if (cookieMatch) {
-    localStorage.setItem("device_id", cookieMatch[1]);
-    return cookieMatch[1];
-  }
-
   let id = localStorage.getItem("device_id");
-  if (id) {
-    document.cookie = `device_id=${id}; max-age=31536000; path=/; SameSite=Lax`;
-    return id;
+  if (!id) {
+    id = "dev-" + crypto.randomUUID();
+    localStorage.setItem("device_id", id);
   }
-
-  id = "dev-" + crypto.randomUUID();
-  localStorage.setItem("device_id", id);
-  document.cookie = `device_id=${id}; max-age=31536000; path=/; SameSite=Lax`;
   return id;
 }
 
-const deviceId = getDeviceId();
+/* ===============================
+   浏览器信息
+================================ */
+function parseUserAgent() {
+  const ua = navigator.userAgent;
+  return {
+    os: /Windows/i.test(ua)
+      ? "Windows"
+      : /Android/i.test(ua)
+      ? "Android"
+      : /iPhone|iPad/i.test(ua)
+      ? "iOS"
+      : /Mac/i.test(ua)
+      ? "MacOS"
+      : "Other",
+    browser:
+      /Chrome/i.test(ua) && !/Edg/i.test(ua)
+        ? "Chrome"
+        : /Firefox/i.test(ua)
+        ? "Firefox"
+        : /Safari/i.test(ua) && !/Chrome/i.test(ua)
+        ? "Safari"
+        : /Edg/i.test(ua)
+        ? "Edge"
+        : "Unknown",
+    fullUA: ua
+  };
+}
 
 /* ===============================
-   3️⃣ UI 提示
+   UI 提示
 ================================ */
-function showMessage(msg, color) {
+function showMessage(text, color) {
   const el = document.getElementById("result");
-  el.textContent = msg;
+  el.textContent = text;
   el.style.color = color;
   el.style.fontWeight = "bold";
 }
 
 /* ===============================
-   4️⃣ 验证逻辑（干净版）
+   主验证逻辑
 ================================ */
 async function verifyKey() {
   const key = document.getElementById("keyInput").value.trim();
-  if (!key) return showMessage("🔴请输入密钥", "red");
+  const deviceId = getDeviceId();
 
-  const keyRef = db.ref("keys/" + key);
-  const snap = await keyRef.once("value");
+  if (!key) {
+    showMessage("🔴请输入密钥", "red");
+    return;
+  }
 
-  if (!snap.exists())
-    return showMessage("🔴密钥无效", "red");
+  const refKey = db.ref("keys/" + key);
+  const snap = await refKey.once("value");
+
+  if (!snap.exists()) {
+    showMessage("🔴密钥无效", "red");
+    return;
+  }
 
   const data = snap.val();
   const now = Date.now();
 
-  // 已过期
-  if (data.expiresAt && now > data.expiresAt)
-    return showMessage("🔴密钥已过期", "red");
-
-  // 被其他设备占用
-  if (data.deviceId && data.deviceId !== deviceId)
-    return showMessage("🔴密钥已绑定其他设备", "red");
-
-  // 第一次激活才算时间
-  let updateData = { deviceId };
-
-  if (!data.active) {
-    const durationMap = {
-      "1min": 60000,
-      "1days": 86400000,
-      "7days": 604800000,
-      "14days": 1209600000,
-      "30days": 2592000000
-    };
-
-    updateData.active = true;
-    updateData.activatedAt = now;
-    updateData.expiresAt = data.type && durationMap[data.type]
-      ? now + durationMap[data.type]
-      : null;
+  if (data.expiresAt && now > data.expiresAt) {
+    showMessage("🔴密钥已过期", "red");
+    return;
   }
 
-  await keyRef.update(updateData);
+  if (data.active && data.deviceId && data.deviceId !== deviceId) {
+    showMessage("🔴密钥已绑定其他设备", "red");
+    return;
+  }
 
-  showMessage("🟢验证成功，跳转中...", "green");
+  // 计算过期时间
+  const map = {
+    "1min": 1 * 60 * 1000,
+    "1days": 1 * 86400000,
+    "7days": 7 * 86400000,
+    "14days": 14 * 86400000,
+    "30days": 30 * 86400000
+  };
+
+  const expiresAt = map[data.type] ? now + map[data.type] : null;
+
+  const updateData = {
+    deviceId,
+    deviceInfo: parseUserAgent()
+  };
+
+  if (!data.active) {
+    updateData.active = true;
+    updateData.activatedAt = now;
+    updateData.expiresAt = expiresAt;
+  }
+
+  try {
+    const res = await fetch("https://ipapi.co/json/");
+    const geo = await res.json();
+    updateData.ip = {
+      address: geo.ip,
+      city: geo.city,
+      region: geo.region,
+      country: geo.country_name
+    };
+  } catch {}
+
+  await refKey.update(updateData);
+
+  showMessage("🟢验证成功，正在跳转...", "green");
 
   setTimeout(() => {
     location.replace("https://yzteampredict.store/Home");
-  }, 500);
+  }, 600);
 }
 
 /* ===============================
-   5️⃣ 绑定按钮
+   事件绑定
 ================================ */
-document.getElementById("verifyBtn")
-  .addEventListener("click", verifyKey);
-</script>
+document.getElementById("verifyBtn").addEventListener("click", verifyKey);
+
+document.getElementById("copyBtn").addEventListener("click", () => {
+  navigator.clipboard.writeText(getDeviceId());
+});
