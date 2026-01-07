@@ -98,7 +98,6 @@ async function verifyKey() {
 
   // 计算过期时间
   const map = {
-    "1min": 1 * 60 * 1000,
     "1days": 1 * 86400000,
     "7days": 7 * 86400000,
     "14days": 14 * 86400000,
