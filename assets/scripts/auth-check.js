@@ -1,82 +1,61 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import {
-  getDatabase,
-  ref,
-  get
-} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-/* ===============================
-   Firebase 初始化
-================================ */
+// ✅ 初始化 Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyAN88MgeiYxOmb1OFfgL-wVmfJC60XFcoM",
-  authDomain: "verify-b3d6c.firebaseapp.com",
-  databaseURL: "https://verify-b3d6c-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "verify-b3d6c",
-  storageBucket: "verify-b3d6c.appspot.com",
-  messagingSenderId: "734040141195",
-  appId: "1:734040141195:web:c1bd782daf1ff6ed40538e"
+    apiKey: "AIzaSyAN88MgeiYxOmb1OFfgL-wVmfJC60XFcoM",
+    authDomain: "verify-b3d6c.firebaseapp.com",
+    databaseURL: "https://verify-b3d6c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "verify-b3d6c",
+    storageBucket: "verify-b3d6c.appspot.com",
+    messagingSenderId: "734040141195",
+    appId: "1:734040141195:web:c1bd782daf1ff6ed40538e"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-/* ===============================
-   稳定 deviceId（全站统一）
-================================ */
-function getDeviceId() {
-  let id = localStorage.getItem("device_id");
-  if (!id) {
-    id = "dev-" + crypto.randomUUID();
-    localStorage.setItem("device_id", id);
-  }
-  return id;
-}
+// ✅ 获取设备ID
+const deviceId = localStorage.getItem("device_id");
 
-const deviceId = getDeviceId();
-
-/* ===============================
-   跳转验证页
-================================ */
+// ✅ 强制跳转到验证页（不显示提示，立即跳转）
 function redirectToVerify() {
-  location.replace("https://yzteampredict.store/verify");
+    localStorage.removeItem("device_id");
+    location.replace("https://yzteampredict.store/verify"); // 更快 & 无法回退
 }
 
-/* ===============================
-   核心校验逻辑
-================================ */
-async function checkDevice() {
-  try {
-    const snap = await get(ref(db, "keys"));
-
-    if (!snap.exists()) {
-      redirectToVerify();
-      return;
+// ✅ 验证逻辑
+function checkDevice() {
+    if (!deviceId) {
+        redirectToVerify();
+        return;
     }
 
-    const now = Date.now();
-    let passed = false;
+    const keysRef = ref(db, "keys");
 
-    const keys = snap.val();
+    get(keysRef)
+        .then((snapshot) => {
+            const now = Date.now();
+            let valid = false;
 
-    for (const key of Object.values(keys)) {
-      if (!key.active) continue;
-      if (!key.deviceId) continue;
-      if (key.deviceId !== deviceId) continue;
-      if (key.expiresAt && now > key.expiresAt) continue;
+            snapshot.forEach((childSnapshot) => {
+                const data = childSnapshot.val();
 
-      passed = true;
-      break;
-    }
+                if (data.deviceId === deviceId && data.active) {
+                    if (!data.expiresAt || now <= data.expiresAt) {
+                        valid = true;
+                    }
+                }
+            });
 
-    if (!passed) {
-      redirectToVerify();
-    }
-
-  } catch (e) {
-    console.error("Auth check error:", e);
-    redirectToVerify();
-  }
+            if (!valid) {
+                redirectToVerify();
+            }
+        })
+        .catch((error) => {
+            console.error("验证失败：", error);
+            redirectToVerify();
+        });
 }
 
 checkDevice();
